@@ -5,6 +5,8 @@
 from ..characteristics import Characteristic
 from ..bluetoothdevice import BluetoothDevice, ByteData
 
+PDU_BYTE_LIMIT = 20
+
 
 class UartService:
     def __init__(self, device: BluetoothDevice):
@@ -13,11 +15,12 @@ class UartService:
     def receive(self, callback):
         self._device.notify(Characteristic.TX_CHARACTERISTIC, lambda sender, data: callback(data))
 
-    def receive_strings(self, callback):
+    def receive_string(self, callback):
         self.receive(UartService.to_string(callback))
 
     def send(self, data: ByteData):
-        self._device.write(Characteristic.RX_CHARACTERISTIC, data)
+        for i in range(0, len(data), PDU_BYTE_LIMIT):
+            self._device.write(Characteristic.RX_CHARACTERISTIC, data[i:i + PDU_BYTE_LIMIT])
 
     def send_string(self, string: str):
         self.send(UartService.from_string(string))
