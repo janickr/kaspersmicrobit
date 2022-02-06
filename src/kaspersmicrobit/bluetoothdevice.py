@@ -6,7 +6,7 @@ from typing import Union
 from bleak import BleakClient
 import asyncio
 from threading import Thread
-from characteristics import Characteristic
+from .characteristics import Characteristic
 
 ByteData = Union[bytes, bytearray, memoryview]
 

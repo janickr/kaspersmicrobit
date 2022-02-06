@@ -2,17 +2,17 @@
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-from bluetoothdevice import BluetoothDevice, BluetoothEventLoop
-from services.device_information import DeviceInformationService
-from services.generic_access import GenericAccessService
-from services.buttons import ButtonService
-from services.temperature import TemperatureService
-from services.accelerometer import AccelerometerService
-from services.events import EventService
-from services.uart import UartService
-from services.magnetometer import MagnetometerService
-from services.io_pin import IOPinService
-from services.led import LedService
+from .bluetoothdevice import BluetoothDevice, BluetoothEventLoop
+from .services.device_information import DeviceInformationService
+from .services.generic_access import GenericAccessService
+from .services.buttons import ButtonService
+from .services.temperature import TemperatureService
+from .services.accelerometer import AccelerometerService
+from .services.events import EventService
+from .services.uart import UartService
+from .services.magnetometer import MagnetometerService
+from .services.io_pin import IOPinService
+from .services.led import LedService
 
 
 class KaspersMicrobit:
