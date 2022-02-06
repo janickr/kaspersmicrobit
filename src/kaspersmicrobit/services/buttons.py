@@ -1,10 +1,12 @@
 #  This Source Code Form is subject to the terms of the Mozilla Public
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
+from typing import Callable
+from enum import IntEnum
 from ..characteristics import Characteristic
 from ..bluetoothdevice import BluetoothDevice
-from enum import IntEnum
+
+ButtonCallback = Callable[[str], None]
 
 
 class ButtonState(IntEnum):
@@ -30,11 +32,11 @@ class ButtonService:
                 pass
         return button_callback
 
-    def on_button_a(self, press=None, long_press=None, up=None):
+    def on_button_a(self, press: ButtonCallback = None, long_press: ButtonCallback = None, up: ButtonCallback = None):
         self._device.notify(Characteristic.BUTTON_A,
                             ButtonService._create_button_callback('A', press, long_press, up))
 
-    def on_button_b(self, press=None, long_press=None, up=None):
+    def on_button_b(self, press: ButtonCallback = None, long_press: ButtonCallback = None, up: ButtonCallback = None):
         self._device.notify(Characteristic.BUTTON_B,
                             ButtonService._create_button_callback('B', press, long_press, up))
 
