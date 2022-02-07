@@ -22,9 +22,9 @@ class AccelerometerData:
     @staticmethod
     def from_bytes(values: ByteData):
         return AccelerometerData(
-            int.from_bytes(values[0:2], "little"),
-            int.from_bytes(values[2:4], "little"),
-            int.from_bytes(values[4:6], "little")
+            int.from_bytes(values[0:2], "little", signed=True),
+            int.from_bytes(values[2:4], "little", signed=True),
+            int.from_bytes(values[4:6], "little", signed=True)
         )
 
 

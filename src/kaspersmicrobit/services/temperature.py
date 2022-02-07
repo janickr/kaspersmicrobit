@@ -11,10 +11,11 @@ class TemperatureService:
         self._device = device
 
     def notify(self, callback):
-        self._device.notify(Characteristic.TEMPERATURE, lambda sender, data: callback(data[0]))
+        self._device.notify(Characteristic.TEMPERATURE, lambda sender, data: callback(
+            int.from_bytes(data[0:1], 'little', signed=True)))
 
     def read(self) -> int:
-        return self._device.read(Characteristic.TEMPERATURE)[0]
+        return int.from_bytes(self._device.read(Characteristic.TEMPERATURE)[0:1], 'little', signed=True)
 
     def set_period(self, period: int):
         self._device.write(Characteristic.TEMPERATURE_PERIOD, period.to_bytes(2, "little"))
