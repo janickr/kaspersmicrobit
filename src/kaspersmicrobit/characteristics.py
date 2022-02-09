@@ -9,7 +9,7 @@ class Characteristic(Enum):
     """
     Lists all characteristics in the microbit GATT profile
 
-    source: https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html
+    See Also: https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html
     """
 
     DEVICE_NAME = '00002A00-0000-1000-8000-00805F9B34FB'

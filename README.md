@@ -1,6 +1,6 @@
 # Kasper's microbit
 
-A package to connect to the Bluetooth LE GATT services of paired bbc micro:bit devices
+A python package to make a connection to a bbc microbit by means of the Bluetooth LE GATT services exposed by the microbit
 
 Example:
 ```python
@@ -21,3 +21,11 @@ with KaspersMicrobit(CHANGE_THIS_TO_YOUR_MICROBIT_BLUETOOTH_ADDRESS) as microbit
     time.sleep(10)
 
 ```
+
+More examples can be found in the [examples](https://github.com/janickr/kaspersmicrobit/tree/main/examples) directory.
+
+# Problem solving
+Problems related to connecting to the microbit over bluetooth are often solved by pairing your computer again to your 
+microbit
+
+See Also: https://support.microbit.org/helpdesk/attachments/19075694226

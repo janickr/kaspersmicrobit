@@ -82,6 +82,6 @@ def button_released(button: str):
 
 
 with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
-    microbit.buttons.on_button_a(press=button_pressed, up=button_released)
-    microbit.buttons.on_button_b(press=button_pressed, up=button_released)
+    microbit.buttons.on_button_a(press=button_pressed, release=button_released)
+    microbit.buttons.on_button_b(press=button_pressed, release=button_released)
     tk.mainloop()

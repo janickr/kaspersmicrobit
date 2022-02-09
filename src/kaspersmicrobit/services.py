@@ -9,7 +9,7 @@ class Service(Enum):
     """
     Lists all services that could be offered by the microbit
 
-    source: https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html
+    See Also: https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html
     """
 
     GENERIC_ACCESS = '00001800-0000-1000-8000-00805F9B34FB'

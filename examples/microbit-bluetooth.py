@@ -22,8 +22,8 @@ def released(button):
 
 
 with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
-    microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, up=released)
-    microbit.buttons.on_button_b(press=pressed, long_press=pressed_long, up=released)
+    microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, release=released)
+    microbit.buttons.on_button_b(press=pressed, long_press=pressed_long, release=released)
     microbit.temperature.notify(lambda temp: print(f'{temp}°C'))
     print(microbit.accelerometer.read())
     microbit.uart.send_string("Hello kasper, this is working out very well\n")
