@@ -3,28 +3,66 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 from typing import Literal, Union, List
 
-from .leds import Leds
+from .leddisplay import LedDisplay
 from ..characteristics import Characteristic
 from ..bluetoothdevice import BluetoothDevice
 
 
 class LedService:
+    """
+    Met de functies in deze klasse kan je leds aan of uit zetten, of een korte tekst laten scrollen op het scherm
+    """
     def __init__(self, device: BluetoothDevice):
         self._device = device
 
-    def show(self, leds: Leds):
-        self._device.write(Characteristic.LED_MATRIX_STATE, leds.to_bytes())
+    def show(self, led_display: LedDisplay):
+        """
+        Zet de leds op de microbit aan zoals de leds parameter aangeeft
+        Args:
+            led_display: de aan/uit staat van de leds
 
-    def read(self) -> Leds:
-        return Leds.from_bytes(self._device.read(Characteristic.LED_MATRIX_STATE))
+        Returns:
+            None
+        """
+        self._device.write(Characteristic.LED_MATRIX_STATE, led_display.to_bytes())
+
+    def read(self) -> LedDisplay:
+        return LedDisplay.from_bytes(self._device.read(Characteristic.LED_MATRIX_STATE))
 
     def show_text(self, text: str):
+        """
+        Laat de gegeven tekst voorbij scrollen op het led scherm van de microbit. De snelheid van het scrollen kan je
+        instellen via de scrolling delay.
+
+        Args:
+            text: De te tonen tekst (maximum 20 characters)
+
+        Returns:
+            None
+        """
         octets = text.encode("utf-8")
-        for i in range(0, len(octets), 20):
-            self._device.write(Characteristic.LED_TEXT, octets[i:i+20])
+        if len(octets) > 20:
+            raise ValueError('Text too long, maximum 20 characters allowed')
+
+        self._device.write(Characteristic.LED_TEXT, octets)
 
     def set_scrolling_delay(self, delay_in_milis: int):
+        """
+        Stel in hoe snel een tekst voorbijrolt op het led scherm.
+
+        Args:
+            delay_in_milis:  de tijd die 1 letter er over doet om over het scherm voorbij te komen in milliseconden
+
+        Returns:
+            None
+        """
         self._device.write(Characteristic.SCROLLING_DELAY, delay_in_milis.to_bytes(2, 'little'))
 
     def get_scrolling_delay(self) -> int:
+        """
+        Lees de hoe snel een tekst voorbijscrolt over het scherm
+
+        Returns:
+             de tijd die 1 letter er over doet om over het scherm voorbij te komen in milliseconden
+        """
         return int.from_bytes(self._device.read(Characteristic.SCROLLING_DELAY)[0:2], 'little')
