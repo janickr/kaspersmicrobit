@@ -1,5 +1,5 @@
 # Kasper's microbit
-
+[Nederlands](https://github.com/janickr/kaspersmicrobit/blob/main/README-nl.md)  
 A python package to make a connection to a bbc microbit by means of the Bluetooth LE GATT services exposed by the microbit
 
 Example:
