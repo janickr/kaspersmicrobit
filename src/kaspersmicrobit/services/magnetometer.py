@@ -9,7 +9,10 @@ from ..bluetoothdevice import BluetoothDevice, ByteData
 MagnetometerPeriod = Union[
     Literal[1], Literal[2], Literal[5], Literal[10], Literal[20], Literal[80], Literal[160], Literal[640]
 ]
-
+"""
+Het interval waarmee de Magnetometer wordt uitgelezen is een integer en drukt het aantal milliseconden uit.
+Er is een beperkt aantal geldige periodes: 1, 2, 5, 10, 20, 80, 160, 640
+"""
 
 @dataclass
 class MagnetometerData:
