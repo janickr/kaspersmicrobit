@@ -1,6 +1,6 @@
 from typing import List, Literal, Union
 
-from src.kaspersmicrobit.bluetoothdevice import ByteData
+from ..bluetoothdevice import ByteData
 
 
 class LedDisplay:
