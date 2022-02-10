@@ -31,6 +31,8 @@ release = '0.0.6'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
     'sphinx.ext.napoleon'
 ]
 napoleon_google_docstring = True
