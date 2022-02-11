@@ -19,31 +19,38 @@ class KaspersMicrobit:
     """
     Dit is de klasse die je kan gebruiken om met een microbit te verbinden.
     Door middel van deze klasse kan je onder meer:
+
         - gegevens over de microbit uitlezen
         - gegevens van de sensoren van de microbit uitlezen of je laten verwittigen van gegevens van sensoren
         - componenten op de microbit aansturen, bvb de LEDs
 
     Example:
-        with KaspersMicrobit("MICROBIT_BLUETOOTH_ADDRESS") as microbit:
-            microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, up=released)
-            microbit.buttons.on_button_b(press=pressed, long_press=pressed_long, up=released)
-            microbit.temperature.notify(lambda temp: print(f'{temp}°C'))
-            print(microbit.accelerometer.read())
-            microbit.uart.send_string("Hello kasper, this is working out very well\n")
-            time.sleep(25)
+
+        ::
+
+            with KaspersMicrobit("MICROBIT_BLUETOOTH_ADDRESS") as microbit:
+                microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, up=released)
+                microbit.buttons.on_button_b(press=pressed, long_press=pressed_long, up=released)
+                microbit.temperature.notify(lambda temp: print(f'{temp}°C'))
+                print(microbit.accelerometer.read())
+                microbit.uart.send_string("Hello kasper, this is working out very well\n")
+                time.sleep(25)
 
     Example:
-        microbit = KaspersMicrobit("MICROBIT_BLUETOOTH_ADDRESS")
-        try:
-            microbit.connect()
-            microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, up=released)
-            microbit.buttons.on_button_b(press=pressed, long_press=pressed_long, up=released)
-            microbit.temperature.notify(lambda temp: print(f'{temp}°C'))
-            print(microbit.accelerometer.read())
-            microbit.uart.send_string("Hello kasper, this is working out very well\n")
-            time.sleep(25)
-        finally:
-            microbit.disconnect()
+
+        ::
+
+            microbit = KaspersMicrobit("MICROBIT_BLUETOOTH_ADDRESS")
+            try:
+                microbit.connect()
+                microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, up=released)
+                microbit.buttons.on_button_b(press=pressed, long_press=pressed_long, up=released)
+                microbit.temperature.notify(lambda temp: print(f'{temp}°C'))
+                print(microbit.accelerometer.read())
+                microbit.uart.send_string("Hello kasper, this is working out very well\n")
+                time.sleep(25)
+            finally:
+                microbit.disconnect()
 
     Attributes:
         device_information  (DeviceInformationService):

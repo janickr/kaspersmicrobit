@@ -269,12 +269,13 @@ class Characteristic(Enum):
     """
     A variable length array 1 to 2 instances of :
     
-    struct PwmControlData
-     {
-     uint8_t     pin;
-     uint16_t    value;
-     uint32_t    period;
-    }
+    ::
+    
+        struct PwmControlData {
+         uint8_t     pin;
+         uint16_t    value;
+         uint32_t    period;
+        }
     
     Period is in microseconds and is an unsigned int but transmitted.
     Value is in the range 0 – 1024, per the current DAL API (e.g. setAnalogValue). 0 means OFF.
@@ -338,11 +339,12 @@ class Characteristic(Enum):
     characteristic when it first connects to the micro:bit. It may also subscribe to notifications
     to that it can be informed if the value of this characteristic is changed by the micro:bit firmware.
     
-    struct event {
-      uint16 event_type;
-      uint16 event_value;
-    };
-    
+    ::
+        
+        struct event {
+          uint16 event_type;
+          uint16 event_value;
+        };
     
     Note that an event_type of zero means ANY event type and an event_value part set to zero means ANY event value.
     
@@ -361,11 +363,13 @@ class Characteristic(Enum):
     Contains one or more event structures which should be notified to the client. It supports notifications and as 
     such the client should subscribe to notifications from this characteristic.
     
-    struct event {
-      uint16 event_type;
-      uint16 event_value;
-    };
-    
+    ::
+        
+        struct event {
+          uint16 event_type;
+          uint16 event_value;
+        };
+        
     
     Read Mandatory
     Notify Mandatory
@@ -381,11 +385,13 @@ class Characteristic(Enum):
     specific value which the client wishes to be informed of when they occur. The client should write to this 
     characteristic when it first connects to the micro:bit.
     
-    struct event {
-      uint16 event_type;
-      uint16 event_value;
-    };
-    
+    ::
+        
+        struct event {
+          uint16 event_type;
+          uint16 event_value;
+        };
+        
     
     Note that an event_type of zero means ANY event type and an event_value part set to zero means ANY event value.
     
@@ -403,10 +409,12 @@ class Characteristic(Enum):
     events which have occurred on the client. These should be of types indicated in the micro:bit Requirements 
     characteristic bit mask.
     
-    struct event {
-      uint16 event_type;
-      uint16 event_value;
-    };
+    ::
+    
+        struct event {
+          uint16 event_type;
+          uint16 event_value;
+        };
     
     Write Mandatory
     Write Without Response Mandatory

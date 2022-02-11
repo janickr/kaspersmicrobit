@@ -10,6 +10,7 @@ Welcome to kaspersmicrobit's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   source/modules
 
 
 Indices and tables

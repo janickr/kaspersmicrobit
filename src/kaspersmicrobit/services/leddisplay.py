@@ -58,13 +58,15 @@ class LedDisplay:
         Maakt een LedDisplay van een string.
 
         Example:
-            HEART: LedDisplay = LedDisplay.image('''
-                . # . # .
-                # # # # #
-                # # # # #
-                . # # # .
-                . . # . .
-            ''')
+            ::
+
+                HEART: LedDisplay = LedDisplay.image('''
+                    . # . # .
+                    # # # # #
+                    # # # # #
+                    . # # # .
+                    . . # . .
+                ''')
 
             Welke tekens gebruikt worden voor een LED die 'aan' of 'uit' is kan je zelf kiezen met de 'on' en 'of'
             parameters. De gegeven string moet exact 25 'on' en 'off' waarden bevatten, voor elke LED 1.

@@ -94,6 +94,7 @@ class ButtonService:
     def read_button_a(self):
         """
         Geef de toestand van de A knop
+
         Returns (ButtonState):
             De toestand van de A knop (RELEASE, PRESS of LONG_PRESS)
         """
@@ -102,6 +103,7 @@ class ButtonService:
     def read_button_b(self):
         """
         Geef de toestand van de B knop
+
         Returns (ButtonState):
             De toestand van de B knop (RELEASE, PRESS of LONG_PRESS)
         """

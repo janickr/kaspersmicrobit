@@ -36,10 +36,11 @@ class MagnetometerService:
     """
     Deze klasse bevat de functies die je kan aanspreken in verband met de magnetometor van de microbit.
     Er zijn functies om
+
         - het magnetisch veld langs 3 assen te meten
         - de hoek in graden ten opzichte van het noorden te meten
         - de magnetometer te calibreren. Het is het best om de magnetometer te calibreren voor je gegevens uitleest,
-         zoniet kunnen de gegevens of de hoek in graden verkeerd zijn
+          zoniet kunnen de gegevens of de hoek in graden verkeerd zijn
 
     Dit zijn alle mogelijkheden aangeboden door de bluetooth magnetometer service
 
