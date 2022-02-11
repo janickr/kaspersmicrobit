@@ -26,8 +26,6 @@ class UartService:
         Args:
             callback (Callable[[ByteData], None]): een functie wordt opgeroepen met de ontvangen bytes
 
-        Returns:
-            None
         """
         self._device.notify(Characteristic.TX_CHARACTERISTIC, lambda sender, data: callback(data))
 
@@ -39,8 +37,6 @@ class UartService:
         Args:
             callback (Callable[[str], None]): een functie wordt opgeroepen met de ontvangen string
 
-        Returns:
-            None
         """
         self.receive(UartService.to_string(callback))
 
@@ -51,8 +47,6 @@ class UartService:
         Args:
             data (ByteData): de bytes die verzonden worden
 
-        Returns:
-            None
         """
         for i in range(0, len(data), PDU_BYTE_LIMIT):
             self._device.write(Characteristic.RX_CHARACTERISTIC, data[i:i + PDU_BYTE_LIMIT])
@@ -64,8 +58,6 @@ class UartService:
         Args:
             string (str): de string die verzonden wordt
 
-        Returns:
-            None
         """
         self.send(UartService.from_string(string))
 

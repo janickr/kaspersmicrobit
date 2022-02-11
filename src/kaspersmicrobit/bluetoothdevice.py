@@ -35,8 +35,8 @@ class BluetoothEventLoop:
 
 class BluetoothDevice:
 
-    def __init__(self, address: str, loop=BluetoothEventLoop.single_thread()):
-        self.loop = loop
+    def __init__(self, address: str, loop : BluetoothEventLoop = None):
+        self.loop = loop if loop else BluetoothEventLoop.single_thread()
         self.client = BleakClient(address)
 
     def __enter__(self):

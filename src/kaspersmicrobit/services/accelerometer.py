@@ -85,10 +85,7 @@ class AccelerometerService:
 
         Args:
             callback (Callable[[AccelerometerData], None]): een functie die wordt opgeroepen wanneer er nieuwe gegevens
-            zijn van de accelerometer. De nieuwe AccelerometerData worden meegegeven als argument aan deze functie
-
-        Returns:
-            None
+                zijn van de accelerometer. De nieuwe AccelerometerData worden meegegeven als argument aan deze functie
         """
         self._device.notify(Characteristic.ACCELEROMETER_DATA,
                             lambda sender, data: callback(AccelerometerData.from_bytes(data)))

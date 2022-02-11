@@ -19,9 +19,6 @@ class LedService:
         Zet de leds op de microbit aan zoals de leds parameter aangeeft
         Args:
             led_display: de aan/uit staat van de leds
-
-        Returns:
-            None
         """
         self._device.write(Characteristic.LED_MATRIX_STATE, led_display.to_bytes())
 
@@ -35,9 +32,6 @@ class LedService:
 
         Args:
             text: De te tonen tekst (maximum 20 characters)
-
-        Returns:
-            None
         """
         octets = text.encode("utf-8")
         if len(octets) > 20:
@@ -51,9 +45,6 @@ class LedService:
 
         Args:
             delay_in_milis:  de tijd die 1 letter er over doet om over het scherm voorbij te komen in milliseconden
-
-        Returns:
-            None
         """
         self._device.write(Characteristic.SCROLLING_DELAY, delay_in_milis.to_bytes(2, 'little'))
 
@@ -61,7 +52,7 @@ class LedService:
         """
         Lees de hoe snel een tekst voorbijscrolt over het scherm
 
-        Returns:
+        Returns (int):
              de tijd die 1 letter er over doet om over het scherm voorbij te komen in milliseconden
         """
         return int.from_bytes(self._device.read(Characteristic.SCROLLING_DELAY)[0:2], 'little')

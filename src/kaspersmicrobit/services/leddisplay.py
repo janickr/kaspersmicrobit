@@ -23,7 +23,7 @@ class LedDisplay:
             row int: de rij van de LED (geldige waarden zijn 1 tot en met 5)
             column int: de kolom van de LED (geldige waarden zijn 1 1 tot en met 5)
 
-        Returns:
+        Returns (bool):
             True wanneer de LED aan staat, False als de LED uit staat
         """
         return ((self._display[row-1] >> (5 - column)) & 1) == 1
@@ -37,7 +37,7 @@ class LedDisplay:
             column int: de kolom van de LED (geldige waarden zijn 1 1 tot en met 5)
             on bool: indien True word de LED aan gezet, indien False uit
 
-        Returns:
+        Returns (bool):
             True wanneer de LED aan staat, False als de LED uit staat
         """
         if on:
@@ -58,27 +58,28 @@ class LedDisplay:
         Maakt een LedDisplay van een string.
 
         Example:
-            ::
 
-                HEART: LedDisplay = LedDisplay.image('''
-                    . # . # .
-                    # # # # #
-                    # # # # #
-                    . # # # .
-                    . . # . .
-                ''')
+        ```python
+        HEART: LedDisplay = LedDisplay.image('''
+            . # . # .
+            # # # # #
+            # # # # #
+            . # # # .
+            . . # . .
+        ''')
+        ```
 
-            Welke tekens gebruikt worden voor een LED die 'aan' of 'uit' is kan je zelf kiezen met de 'on' en 'of'
-            parameters. De gegeven string moet exact 25 'on' en 'off' waarden bevatten, voor elke LED 1.
+        Welke tekens gebruikt worden voor een LED die 'aan' of 'uit' is kan je zelf kiezen met de 'on' en 'of'
+        parameters. De gegeven string moet exact 25 'on' en 'off' waarden bevatten, voor elke LED 1.
 
-            Args:
-                string: de string die het LED scherm voorstelt
-                on: de letter die een LED voorstelt die 'aan' is ('#' indien niet ingevuld)
-                off: de letter die een LED voorstelt die 'uit' is ('.' indien niet ingevuld)
+        Args:
+            string: de string die het LED scherm voorstelt
+            on: de letter die een LED voorstelt die 'aan' is ('#' indien niet ingevuld)
+            off: de letter die een LED voorstelt die 'uit' is ('.' indien niet ingevuld)
 
-            Returns:
-                Een LedDisplay die de gegeven string image voorstelt
-            """
+        Returns (LedDisplay):
+            Een LedDisplay die de gegeven string image voorstelt
+        """
         image: List[bool] = []
         for s in string:
             if s == on:

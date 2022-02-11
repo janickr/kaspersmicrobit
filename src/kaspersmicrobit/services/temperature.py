@@ -27,9 +27,6 @@ class TemperatureService:
 
         Args:
             callback: een functie die periodiek wordt opgeroepen met de temperatuur als argument
-
-        Returns:
-            None
         """
         self._device.notify(Characteristic.TEMPERATURE, lambda sender, data: callback(
             int.from_bytes(data[0:1], 'little', signed=True)))

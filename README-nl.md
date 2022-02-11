@@ -1,9 +1,18 @@
 # Kasper's microbit
 
+[![Documentation Status](https://readthedocs.org/projects/kaspersmicrobit/badge/?version=latest)](https://kaspersmicrobit.readthedocs.io/en/latest/?badge=latest) 
+[![Documentation Status](https://img.shields.io/pypi/v/kaspersmicrobit)](https://img.shields.io/pypi/v/kaspersmicrobit)  
+
 Een python package om een verbinding te kunnen maken met een bbc microbit met behulp van de Bluetooth LE GATT services 
 die de microbit aanbiedt.
 
-Een voorbeeld:
+
+## Installatie
+```bash
+$ pip install kaspersmicrobit
+```
+
+## Een voorbeeld
 ```python
 
 import time
@@ -25,8 +34,10 @@ with KaspersMicrobit(VERANDER_DIT_NAAR_JOUW_MICROBIT_BLUETOOTH_ADDRESS) as micro
 
 Je kan meer voorbeelden vinden in de [examples](https://github.com/janickr/kaspersmicrobit/tree/main/examples)  folder.
 
+## Api documentatie
+https://kaspersmicrobit.readthedocs.io
 
-# Problem solving
+## Probleemoplossing
 Problemen in verband met bluetooth connecties met de microbit kunnen vaak verholpen worden door je computer
 opnieuw te pairen met je microbit.
 

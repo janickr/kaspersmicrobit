@@ -57,10 +57,8 @@ class MagnetometerService:
 
         Args:
             callback (Callable[[MagnetometerData], None]): een functie die wordt opgeroepen wanneer er nieuwe gegevens
-            zijn van de magnetometer. De nieuwe MagnetometerData worden meegegeven als argument aan deze functie
+                zijn van de magnetometer. De nieuwe MagnetometerData worden meegegeven als argument aan deze functie
 
-        Returns:
-            None
         """
         self._device.notify(Characteristic.MAGNETOMETER_DATA,
                             lambda sender, data: callback(MagnetometerData.from_bytes(data)))
@@ -100,10 +98,7 @@ class MagnetometerService:
 
         Args:
             callback (Callable[[int], None]): een functie die periodiek wordt opgeroepen met de hoek in graden ten
-            opzichte van het noorden
-
-        Returns:
-            None
+                opzichte van het noorden
         """
         self._device.notify(Characteristic.MAGNETOMETER_BEARING,
                             lambda sender, data: callback(int.from_bytes(data[0:2], "little")))
