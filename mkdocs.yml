@@ -1,0 +1,67 @@
+site_name: Kasper's microbit
+site_url: "https://github.com/janickr/kaspersmicrobit"
+repo_url: "https://github.com/janickr/kaspersmicrobit"
+repo_name: "kaspersmicrobit on github"
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.emoji
+  - pymdownx.magiclink
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist
+  - toc:
+      permalink: "#"
+
+theme:
+  name: material
+  icon:
+    logo: material/memory
+  features:
+  - navigation.tabs
+  - navigation.top
+  palette:
+  - media: "(prefers-color-scheme: light)"
+    scheme: default
+    primary: blue grey
+    accent: orange
+    toggle:
+      icon: material/toggle-switch-off-outline
+      name: Switch to dark mode
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    primary: black
+    accent: lime
+    toggle:
+      icon: material/toggle-switch
+      name: Switch to light mode
+
+nav:
+    - Home: index.md
+    - Api Reference: reference/
+plugins:
+  - search
+  - gen-files:
+      scripts:
+        - docs/generate_apiref_nav.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - autorefs
+  - section-index
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+          python:
+              setup_commands:
+                - import sys
+                - sys.path.append("src")
+                - from unittest.mock import MagicMock as mock
+                - sys.modules["bleak"] = mock()
+              selection:
+                  docstring_style: "google"
+      watch:
+        - src/kaspersmicrobit

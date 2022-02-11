@@ -2,7 +2,7 @@
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-from ..characteristics import Characteristic
+from ..bluetoothprofile.characteristics import Characteristic
 from ..bluetoothdevice import BluetoothDevice, ByteData
 from typing import Union, Literal, Callable
 from dataclasses import dataclass

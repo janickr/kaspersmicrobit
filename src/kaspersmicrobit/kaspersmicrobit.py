@@ -18,42 +18,39 @@ from .services.led import LedService
 class KaspersMicrobit:
     """
     Dit is de klasse die je kan gebruiken om met een microbit te verbinden.
-    Door middel van deze klasse kan je onder meer:
+    Door middel van deze klasse kan je onder meer
 
-        - gegevens over de microbit uitlezen
-        - gegevens van de sensoren van de microbit uitlezen of je laten verwittigen van gegevens van sensoren
-        - componenten op de microbit aansturen, bvb de LEDs
-
-    Example:
-
-        ::
-
-            with KaspersMicrobit("MICROBIT_BLUETOOTH_ADDRESS") as microbit:
-                microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, up=released)
-                microbit.buttons.on_button_b(press=pressed, long_press=pressed_long, up=released)
-                microbit.temperature.notify(lambda temp: print(f'{temp}°C'))
-                print(microbit.accelerometer.read())
-                microbit.uart.send_string("Hello kasper, this is working out very well\n")
-                time.sleep(25)
+    - gegevens over de microbit uitlezen
+    - gegevens van de sensoren van de microbit uitlezen of je laten verwittigen van gegevens van sensoren
+    - componenten op de microbit aansturen, bvb de LEDs
 
     Example:
+    ```python
+    with KaspersMicrobit("MICROBIT_BLUETOOTH_ADDRESS") as microbit:
+        microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, up=released)
+        microbit.buttons.on_button_b(press=pressed, long_press=pressed_long, up=released)
+        microbit.temperature.notify(lambda temp: print(f'{temp}°C'))
+        print(microbit.accelerometer.read())
+        microbit.uart.send_string("Hello kasper, this is working out very well\\n")
+        time.sleep(25)
+    ```
 
-        ::
-
-            microbit = KaspersMicrobit("MICROBIT_BLUETOOTH_ADDRESS")
-            try:
-                microbit.connect()
-                microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, up=released)
-                microbit.buttons.on_button_b(press=pressed, long_press=pressed_long, up=released)
-                microbit.temperature.notify(lambda temp: print(f'{temp}°C'))
-                print(microbit.accelerometer.read())
-                microbit.uart.send_string("Hello kasper, this is working out very well\n")
-                time.sleep(25)
-            finally:
-                microbit.disconnect()
+    ```python
+    microbit = KaspersMicrobit("MICROBIT_BLUETOOTH_ADDRESS")
+    try:
+        microbit.connect()
+        microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, up=released)
+        microbit.buttons.on_button_b(press=pressed, long_press=pressed_long, up=released)
+        microbit.temperature.notify(lambda temp: print(f'{temp}°C'))
+        print(microbit.accelerometer.read())
+        microbit.uart.send_string("Hello kasper, this is working out very well\\n")
+        time.sleep(25)
+    finally:
+        microbit.disconnect()
+    ```
 
     Attributes:
-        device_information  (DeviceInformationService):
+        device_information (DeviceInformationService):
             Om informatie te vragen over de maker van je microbit
         generic_access (GenericAccessService):
             Om informatie te vragen over je microbit
@@ -83,6 +80,7 @@ class KaspersMicrobit:
     def __init__(self, address: str, loop=BluetoothEventLoop.single_thread()):
         """
         Maak een KaspersMicrobit object met een gegeven bluetooth address.
+
         Args:
             address (str): het bluetooth adres van de microbit
             loop (BluetoothEventLoop): dit mag je leeg laten, dit bepaalt welke thread de communicatie met de microbit

@@ -3,7 +3,7 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 from typing import Callable
 
-from ..characteristics import Characteristic
+from ..bluetoothprofile.characteristics import Characteristic
 from ..bluetoothdevice import BluetoothDevice, ByteData
 
 PDU_BYTE_LIMIT = 20

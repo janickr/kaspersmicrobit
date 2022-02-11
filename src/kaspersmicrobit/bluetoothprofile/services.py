@@ -77,7 +77,7 @@ class Service(Enum):
     can inform the client of the types of event it is interested in being informed about (e.g. an incoming call) and 
     the client can inform the micro:bit of types of event it wants to be notified about.  
     
-    The term “event” will be used here for both event and command types of data.
+    The term "event" will be used here for both event and command types of data.
     
     Events may have an associated value.
     

@@ -3,7 +3,7 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 from dataclasses import dataclass
 from typing import Callable, Literal, Union
-from ..characteristics import Characteristic
+from ..bluetoothprofile.characteristics import Characteristic
 from ..bluetoothdevice import BluetoothDevice, ByteData
 
 MagnetometerPeriod = Union[
