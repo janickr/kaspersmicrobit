@@ -1,5 +1,5 @@
-kaspersmicrobit
-===============
+src
+===
 
 .. toctree::
    :maxdepth: 4
