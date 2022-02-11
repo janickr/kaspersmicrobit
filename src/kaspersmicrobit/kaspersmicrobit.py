@@ -77,7 +77,7 @@ class KaspersMicrobit:
     See Also: https://makecode.microbit.org/device
     """
 
-    def __init__(self, address: str, loop=BluetoothEventLoop.single_thread()):
+    def __init__(self, address: str, loop: BluetoothEventLoop = None):
         """
         Maak een KaspersMicrobit object met een gegeven bluetooth address.
 

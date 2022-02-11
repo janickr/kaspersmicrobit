@@ -63,9 +63,6 @@ class ButtonService:
             long_press (ButtonCallback): een functie die wordt opgeroepen wanneer er lang (minstens 2 seconden) op
                 de A knop gedrukt wordt
             release (ButtonCallback): een functie die wordt opgeroepen wanneer de A knop wordt losgelaten
-
-        Returns:
-            None
         """
         self._device.notify(Characteristic.BUTTON_A,
                             ButtonService._create_button_callback('A', press, long_press, release))
@@ -84,9 +81,6 @@ class ButtonService:
             long_press (ButtonCallback): een functie die wordt opgeroepen wanneer er lang (minstens 2 seconden) op
                 de B knop gedrukt wordt
             release (ButtonCallback): een functie die wordt opgeroepen wanneer de B knop wordt losgelaten
-
-        Returns:
-            None
         """
         self._device.notify(Characteristic.BUTTON_B,
                             ButtonService._create_button_callback('B', press, long_press, release))
