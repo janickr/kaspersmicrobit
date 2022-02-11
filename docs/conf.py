@@ -22,7 +22,6 @@ project = 'kaspersmicrobit'
 copyright = '2022, Janick Reynders'
 author = 'Janick Reynders'
 
-master_doc = 'index'
 # The full version, including alpha/beta/rc tags
 release = '0.0.6'
 
