@@ -115,9 +115,6 @@ class KaspersMicrobit:
         opnieuw te pairen met je microbit.
 
         See Also: https://support.microbit.org/helpdesk/attachments/19075694226
-
-        Returns:
-            None
         """
         self._device.connect()
 
@@ -125,9 +122,6 @@ class KaspersMicrobit:
         """
         Verbreek de verbinding met de microbit.
         Je moet verbonden zijn met deze microbit om deze methode succesvol te kunnen oproepen.
-
-        Returns:
-            None
         """
         self._device.disconnect()
 
