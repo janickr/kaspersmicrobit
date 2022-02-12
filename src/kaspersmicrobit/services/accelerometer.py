@@ -14,6 +14,10 @@ AccelerometerPeriod = Union[
 """
 Het interval waarmee de Accelerometer wordt uitgelezen is een integer en drukt het aantal milliseconden uit.
 Er is een beperkt aantal geldige periodes: 1, 2, 5, 10, 20, 80, 160, 640
+
+Opgelet:
+    Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet werkt/klopt zoals ik verwacht
+    TODO te onderzoeken
 """
 
 
@@ -106,6 +110,10 @@ class AccelerometerService:
         Args:
             period (AccelerometerPeriod): het interval waarop de accelerometer metingen doet,
                 geldige waarden zijn: 1, 2, 5, 10, 20, 80, 160, 640
+
+        Opgelet:
+            Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet werkt/klopt zoals ik verwacht
+            TODO te onderzoeken
         """
         self._device.write(Characteristic.ACCELEROMETER_PERIOD, period.to_bytes(2, "little"))
 

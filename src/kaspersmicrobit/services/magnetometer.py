@@ -12,6 +12,10 @@ MagnetometerPeriod = Union[
 """
 Het interval waarmee de Magnetometer wordt uitgelezen is een integer en drukt het aantal milliseconden uit.
 Er is een beperkt aantal geldige periodes: 1, 2, 5, 10, 20, 80, 160, 640
+
+Opgelet:
+    Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet werkt/klopt zoals ik verwacht
+    TODO te onderzoeken
 """
 
 @dataclass
@@ -37,10 +41,14 @@ class MagnetometerService:
     Deze klasse bevat de functies die je kan aanspreken in verband met de magnetometor van de microbit.
     Er zijn functies om
 
-        - het magnetisch veld langs 3 assen te meten
-        - de hoek in graden ten opzichte van het noorden te meten
-        - de magnetometer te calibreren. Het is het best om de magnetometer te calibreren voor je gegevens uitleest,
-          zoniet kunnen de gegevens of de hoek in graden verkeerd zijn
+    - het magnetisch veld langs 3 assen te meten
+    - de hoek in graden ten opzichte van het noorden te meten
+    - de magnetometer te calibreren. Het is het best om de magnetometer te calibreren voor je gegevens uitleest,
+      zoniet kunnen de gegevens of de hoek in graden verkeerd zijn.
+
+    Opgelet:
+        Ik heb gemerkt dat ondanks calibratie, de microbits die ik testte slechte resultaten gaven
+        (verder te onderzoeken)
 
     Dit zijn alle mogelijkheden aangeboden door de bluetooth magnetometer service
 
@@ -54,6 +62,9 @@ class MagnetometerService:
         """
         Deze methode kan je oproepen wanneer je verwittigd wil worden van nieuwe magnetometer gegevens. Hoe vaak je
         nieuwe gegevens ontvangt hangt af van de magnetometer periode
+
+        Opgelet:
+            De microbit geeft geen metingen indien er geen calibratie is geweest
 
         Args:
             callback (Callable[[MagnetometerData], None]): een functie die wordt opgeroepen wanneer er nieuwe gegevens
@@ -79,6 +90,10 @@ class MagnetometerService:
         Args:
             period (MagnetometerPeriod): het interval waarop de magnetometer metingen doet,
                 geldige waarden zijn: 1, 2, 5, 10, 20, 80, 160, 640
+
+        Opgelet:
+            Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet werkt/klopt zoals ik verwacht
+            TODO te onderzoeken
         """
         self._device.write(Characteristic.MAGNETOMETER_PERIOD, period.to_bytes(2, "little"))
 
@@ -96,6 +111,9 @@ class MagnetometerService:
         Deze methode kan je oproepen wanneer je verwittigd wil worden van de hoek in graden waarin de microbit gericht
         wordt ten opzichte van het noorden.
 
+        Opgelet:
+            De microbit geeft geen metingen indien er geen calibratie is geweest
+
         Args:
             callback (Callable[[int], None]): een functie die periodiek wordt opgeroepen met de hoek in graden ten
                 opzichte van het noorden
@@ -112,26 +130,21 @@ class MagnetometerService:
         """
         return int.from_bytes(self._device.read(Characteristic.MAGNETOMETER_BEARING)[0:2], 'little')
 
-    def calibrate(self, on_success: Callable[[], None] = None, on_error: Callable[[], None] = None) -> None:
+    def calibrate(self) -> bool:
         """
         Calibreer de magnetometer. Deze methode start het calibratieproces op de microbit, waarbij je de microbit
         moet kantelen om het LED scherm te vullen. Door het kantelen wordt de magnetometer gecalibreerd
 
+        Opgelet:
+            De microbit geeft geen metingen indien er geen calibratie is geweest
+
         See Also: https://support.microbit.org/support/solutions/articles/19000008874-calibrating-the-micro-bit-compass
 
-        Args:
-            on_success (Callable[[], None]): wordt opgeroepen wanneer de calibratie gelukt is
-            on_error (Callable[[], None]): wordt opgeroepen wanneer de calibratie mislukt is
+        Returns (bool):
+            True indien calibratie gelukt is, False indien calibration mislukte
         """
         self._device.write(Characteristic.MAGNETOMETER_CALIBRATION, int.to_bytes(1, 1, 'little'))
 
-        if on_success or on_error:
-            def _callback(sender, data):
-                result = int.from_bytes(data[0:2], "little")
-                if result == 2 and on_success:
-                    on_success()
-                elif on_error:
-                    on_error()
-
-            self._device.notify(Characteristic.MAGNETOMETER_CALIBRATION, _callback)
+        data = self._device.wait_for(Characteristic.MAGNETOMETER_CALIBRATION)
+        return int.from_bytes(data[0:2], "little") == 2
 

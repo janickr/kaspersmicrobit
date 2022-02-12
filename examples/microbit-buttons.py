@@ -1,0 +1,33 @@
+#  This Source Code Form is subject to the terms of the Mozilla Public
+#  License, v. 2.0. If a copy of the MPL was not distributed with this
+#  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+import time
+
+from kaspersmicrobit import KaspersMicrobit
+
+MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
+
+
+def pressed(button):
+    print(f"button {button} pressed")
+
+
+def pressed_long(button):
+    print(f"button {button} pressed long")
+
+
+def released(button):
+    print(f"button {button} released")
+
+
+with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
+    # you can read the state of the buttons
+    print(f"button A state is now: {microbit.buttons.read_button_a()}")
+    print(f"button B state is now: {microbit.buttons.read_button_b()}")
+
+    # you can listen for button events:
+    microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, release=released)
+    microbit.buttons.on_button_b(press=pressed, long_press=pressed_long, release=released)
+
+    time.sleep(15)

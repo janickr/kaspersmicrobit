@@ -24,6 +24,9 @@ class ThreadEventLoop:
     def run_async(self, coroutine):
         return asyncio.run_coroutine_threadsafe(coroutine, self.loop)
 
+    def create_future(self):
+        return self.loop.create_future()
+
 
 class BluetoothEventLoop:
     _single_thread = ThreadEventLoop()
@@ -70,3 +73,19 @@ class BluetoothDevice:
     def notify(self, characteristic: Characteristic, callback) -> None:
         self.loop.run_async(self.client.start_notify(characteristic.value, callback)).result()
         print("notify")
+
+    def wait_for(self, characteristic: Characteristic) -> ByteData:
+        future = self.loop.create_future()
+
+        def wait_for_result(sender, data):
+            print(f"sender: {sender} data: {data}")
+            future.set_result(data)
+
+        print("wait-for notify")
+        self.loop.run_async(self.client.start_notify(characteristic.value, wait_for_result)).result()
+
+        async def await_future():
+            return await future
+
+        print("wait-for future")
+        return self.loop.run_async(await_future()).result()
