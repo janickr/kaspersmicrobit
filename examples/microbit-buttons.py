@@ -3,11 +3,10 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import time
-
 from kaspersmicrobit import KaspersMicrobit
 
 MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
-
+# example {
 
 def pressed(button):
     print(f"button {button} pressed")
@@ -31,3 +30,5 @@ with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
     microbit.buttons.on_button_b(press=pressed, long_press=pressed_long, release=released)
 
     time.sleep(15)
+
+# }

@@ -8,6 +8,7 @@ from kaspersmicrobit import KaspersMicrobit
 from kaspersmicrobit.services.leddisplay import Image, LedDisplay
 
 MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
+# example {
 
 with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
     microbit.led.show(Image.HEART)
@@ -24,3 +25,5 @@ with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
     time.sleep(3)
     microbit.led.show(Image.HAPPY)
     time.sleep(3)
+
+#}

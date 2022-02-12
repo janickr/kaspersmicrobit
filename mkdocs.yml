@@ -34,15 +34,25 @@ theme:
       name: Switch to dark mode
   - media: "(prefers-color-scheme: dark)"
     scheme: slate
-    primary: black
-    accent: lime
+    primary: indigo
+    accent: indigo
     toggle:
       icon: material/toggle-switch
       name: Switch to light mode
 
 nav:
-    - Home: index.md
+    - Home:
+      - Overview: index.md
+      - Examples:
+          - Buttons: buttons.md
+          - Accelerometer: accelerometer.md
+          - Led display: led.md
+          - Temperature: temperature.md
+          - Magnetometer: magnetometer.md
+          - Uart: uart.md
+      - License: license.md
     - Api Reference: reference/
+
 plugins:
   - search
   - gen-files:
@@ -52,6 +62,7 @@ plugins:
       nav_file: SUMMARY.md
   - autorefs
   - section-index
+  - codeinclude
   - mkdocstrings:
       default_handler: python
       handlers:

@@ -8,7 +8,7 @@ from kaspersmicrobit import KaspersMicrobit
 from kaspersmicrobit.services.magnetometer import MagnetometerData
 
 MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
-
+# example {
 
 def magnetometer_data(data: MagnetometerData):
     print(f"Magnetometer data: {data}")
@@ -45,3 +45,4 @@ with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
     print(f"Magnetometer updates will now occur every {microbit.magnetometer.read_period()} milliseconds")
 
     time.sleep(500)
+# }
