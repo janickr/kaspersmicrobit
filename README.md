@@ -2,7 +2,7 @@
 [Nederlands](https://github.com/janickr/kaspersmicrobit/blob/main/README-nl.md)  
 
 [![Documentation Status](https://readthedocs.org/projects/kaspersmicrobit/badge/?version=latest)](https://kaspersmicrobit.readthedocs.io/en/latest/?badge=latest) 
-[![Documentation Status](https://img.shields.io/pypi/v/kaspersmicrobit)](https://img.shields.io/pypi/v/kaspersmicrobit)  
+[![PyPi](https://badgen.net/pypi/v/kaspersmicrobit)](https://badgen.net/pypi/v/kaspersmicrobit)  
 
 A python package to make a connection to a bbc microbit by means of the Bluetooth LE GATT services exposed by the microbit
 

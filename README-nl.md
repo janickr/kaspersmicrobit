@@ -1,7 +1,7 @@
 # Kasper's microbit
 
 [![Documentation Status](https://readthedocs.org/projects/kaspersmicrobit/badge/?version=latest)](https://kaspersmicrobit.readthedocs.io/en/latest/?badge=latest) 
-[![Documentation Status](https://img.shields.io/pypi/v/kaspersmicrobit)](https://img.shields.io/pypi/v/kaspersmicrobit)  
+[![Documentation Status](https://badgen.net/pypi/v/kaspersmicrobit)](https://badgen.net/pypi/v/kaspersmicrobit)  
 
 Een python package om een verbinding te kunnen maken met een bbc microbit met behulp van de Bluetooth LE GATT services 
 die de microbit aanbiedt.
