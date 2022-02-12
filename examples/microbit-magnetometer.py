@@ -10,6 +10,7 @@ from kaspersmicrobit.services.magnetometer import MagnetometerData
 MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
 # example {
 
+
 def magnetometer_data(data: MagnetometerData):
     print(f"Magnetometer data: {data}")
 

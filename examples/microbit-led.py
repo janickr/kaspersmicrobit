@@ -25,5 +25,4 @@ with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
     time.sleep(3)
     microbit.led.show(Image.HAPPY)
     time.sleep(3)
-
-#}
+# }

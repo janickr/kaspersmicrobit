@@ -8,6 +8,7 @@ from kaspersmicrobit import KaspersMicrobit
 MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
 # example {
 
+
 def pressed(button):
     print(f"button {button} pressed")
 
