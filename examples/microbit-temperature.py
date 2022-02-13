@@ -15,18 +15,19 @@ def print_temperature(temperature):
 
 
 with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
-    # you can read the current temperature
+    # read the current temperature / lees de huidige temperatuur
     print(f"The temperature is now: {microbit.temperature.read()}")
 
-    # you can check how often temperature updates will occur if you listen to them with notify
+    # check how often temperature updates will occur if you listen to them with notify
+    # / lees hoe vaak temperatuur updates doorgestuurd worden wanneer je er naar luistert met notify
     print(f"Listen for temperature updates every {microbit.temperature.read_period()} milliseconds")
 
-    # you can listen for temperature updates
+    # listen for temperature updates / luister naar updates van de thermometer
     microbit.temperature.notify(print_temperature)
 
     time.sleep(5)
 
-    # you can change the update interval
+    # change the update interval / wijzig het update interval
     print("Now slow down updates to 3000 milliseconds")
     microbit.temperature.set_period(3000)
 

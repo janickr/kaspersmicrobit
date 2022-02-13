@@ -15,18 +15,19 @@ def accelerometer_data(data: AccelerometerData):
 
 
 with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
-    # you can read the current accelerometer data
+    # read the current accelerometer data / lees de huidige accelerometer gegevens
     print(f"Current accelerometer reading: {microbit.accelerometer.read()}")
 
-    # you can check how often accelerometer updates will occur if you listen to them with notify
+    # check how often accelerometer updates will occur if you listen to them with notify
+    # / lees hoe vaak accelerometer updates doorgestuurd worden wanneer je er naar luistert met notify
     print(f"Current period: {microbit.accelerometer.read_period()}")
 
-    # you can listen for accelerometer data updates
+    # listen for accelerometer data updates / luister naar updates van de accelerometer gegevens
     microbit.accelerometer.notify(accelerometer_data)
 
     time.sleep(5)
 
-    # you can change the update interval
+    # change the update interval / pas het update interval aan
     print("Now slow down updates to 160 milliseconds")
     microbit.accelerometer.set_period(160)
 

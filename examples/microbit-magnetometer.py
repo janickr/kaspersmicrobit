@@ -20,30 +20,31 @@ def bearing(degrees: int):
 
 
 with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
-    # First calibrate the magnetometer
+    # First calibrate the magnetometer / Calibreer de magnetometer eerst
     calibration = microbit.magnetometer.calibration()
     print("Calibrating...")
 
-    # Wait for the calibration to finish
+    # Wait for the calibration to finish / Wacht op het einde van de calibratie
     if calibration.wait_for_result():
         print("Calibration succes!")
     else:
         print("Calibration failed!")
 
-    # you can read the current magnetometer data and bearing
+    # read the current magnetometer data and bearing / lees de huidige magnetometer data en hoek tov het noorden
     print(f"Current magnetometer data: {microbit.magnetometer.read_data()}")
     print(f"Current magnetometer bearing: {microbit.magnetometer.read_bearing()}°")
 
-    # you can check how often magnetometer updates will occur if you listen to them with notify
+    # check how often magnetometer updates will occur if you listen to them with notify
+    # / lees hoe vaak magnetometer updates doorgestuurd worden wanneer je hier naar luistert met notify
     print(f"Current period: {microbit.magnetometer.read_period()}")
 
-    # you can listen for magnetometer data updates
+    # listen for magnetometer data updates / luister naar magnetometer updates
     microbit.magnetometer.notify_data(magnetometer_data)
     microbit.magnetometer.notify_bearing(bearing)
 
     time.sleep(5)
 
-    # you can change the update interval
+    # change the update interval / wijzig het update interval
     print("Now slow down updates to 640 milliseconds")
     microbit.magnetometer.set_period(640)
 

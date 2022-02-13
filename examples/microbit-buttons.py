@@ -22,11 +22,11 @@ def released(button):
 
 
 with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
-    # you can read the state of the buttons
+    # read the state of the buttons / lees de toestant van de knoppen
     print(f"button A state is now: {microbit.buttons.read_button_a()}")
     print(f"button B state is now: {microbit.buttons.read_button_b()}")
 
-    # you can listen for button events:
+    # listen for button events / luister naar drukken op knoppen
     microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, release=released)
     microbit.buttons.on_button_b(press=pressed, long_press=pressed_long, release=released)
 

@@ -15,10 +15,10 @@ def print_received_string(string: str):
 
 
 with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
-    # You can listen for strings sent by the microbit
+    # listen for strings sent by the microbit / luister naar tekst die verzonden wordt door de microbit
     microbit.uart.receive_string(print_received_string)
 
-    # You can send a string to the microbit
+    # send a string to the microbit / verzend tekst naar de microbit
     microbit.uart.send_string("Hello kasper, this is working out very well\n")
 
     time.sleep(25)
