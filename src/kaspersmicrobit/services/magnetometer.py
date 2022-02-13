@@ -1,6 +1,7 @@
 #  This Source Code Form is subject to the terms of the Mozilla Public
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+from concurrent.futures import Future
 from dataclasses import dataclass
 from typing import Callable, Literal, Union
 from ..bluetoothprofile.characteristics import Characteristic
@@ -17,6 +18,37 @@ Opgelet:
     Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet werkt/klopt zoals ik verwacht
     TODO te onderzoeken
 """
+
+
+class Calibration:
+    """
+    Een klasse die je toelaat een calibratie op te volgen
+    """
+    def __init__(self, future: Future[ByteData]):
+        self._future = future
+        self._result = None
+
+    def done(self) -> bool:
+        """
+        Kijk na of de calibratie nog bezig is
+
+        Returns (bool):
+            True indien de calibratie gedaan is, False indien het nog bezig is
+        """
+        return self._future.done()
+
+    def wait_for_result(self) -> bool:
+        """
+        Wacht op het einde van het calibreren
+
+        Returns (bool):
+            True indien de calibratie gelukt is, False indien het mislukt is
+        """
+        if not self._result:
+            self._result = int.from_bytes(self._future.result()[0:2], "little")
+
+        return self._result
+
 
 @dataclass
 class MagnetometerData:
@@ -57,6 +89,7 @@ class MagnetometerService:
     """
     def __init__(self, device: BluetoothDevice):
         self._device = device
+        self._calibration = None
 
     def notify_data(self, callback: Callable[[MagnetometerData], None]):
         """
@@ -130,21 +163,29 @@ class MagnetometerService:
         """
         return int.from_bytes(self._device.read(Characteristic.MAGNETOMETER_BEARING)[0:2], 'little')
 
-    def calibrate(self) -> bool:
+    def calibrate(self) -> Calibration:
         """
         Calibreer de magnetometer. Deze methode start het calibratieproces op de microbit, waarbij je de microbit
         moet kantelen om het LED scherm te vullen. Door het kantelen wordt de magnetometer gecalibreerd
+        Indien er al een calibratie bezig is wordt geen nieuwe calibratie gestart
 
         Opgelet:
             De microbit geeft geen metingen indien er geen calibratie is geweest
 
         See Also: https://support.microbit.org/support/solutions/articles/19000008874-calibrating-the-micro-bit-compass
 
-        Returns (bool):
-            True indien calibratie gelukt is, False indien calibration mislukte
+        Returns (Calibration):
+            Het de calibratie die bezig is. Je kan hiermee nakijken of het calibreren nog bezig is, of wachten tot
+            De calibratie gedaan is.
         """
-        self._device.write(Characteristic.MAGNETOMETER_CALIBRATION, int.to_bytes(1, 1, 'little'))
+        if self._calibration and not self._calibration.done():
+            return self._calibration
 
-        data = self._device.wait_for(Characteristic.MAGNETOMETER_CALIBRATION)
-        return int.from_bytes(data[0:2], "little") == 2
+        self._device.write(Characteristic.MAGNETOMETER_CALIBRATION, int.to_bytes(1, 1, 'little'))
+        future = self._device.wait_for(Characteristic.MAGNETOMETER_CALIBRATION)
+        calibration = Calibration(future)
+        self._calibration = calibration
+        return calibration
+
+
 

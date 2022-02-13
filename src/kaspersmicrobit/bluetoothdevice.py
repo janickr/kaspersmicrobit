@@ -1,7 +1,7 @@
 #  This Source Code Form is subject to the terms of the Mozilla Public
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
+import concurrent.futures
 from typing import Union
 from bleak import BleakClient
 import asyncio
@@ -21,10 +21,10 @@ class ThreadEventLoop:
         asyncio.set_event_loop(loop)
         loop.run_forever()
 
-    def run_async(self, coroutine):
+    def run_async(self, coroutine) -> concurrent.futures.Future:
         return asyncio.run_coroutine_threadsafe(coroutine, self.loop)
 
-    def create_future(self):
+    def create_future(self) -> asyncio.Future:
         return self.loop.create_future()
 
 
@@ -74,18 +74,15 @@ class BluetoothDevice:
         self.loop.run_async(self.client.start_notify(characteristic.value, callback)).result()
         print("notify")
 
-    def wait_for(self, characteristic: Characteristic) -> ByteData:
+    def wait_for(self, characteristic: Characteristic) -> concurrent.futures.Future[ByteData]:
         future = self.loop.create_future()
 
-        def wait_for_result(sender, data):
-            print(f"sender: {sender} data: {data}")
-            future.set_result(data)
-
         print("wait-for notify")
-        self.loop.run_async(self.client.start_notify(characteristic.value, wait_for_result)).result()
+        self.loop.run_async(self.client.start_notify(characteristic.value,
+                                                     lambda sender, data: future.set_result(data))).result()
 
         async def await_future():
             return await future
 
         print("wait-for future")
-        return self.loop.run_async(await_future()).result()
+        return self.loop.run_async(await_future())
