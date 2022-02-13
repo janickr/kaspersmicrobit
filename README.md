@@ -1,10 +1,14 @@
 # Kasper's microbit
-[Nederlands](https://github.com/janickr/kaspersmicrobit/blob/main/README-nl.md)  
+So you finished [Python for kids](https://nostarch.com/pythonforkids)? Wouldn't it be awesome to use your
+[bbc micro:bit](https://microbit.org/) as a **wireless game controller** for your own DIY games? You can do this with 
+this python package! Pair your [micro:bit](https://microbit.org/) to your computer with bluetooth en **use buttons A 
+and B or the accelerometer to control your game**.
 
 [![Documentation Status](https://readthedocs.org/projects/kaspersmicrobit/badge/?version=latest)](https://kaspersmicrobit.readthedocs.io/en/latest/?badge=latest) 
-[![PyPi](https://badgen.net/pypi/v/kaspersmicrobit)](https://badgen.net/pypi/v/kaspersmicrobit)  
+[![PyPi](https://img.shields.io/pypi/v/kaspersmicrobit)](https://pypi.org/project/kaspersmicrobit/)
+[![Nederlands](https://img.shields.io/badge/vertaling-Nederlands-blue)](https://github.com/janickr/kaspersmicrobit/blob/main/README-nl.md)
 
-A python package to make a connection to a bbc microbit by means of the Bluetooth LE GATT services exposed by the microbit
+Kasper's microbit is a python package to make a connection to a bbc microbit by means of the Bluetooth LE GATT services exposed by the microbit
 
 ## Installation
 ```bash
