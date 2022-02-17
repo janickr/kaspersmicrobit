@@ -37,15 +37,15 @@ with KaspersMicrobit(CHANGE_THIS_TO_YOUR_MICROBIT_BLUETOOTH_ADDRESS) as microbit
 ```
 
 ## Connecting
-To connect to your microbit you'll have to enable the [bluetooth services](https://kaspersmicrobit.readthedocs.io/makecode-bluetooth/enable-bluetooth/) 
-you want to use, and [pair](https://kaspersmicrobit.readthedocs.io/bluetooth-pairing/windows/pairing-microbit-windows/) your microbit 
+To connect to your microbit you'll have to enable the [bluetooth services](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/enable-bluetooth/) 
+you want to use, and [pair](https://kaspersmicrobit.readthedocs.io/en/stable/bluetooth-pairing/windows/pairing-microbit-windows/) your microbit 
 to your computer.  
 
 To enable the services you can use [MakeCode](https://makecode.microbit.org) or copy
 [this hex file](https://github.com/janickr/kaspersmicrobit/blob/main/hex/microbit-bluetooth-all-services-active.hex)
 to your microbit.
 
-For detailed instructions take a look in [Getting started - Enable Bluetooth](https://kaspersmicrobit.readthedocs.io/makecode-bluetooth/enable-bluetooth/)
+For detailed instructions take a look in [Getting started - Enable Bluetooth](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/enable-bluetooth/)
 
 ## Documentation
 On https://kaspersmicrobit.readthedocs.io you can find:

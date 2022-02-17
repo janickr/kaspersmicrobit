@@ -38,15 +38,15 @@ with KaspersMicrobit(VERANDER_DIT_NAAR_JOUW_MICROBIT_BLUETOOTH_ADDRESS) as micro
 ```
 
 ## Connecteren
-Om met je microbit te kunnen verbinden moet je de [bluetooth services](https://kaspersmicrobit.readthedocs.io/makecode-bluetooth/enable-bluetooth/) 
-die je wil gebruiken op je microbit aanzetten, en je microbit [pairen](https://kaspersmicrobit.readthedocs.io/bluetooth-pairing/windows/pairing-microbit-windows/) 
+Om met je microbit te kunnen verbinden moet je de [bluetooth services](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/enable-bluetooth/) 
+die je wil gebruiken op je microbit aanzetten, en je microbit [pairen](https://kaspersmicrobit.readthedocs.io/en/stable/bluetooth-pairing/windows/pairing-microbit-windows/) 
 met je computer. 
 
 Om de Bluetooth services aan te zetten kan je [MakeCode](https://makecode.microbit.org) gebruiken of 
 [dit hex bestand](https://github.com/janickr/kaspersmicrobit/blob/main/hex/microbit-bluetooth-all-services-active.hex)
 naar je microbit kopiëren.
 
-Voor meer gedetailleerde instructies zie [Getting started - Enable Bluetooth](https://kaspersmicrobit.readthedocs.io/makecode-bluetooth/enable-bluetooth/)
+Voor meer gedetailleerde instructies zie [Getting started - Enable Bluetooth](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/enable-bluetooth/)
 
 ## Api documentatie
 Op https://kaspersmicrobit.readthedocs.io, vind je het volgende:
