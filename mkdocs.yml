@@ -43,6 +43,12 @@ theme:
 nav:
     - Home:
       - Overview: index.md
+      - Getting started:
+          - Enable Bluetooth on your microbit: makecode-bluetooth/enable-bluetooth.md
+          - Pair your microbit:
+              - Pair in windows: bluetooth-pairing/windows/pairing-microbit-windows.md
+              - Pair in linux (gnome): bluetooth-pairing/linux/pairing-microbit-linux-gnome.md
+          - Run your first program: run-first-program.md
       - Examples:
           - Buttons: buttons.md
           - Accelerometer: accelerometer.md
@@ -50,8 +56,12 @@ nav:
           - Temperature: temperature.md
           - Magnetometer: magnetometer.md
           - Uart: uart.md
-      - License: license.md
+      - Tkinter examples:
+          - Buttons move a rectangle: tkinter/use_buttons_to_move_rectangle.md
+          - Accelerometer moves a ball: tkinter/use_accelerometer_to_move_ball.md
     - Api Reference: reference/
+    - License: license.md
+
 
 plugins:
   - search

@@ -1,7 +1,6 @@
 #  This Source Code Form is subject to the terms of the Mozilla Public
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
 from tkinter import *
 from kaspersmicrobit import KaspersMicrobit
 from kaspersmicrobit.services.accelerometer import AccelerometerData
@@ -13,6 +12,12 @@ class Direction:
     def __init__(self, x, y):
         self.x = x
         self.y = y
+
+    def __add__(self, other):
+        return Direction(self.x + other.x, self.y + other.y)
+
+    def __mul__(self, other: float):
+        return Direction(self.x * other, self.y * other)
 
 
 class Ball:
@@ -26,27 +31,20 @@ class Ball:
 
     def draw(self):
         pos = self.canvas.coords(self.id)
-        d = self.compute_displacement(pos[0], pos[2], pos[1], pos[3])
-        self.canvas.move(self.id, d.x, d.y)
+        movement = self.compute_movement(pos[0], pos[2], pos[1], pos[3])
+        self.canvas.move(self.id, movement.x, movement.y)
 
-    def compute_displacement(self, left_edge, right_edge, top, bottom):
-        x = self.direction.x
-        y = self.direction.y
+    def compute_movement(self, left_edge, right_edge, top, bottom):
+        if left_edge <= 0 or right_edge > self.canvas_width:
+            self.direction = Direction(-self.direction.x, self.direction.y)
+        elif top < 0 or bottom > self.canvas_width:
+            self.direction = Direction(self.direction.x, -self.direction.y)
 
-        if self.direction.x < 0 and left_edge < 0:
-            x = 5
-        if self.direction.x > 0 and right_edge > self.canvas_width:
-            x = -5
-        if self.direction.y < 0 and top < 0:
-            y = 5
-        if self.direction.y > 0 and bottom > self.canvas_width:
-            y = -5
-
-        return Direction(x, y)
+        return self.direction
 
 
 tk = Tk()
-tk.title("spel")
+tk.title("Use accelerometer to move ball an bounce")
 tk.resizable(False, False)
 tk.wm_attributes("-topmost", 1)
 canvas = Canvas(tk, width=500, height=500)
@@ -64,9 +62,9 @@ tk.after(10, redraw)
 
 
 def accelerometer_data(data: AccelerometerData):
-    ball.direction = Direction(data.x / 250, data.y / 250)
+    ball.direction = ball.direction * 0.98 + Direction(data.x, data.y) * 0.0004
 
 
 with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
-    microbit.accelerometer.notify(accelerometer_data)
+    microbit.accelerometer.notify(tk, accelerometer_data)
     tk.mainloop()

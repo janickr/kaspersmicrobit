@@ -71,7 +71,21 @@ class BluetoothDevice:
         print("written")
 
     def notify(self, characteristic: Characteristic, callback) -> None:
-        self.loop.run_async(self.client.start_notify(characteristic.value, callback)).result()
+        def wrap_try_catch(fn):
+            def suggest_do_in_tkinter(*arg):
+                try:
+                    callback(*arg)
+                except RuntimeError as e:
+                    message, = e.args
+                    if message == "main thread is not in main loop":
+                        raise RuntimeError(
+                            """You tried to call tkinter API from within a KaspersMicrobit notification callback. 
+                            This is probably not what you want. If your really want to do this wrap your callback in 
+                            kaspersmicrobit.tkinter.do_in_tkinter(tk, your_callback)""") from e
+                    raise e
+            return suggest_do_in_tkinter
+
+        self.loop.run_async(self.client.start_notify(characteristic.value, wrap_try_catch(callback))).result()
         print("notify")
 
     def wait_for(self, characteristic: Characteristic) -> concurrent.futures.Future[ByteData]:
