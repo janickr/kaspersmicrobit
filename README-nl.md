@@ -39,7 +39,7 @@ with KaspersMicrobit(VERANDER_DIT_NAAR_JOUW_MICROBIT_BLUETOOTH_ADDRESS) as micro
 
 ## Connecteren
 Om met je microbit te kunnen verbinden moet je de [bluetooth services](https://kaspersmicrobit.readthedocs.io/makecode-bluetooth/enable-bluetooth/) 
-die je wil gebruiken op je microbit aanzetten, en je microbit [pairen](https://kaspersmicrobit.readthedocs.io/makecode-bluetooth/pairing-windows/) 
+die je wil gebruiken op je microbit aanzetten, en je microbit [pairen](https://kaspersmicrobit.readthedocs.io/bluetooth-pairing/windows/pairing-microbit-windows/) 
 met je computer. 
 
 Om de Bluetooth services aan te zetten kan je [MakeCode](https://makecode.microbit.org) gebruiken of 
