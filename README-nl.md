@@ -43,7 +43,7 @@ die je wil gebruiken op je microbit aanzetten, en je microbit [pairen](https://k
 met je computer. 
 
 Om de Bluetooth services aan te zetten kan je [MakeCode](https://makecode.microbit.org) gebruiken of 
-[dit hex bestand](https://github.com/janickr/kaspersmicrobit/raw/main/hex/microbit-bluetooth-all-services-active.hex)
+[dit hex bestand](https://github.com/janickr/kaspersmicrobit/blob/main/hex/microbit-bluetooth-all-services-active.hex)
 naar je microbit kopiëren.
 
 Voor meer gedetailleerde instructies zie [Getting started - Enable Bluetooth](https://kaspersmicrobit.readthedocs.io/makecode-bluetooth/enable-bluetooth/)

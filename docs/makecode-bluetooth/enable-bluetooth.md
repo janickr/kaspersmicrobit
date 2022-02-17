@@ -1,7 +1,7 @@
 ## Download a .hex file
 To enable the Bluetooth services copy 
 
-[this hex file](https://github.com/janickr/kaspersmicrobit/raw/main/hex/microbit-bluetooth-all-services-active.hex) file to your microbit. The hex file was created using 
+[this hex file](https://github.com/janickr/kaspersmicrobit/blob/main/hex/microbit-bluetooth-all-services-active.hex) file to your microbit. The hex file was created using 
 [this makecode project](https://makecode.microbit.org/_76vaYr4KzLuA) 
 It will enable following services:
 

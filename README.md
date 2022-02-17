@@ -42,7 +42,7 @@ you want to use, and [pair](https://kaspersmicrobit.readthedocs.io/makecode-blue
 to your computer.  
 
 To enable the services you can use [MakeCode](https://makecode.microbit.org) or copy
-[this hex file](https://github.com/janickr/kaspersmicrobit/raw/main/hex/microbit-bluetooth-all-services-active.hex)
+[this hex file](https://github.com/janickr/kaspersmicrobit/blob/main/hex/microbit-bluetooth-all-services-active.hex)
 to your microbit.
 
 For detailed instructions take a look in [Getting started - Enable Bluetooth](https://kaspersmicrobit.readthedocs.io/makecode-bluetooth/enable-bluetooth/)
