@@ -2,6 +2,7 @@
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 import concurrent.futures
+from abc import ABCMeta, abstractmethod
 from typing import Union
 from bleak import BleakClient
 import asyncio
@@ -11,7 +12,17 @@ from .bluetoothprofile.characteristics import Characteristic
 ByteData = Union[bytes, bytearray, memoryview]
 
 
-class ThreadEventLoop:
+class BluetoothEventLoop(metaclass=ABCMeta):
+    @abstractmethod
+    def run_async(self, coroutine) -> concurrent.futures.Future:
+        pass
+
+    @abstractmethod
+    def create_future(self) -> asyncio.Future:
+        pass
+
+
+class ThreadEventLoop(BluetoothEventLoop):
     def __init__(self):
         self.loop = asyncio.new_event_loop()
         Thread(target=ThreadEventLoop._start_background_loop, args=(self.loop,), daemon=True).start()
@@ -27,19 +38,18 @@ class ThreadEventLoop:
     def create_future(self) -> asyncio.Future:
         return self.loop.create_future()
 
-
-class BluetoothEventLoop:
-    _single_thread = ThreadEventLoop()
-
     @staticmethod
     def single_thread():
-        return BluetoothEventLoop._single_thread
+        if not ThreadEventLoop._singleton:
+            ThreadEventLoop._singleton = ThreadEventLoop()
+
+        return ThreadEventLoop._singleton
 
 
 class BluetoothDevice:
 
-    def __init__(self, address: str, loop : BluetoothEventLoop = None):
-        self.loop = loop if loop else BluetoothEventLoop.single_thread()
+    def __init__(self, address: str, loop: BluetoothEventLoop = None):
+        self.loop = loop if loop else ThreadEventLoop.single_thread()
         self.client = BleakClient(address)
 
     def __enter__(self):
