@@ -1,4 +1,4 @@
-from typing import List, Literal, Union
+from typing import List
 
 from ..bluetoothdevice import ByteData
 
@@ -21,7 +21,7 @@ class LedDisplay:
 
         Args:
             row int: de rij van de LED (geldige waarden zijn 1 tot en met 5)
-            column int: de kolom van de LED (geldige waarden zijn 1 1 tot en met 5)
+            column int: de kolom van de LED (geldige waarden zijn 1 tot en met 5)
 
         Returns (bool):
             True wanneer de LED aan staat, False als de LED uit staat
@@ -34,7 +34,7 @@ class LedDisplay:
 
         Args:
             row int: de rij van de LED (geldige waarden zijn 1 tot en met 5)
-            column int: de kolom van de LED (geldige waarden zijn 1 1 tot en met 5)
+            column int: de kolom van de LED (geldige waarden zijn 1 tot en met 5)
             on bool: indien True word de LED aan gezet, indien False uit
 
         Returns (bool):
