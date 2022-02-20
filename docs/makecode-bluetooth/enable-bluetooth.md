@@ -2,14 +2,14 @@
 To enable the Bluetooth services copy 
 
 [this hex file](https://github.com/janickr/kaspersmicrobit/blob/main/hex/microbit-bluetooth-all-services-active.hex) file to your microbit. The hex file was created using 
-[this makecode project](https://makecode.microbit.org/_76vaYr4KzLuA) 
+[this makecode project](https://makecode.microbit.org/_cdLL0DH1Hc02) 
 It will enable following services:
 
   - [accelerometer](../accelerometer.md)
   - [buttons](../buttons.md)
   - [led](../led.md)
   - [temperature](../temperature.md)
-  - io-pin
+  - [io-pin](../io_pin.md)
   - [magnetometer](../magnetometer.md)
   - [uart](../uart.md)
 
