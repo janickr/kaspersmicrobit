@@ -35,47 +35,6 @@ class Pin(IntEnum):
     P20 = 18
 
 
-@dataclass
-class PinValue:
-    """
-    De pin en zijn waarde
-
-    Attributes:
-        pin (Pin): de pin
-        value (int): de waarde van de pin (door hoe deze waarde verzonden wordt over bluetooth)
-            verliest de waarde precisie (de minst significante 2 bits worden niet verzonden)
-            dit betekent bvb dat een waarde 1-3 als 0 en 255 als 252 wordt verzonden.
-    """
-    pin: Pin
-    value: int
-
-    @staticmethod
-    def from_bytes(values: ByteData) -> 'PinValue':
-        return PinValue(
-            Pin(int.from_bytes(values[0:1], "little")),
-            int.from_bytes(values[1:2], "little") << 2,
-        )
-
-    def to_bytes(self) -> bytes:
-        return self.pin.value.to_bytes(1, "little") + (self.value >> 2).to_bytes(1, "little")
-
-    @staticmethod
-    def list_from_bytes(values: ByteData) -> ['PinValue']:
-        result = []
-        for i in range(0, len(values), 2):
-            result.append(PinValue.from_bytes(values[i:i+2]))
-
-        return result
-
-    @staticmethod
-    def list_to_bytes(values: ['PinValue']) -> bytes:
-        result = bytes()
-        for pin_value in values:
-            result += pin_value.to_bytes()
-
-        return result
-
-
 class PinAD(Enum):
     DIGITAL = 0
     ANALOG = 1
@@ -103,6 +62,9 @@ class PinConfiguration(Generic[T]):
 
     def __setitem__(self, key, value: T):
         self._configuration.__setitem__(key, value)
+
+    def __str__(self):
+        return self._configuration.__str__()
 
     def to_bytes(self) -> bytes:
         bits = 0
@@ -146,6 +108,48 @@ class PinADConfiguration(PinConfiguration[PinAD]):
 
 
 @dataclass
+class PinValue:
+    """
+    De pin en zijn waarde
+
+    Attributes:
+        pin (Pin): de pin
+        value (int): de waarde van de pin (door hoe deze waarde verzonden wordt over bluetooth)
+            verliest de waarde precisie (de minst significante 2 bits worden niet verzonden)
+            dit betekent bvb dat een waarde 1-3 als 0 en 255 als 252 wordt verzonden.
+    """
+    pin: Pin
+    value: int
+
+    @staticmethod
+    def from_bytes(ad_config: PinADConfiguration, values: ByteData) -> 'PinValue':
+        pin = Pin(int.from_bytes(values[0:1], "little"))
+        compressed_value = int.from_bytes(values[1:2], "little")
+        decompressed_value = compressed_value if ad_config[pin] == PinAD.DIGITAL else compressed_value << 2
+        return PinValue(pin, decompressed_value)
+
+    def to_bytes(self, ad_config: PinADConfiguration) -> bytes:
+        compressed_value = self.value if ad_config[self.pin] == PinAD.DIGITAL else (self.value >> 2)
+        return self.pin.value.to_bytes(1, "little") + compressed_value.to_bytes(1, "little")
+
+    @staticmethod
+    def list_from_bytes(ad_config: PinADConfiguration, values: ByteData) -> ['PinValue']:
+        result = []
+        for i in range(0, len(values), 2):
+            result.append(PinValue.from_bytes(ad_config, values[i:i+2]))
+
+        return result
+
+    @staticmethod
+    def list_to_bytes(ad_config: PinADConfiguration, values: ['PinValue']) -> bytes:
+        result = bytes()
+        for pin_value in values:
+            result += pin_value.to_bytes(ad_config)
+
+        return result
+
+
+@dataclass
 class PwmControlData:
     """
     Een klasse om PWM opdrachten te geven aan de microbit
@@ -185,6 +189,7 @@ class IOPinService:
     """
 
     def __init__(self, device: BluetoothDevice):
+        self._pin_ad_config = PinADConfiguration()
         self._device = device
 
     def notify_data(self, callback: Callable[[[PinValue]], None]):
@@ -197,7 +202,7 @@ class IOPinService:
             callback: een functie die wordt opgeroepen met een lijst van PinValue objecten
         """
         self._device.notify(Characteristic.PIN_DATA,
-                            lambda sender, data: callback(PinValue.list_from_bytes(data)))
+                            lambda sender, data: callback(PinValue.list_from_bytes(self._pin_ad_config, data)))
 
     def read_data(self) -> [PinValue]:
         """
@@ -206,7 +211,7 @@ class IOPinService:
         Returns ([PinValue]):
             Een lijst van input pins en hun bijhorende waarde
         """
-        return PinValue.list_from_bytes(self._device.read(Characteristic.PIN_DATA))
+        return PinValue.list_from_bytes(self._pin_ad_config, self._device.read(Characteristic.PIN_DATA))
 
     def write_data(self, values: [PinValue]):
         """
@@ -217,7 +222,7 @@ class IOPinService:
             values ([PinValue]): de output pins en hun bijhorende waarde
         """
         if values:
-            self._device.write(Characteristic.PIN_DATA, PinValue.list_to_bytes(values))
+            self._device.write(Characteristic.PIN_DATA, PinValue.list_to_bytes(self._pin_ad_config, values))
 
     def read_ad_configuration(self) -> PinADConfiguration:
         """
@@ -236,6 +241,7 @@ class IOPinService:
             config (PinADConfiguration): De analoog-digitaal configuratie voor iedere pin
         """
         self._device.write(Characteristic.PIN_AD_CONFIGURATION, config.to_bytes())
+        self._pin_ad_config = PinADConfiguration(config[:])
 
     def read_io_configuration(self) -> PinIOConfiguration:
         """

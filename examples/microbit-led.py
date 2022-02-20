@@ -11,7 +11,7 @@ MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
 # example {
 
 with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
-    # show one of the predefined LED images / toon een van de voorgedefieerde beelden
+    # show one of the predefined LED images / toon een van de voorgedefinieerde beelden
     microbit.led.show(Image.HEART)
     time.sleep(3)
 
