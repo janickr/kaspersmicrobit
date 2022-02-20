@@ -21,7 +21,7 @@ def bearing(degrees: int):
 
 with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
     # First calibrate the magnetometer / Calibreer de magnetometer eerst
-    calibration = microbit.magnetometer.calibration()
+    calibration = microbit.magnetometer.calibrate()
     print("Calibrating...")
 
     # Wait for the calibration to finish / Wacht op het einde van de calibratie

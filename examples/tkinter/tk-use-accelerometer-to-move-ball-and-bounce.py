@@ -66,5 +66,5 @@ def accelerometer_data(data: AccelerometerData):
 
 
 with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
-    microbit.accelerometer.notify(tk, accelerometer_data)
+    microbit.accelerometer.notify(accelerometer_data)
     tk.mainloop()

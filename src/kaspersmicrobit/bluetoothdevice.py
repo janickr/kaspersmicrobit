@@ -23,6 +23,8 @@ class BluetoothEventLoop(metaclass=ABCMeta):
 
 
 class ThreadEventLoop(BluetoothEventLoop):
+    _singleton = None
+
     def __init__(self):
         self.loop = asyncio.new_event_loop()
         Thread(target=ThreadEventLoop._start_background_loop, args=(self.loop,), daemon=True).start()

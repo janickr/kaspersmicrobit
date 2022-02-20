@@ -17,13 +17,13 @@ with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
 
     # scroll the text "Hello Kasper" on the microbit display / laat de tekst "Hello Kasper" op het scherm voorbijrollen
     microbit.led.show_text("Hello Kasper")
-    time.sleep(15)
+    time.sleep(10)
 
     # create your own image and show it on the display / maak je eigen afbeelding en toot die op de microbit
     microbit.led.show(LedDisplay.image("""
         . . . # #
         . . . # .
-        . .   # .
+        . . . # .
         . # # # .
         . # . # .
     """))
