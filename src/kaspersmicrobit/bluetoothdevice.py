@@ -89,8 +89,8 @@ class BluetoothDevice:
                     message, = e.args
                     if message == "main thread is not in main loop":
                         raise RuntimeError(
-                            """You tried to call tkinter API from within a KaspersMicrobit notification callback. 
-                            This is probably not what you want. If your really want to do this wrap your callback in 
+                            """You tried to call tkinter API from within a KaspersMicrobit notification callback.
+                            This is probably not what you want. If your really want to do this wrap your callback in
                             kaspersmicrobit.tkinter.do_in_tkinter(tk, your_callback)""") from e
                     raise e
             return suggest_do_in_tkinter

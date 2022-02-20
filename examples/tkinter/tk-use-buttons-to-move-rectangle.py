@@ -2,7 +2,7 @@
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-from tkinter import *
+from tkinter import Tk, Canvas
 from kaspersmicrobit import KaspersMicrobit
 from kaspersmicrobit.tkinter import do_in_tkinter
 
@@ -27,7 +27,8 @@ class Paddle:
         self.canvas.move(self.id, self.compute_movement_x(pos[0], pos[2]), 0)
 
     def compute_movement_x(self, left_edge, right_edge):
-        if ((self.direction == Paddle.RIGHT) and (right_edge > self.canvas_width)) or ((self.direction == Paddle.LEFT) and (left_edge < 0)):
+        if ((self.direction == Paddle.RIGHT) and (right_edge > self.canvas_width)) \
+                or ((self.direction == Paddle.LEFT) and (left_edge < 0)):
             return 0
         return self.direction
 

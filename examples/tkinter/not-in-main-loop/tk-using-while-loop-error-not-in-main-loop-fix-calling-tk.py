@@ -2,7 +2,7 @@
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 import time
-from tkinter import *
+from tkinter import Tk, Canvas
 from kaspersmicrobit import KaspersMicrobit
 from kaspersmicrobit.tkinter import do_in_tkinter
 from dot import Dot

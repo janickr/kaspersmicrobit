@@ -4,7 +4,7 @@
 
 from enum import Enum
 
-
+# flake8: noqa
 class Characteristic(Enum):
     """
     Lists all characteristics in the microbit GATT profile

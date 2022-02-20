@@ -125,4 +125,3 @@ class AccelerometerService:
             Het interval in milliseconden
         """
         return int.from_bytes(self._device.read(Characteristic.ACCELEROMETER_PERIOD)[0:2], "little")
-

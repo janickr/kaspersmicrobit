@@ -1,4 +1,5 @@
-from kaspersmicrobit.services.io_pin import Pin, PinValue, PwmControlData, PinIO, PinAD, PinConfiguration, PinIOConfiguration, PinADConfiguration
+from kaspersmicrobit.services.io_pin import Pin, PinValue, PwmControlData, PinIO, PinAD, PinConfiguration, \
+    PinIOConfiguration, PinADConfiguration
 
 
 class TestPinValue:

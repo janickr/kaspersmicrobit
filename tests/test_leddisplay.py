@@ -5,7 +5,7 @@ from kaspersmicrobit.services.leddisplay import LedDisplay
 
 def test_get_led_returns_true_if_led_is_on():
     image = LedDisplay.image("""
-     . # . . . 
+     . # . . .
      . . . . .
      . . . . .
      . . . . .
@@ -17,7 +17,7 @@ def test_get_led_returns_true_if_led_is_on():
 
 def test_get_led_returns_false_if_led_is_off():
     image = LedDisplay.image("""
-     . # . . . 
+     . # . . .
      . . . . .
      . . . . .
      . . . . .
@@ -45,10 +45,10 @@ def test_set_led_can_turn_led_off():
 
 def test_can_choose_characters_for_on_and_off_leds():
     image = LedDisplay.image("""
- 0 1 0 1 0 
- 1 1 1 1 1 
- 1 1 1 1 1 
- 0 1 1 1 0 
+ 0 1 0 1 0
+ 1 1 1 1 1
+ 1 1 1 1 1
+ 0 1 1 1 0
  0 0 1 0 0
 """, on='1', off='0')
 
@@ -63,7 +63,7 @@ def test_can_choose_characters_for_on_and_off_leds():
 
 def test_to_bytes_each_led_row_is_a_byte():
     image = LedDisplay.image("""
-     . # . . . 
+     . # . . .
      . . # . .
      # . # . .
      . . . # .
@@ -87,10 +87,10 @@ def test_from_bytes_each_led_row_is_a_byte():
 
 def test_roundtrip_from_string_to_bytes_new_image_from_bytes_back_to_string_should_be_equal_string():
     image1 = LedDisplay.image("""
- . # . # . 
- # # # # # 
- # # # # # 
- . # # # . 
+ . # . # .
+ # # # # #
+ # # # # #
+ . # # # .
  . . # . .
 """)
 
@@ -107,21 +107,20 @@ def test_roundtrip_from_string_to_bytes_new_image_from_bytes_back_to_string_shou
 def test_image_should_not_have_less_than_25_leds():
     with pytest.raises(ValueError, match="Image should contain 25 LEDs"):
         LedDisplay.image("""
-               . . . . 
-             . . . . . 
-             . . . . . 
-             . . . . . 
-             . . . . . 
+               . . . .
+             . . . . .
+             . . . . .
+             . . . . .
+             . . . . .
             """)
 
 
 def test_image_should_not_have_more_than_25_leds():
     with pytest.raises(ValueError, match="Image should contain 25 LEDs"):
         LedDisplay.image("""
-             . . . . . 
-             . . . . . 
-             . . . . . 
-             . . . . . 
+             . . . . .
+             . . . . .
+             . . . . .
+             . . . . .
              . . . . . .
             """)
-

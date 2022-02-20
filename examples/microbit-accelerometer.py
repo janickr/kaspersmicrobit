@@ -10,6 +10,7 @@ from kaspersmicrobit.services.accelerometer import AccelerometerData
 MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
 # example {
 
+
 def accelerometer_data(data: AccelerometerData):
     print(f"Accelerometer data: {data}")
 

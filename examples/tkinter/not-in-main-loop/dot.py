@@ -26,4 +26,3 @@ class Dot:
     def hide(self, event):
         print("hide called")
         self._show = False
-

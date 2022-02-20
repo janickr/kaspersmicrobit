@@ -4,7 +4,7 @@
 
 from enum import Enum
 
-
+# flake8: noqa
 class Service(Enum):
     """
     Lists all services that could be offered by the microbit

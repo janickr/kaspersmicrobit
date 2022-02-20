@@ -36,7 +36,7 @@ def _start_consuming_events(tk, event_queue: _Queue, callback: Callable[[Any], N
     tk.after(delay_in_ms, lambda: _consume_event(tk, event_queue, callback, delay_in_ms))
 
 
-def do_in_tkinter(tk, callback: Callable[[Any],None], delay_in_ms: int = 10):
+def do_in_tkinter(tk, callback: Callable[[Any], None], delay_in_ms: int = 10):
     queue = _Queue()
     tk.after(delay_in_ms, lambda: _start_consuming_events(tk, queue, callback, delay_in_ms))
     return queue.append

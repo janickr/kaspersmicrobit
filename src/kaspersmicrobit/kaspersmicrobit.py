@@ -124,4 +124,3 @@ class KaspersMicrobit:
         Je moet verbonden zijn met deze microbit om deze methode succesvol te kunnen oproepen.
         """
         self._device.disconnect()
-

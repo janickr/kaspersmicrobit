@@ -186,6 +186,3 @@ class MagnetometerService:
         calibration = Calibration(future)
         self._calibration = calibration
         return calibration
-
-
-

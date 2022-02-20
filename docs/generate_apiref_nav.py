@@ -7,7 +7,7 @@ import mkdocs_gen_files
 nav = mkdocs_gen_files.Nav()
 
 
-def sort_most_important_first(path:Path):
+def sort_most_important_first(path: Path):
     if path.name == 'kaspersmicrobit.py':
         return Path("_1", path)
     elif path.parts[2] == 'services':
@@ -16,6 +16,7 @@ def sort_most_important_first(path:Path):
         return Path("_3", path)
     else:
         return path
+
 
 paths = sorted(Path("src").glob("**/*.py"), key=sort_most_important_first)
 

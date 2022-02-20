@@ -108,515 +108,515 @@ class LedDisplay:
 
 class Image:
     HEART: LedDisplay = LedDisplay.image("""
-        . # . # . 
-        # # # # # 
-        # # # # # 
-        . # # # . 
+        . # . # .
+        # # # # #
+        # # # # #
+        . # # # .
         . . # . .
     """)
 
     HEART_SMALL: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . # . # . 
-        . # # # . 
-        . . # . . 
+        . . . . .
+        . # . # .
+        . # # # .
+        . . # . .
         . . . . .
     """)
 
     HAPPY: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . # . # . 
-        . . . . . 
-        # . . . # 
+        . . . . .
+        . # . # .
+        . . . . .
+        # . . . #
         . # # # .
     """)
 
     SMILE: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . . . . . 
-        . . . . . 
-        # . . . # 
+        . . . . .
+        . . . . .
+        . . . . .
+        # . . . #
         . # # # .
     """)
 
     SAD: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . # . # . 
-        . . . . . 
-        . # # # . 
+        . . . . .
+        . # . # .
+        . . . . .
+        . # # # .
         # . . . #
     """)
 
     CONFUSED: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . # . # . 
-        . . . . . 
-        . # . # . 
+        . . . . .
+        . # . # .
+        . . . . .
+        . # . # .
         # . # . #
     """)
 
     ANGRY: LedDisplay = LedDisplay.image("""
-        # . . . # 
-        . # . # . 
-        . . . . . 
-        # # # # # 
+        # . . . #
+        . # . # .
+        . . . . .
+        # # # # #
         # . # . #
     """)
 
     ASLEEP: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        # # . # # 
-        . . . . . 
-        . # # # . 
+        . . . . .
+        # # . # #
+        . . . . .
+        . # # # .
         . . . . .
     """)
 
     SURPRISED: LedDisplay = LedDisplay.image("""
-        . # . # . 
-        . . . . . 
-        . . # . . 
-        . # . # . 
+        . # . # .
+        . . . . .
+        . . # . .
+        . # . # .
         . . # . .
     """)
 
     SILLY: LedDisplay = LedDisplay.image("""
-        # . . . # 
-        . . . . . 
-        # # # # # 
-        . . # . # 
+        # . . . #
+        . . . . .
+        # # # # #
+        . . # . #
         . . # # #
     """)
 
     FABULOUS: LedDisplay = LedDisplay.image("""
-        # # # # # 
-        # # . # # 
-        . . . . . 
-        . # . # . 
+        # # # # #
+        # # . # #
+        . . . . .
+        . # . # .
         . # # # .
     """)
 
     MEH: LedDisplay = LedDisplay.image("""
-        . # . # . 
-        . . . . . 
-        . . . # . 
-        . . # . . 
+        . # . # .
+        . . . . .
+        . . . # .
+        . . # . .
         . # . . .
     """)
 
     YES: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . . . . # 
-        . . . # . 
-        # . # . . 
+        . . . . .
+        . . . . #
+        . . . # .
+        # . # . .
         . # . . .
     """)
 
     NO: LedDisplay = LedDisplay.image("""
-        # . . . # 
-        . # . # . 
-        . . # . . 
-        . # . # . 
+        # . . . #
+        . # . # .
+        . . # . .
+        . # . # .
         # . . . #
     """)
 
     CLOCK12: LedDisplay = LedDisplay.image("""
-        . . # . . 
-        . . # . . 
-        . . # . . 
-        . . . . . 
+        . . # . .
+        . . # . .
+        . . # . .
+        . . . . .
         . . . . .
     """)
 
     CLOCK1: LedDisplay = LedDisplay.image("""
-        . . . # . 
-        . . . # . 
-        . . # . . 
-        . . . . . 
+        . . . # .
+        . . . # .
+        . . # . .
+        . . . . .
         . . . . .
     """)
 
     CLOCK2: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . . . # # 
-        . . # . . 
-        . . . . . 
+        . . . . .
+        . . . # #
+        . . # . .
+        . . . . .
         . . . . .
     """)
 
     CLOCK3: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . . . . . 
-        . . # # # 
-        . . . . . 
+        . . . . .
+        . . . . .
+        . . # # #
+        . . . . .
         . . . . .
     """)
 
     CLOCK4: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . . . . . 
-        . . # . . 
-        . . . # # 
+        . . . . .
+        . . . . .
+        . . # . .
+        . . . # #
         . . . . .
     """)
 
     CLOCK5: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . . . . . 
-        . . # . . 
-        . . . # . 
+        . . . . .
+        . . . . .
+        . . # . .
+        . . . # .
         . . . # .
     """)
 
     CLOCK6: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . . . . . 
-        . . # . . 
-        . . # . . 
+        . . . . .
+        . . . . .
+        . . # . .
+        . . # . .
         . . # . .
     """)
 
     CLOCK7: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . . . . . 
-        . . # . . 
-        . # . . . 
+        . . . . .
+        . . . . .
+        . . # . .
+        . # . . .
         . # . . .
     """)
 
     CLOCK8: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . . . . . 
-        . . # . . 
-        # # . . . 
+        . . . . .
+        . . . . .
+        . . # . .
+        # # . . .
         . . . . .
     """)
 
     CLOCK9: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . . . . . 
-        # # # . . 
-        . . . . . 
+        . . . . .
+        . . . . .
+        # # # . .
+        . . . . .
         . . . . .
     """)
 
     CLOCK10: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        # # . . . 
-        . . # . . 
-        . . . . . 
+        . . . . .
+        # # . . .
+        . . # . .
+        . . . . .
         . . . . .
     """)
 
     CLOCK11: LedDisplay = LedDisplay.image("""
-        . # . . . 
-        . # . . . 
-        . . # . . 
-        . . . . . 
+        . # . . .
+        . # . . .
+        . . # . .
+        . . . . .
         . . . . .
     """)
 
     ARROW_N: LedDisplay = LedDisplay.image("""
-        . . # . . 
-        . # # # . 
-        # . # . # 
-        . . # . . 
+        . . # . .
+        . # # # .
+        # . # . #
+        . . # . .
         . . # . .
     """)
 
     ARROW_NE: LedDisplay = LedDisplay.image("""
-        . . # # # 
-        . . . # # 
-        . . # . # 
-        . # . . . 
+        . . # # #
+        . . . # #
+        . . # . #
+        . # . . .
         # . . . .
     """)
 
     ARROW_E: LedDisplay = LedDisplay.image("""
-        . . # . . 
-        . . . # . 
-        # # # # # 
-        . . . # . 
+        . . # . .
+        . . . # .
+        # # # # #
+        . . . # .
         . . # . .
     """)
 
     ARROW_SE: LedDisplay = LedDisplay.image("""
-        # . . . . 
-        . # . . . 
-        . . # . # 
-        . . . # # 
+        # . . . .
+        . # . . .
+        . . # . #
+        . . . # #
         . . # # #
     """)
 
     ARROW_S: LedDisplay = LedDisplay.image("""
-        . . # . . 
-        . . # . . 
-        # . # . # 
-        . # # # . 
+        . . # . .
+        . . # . .
+        # . # . #
+        . # # # .
         . . # . .
     """)
 
     ARROW_SW: LedDisplay = LedDisplay.image("""
-        . . . . # 
-        . . . # . 
-        # . # . . 
-        # # . . . 
+        . . . . #
+        . . . # .
+        # . # . .
+        # # . . .
         # # # . .
     """)
 
     ARROW_W: LedDisplay = LedDisplay.image("""
-        . . # . . 
-        . # . . . 
-        # # # # # 
-        . # . . . 
+        . . # . .
+        . # . . .
+        # # # # #
+        . # . . .
         . . # . .
     """)
 
     ARROW_NW: LedDisplay = LedDisplay.image("""
-        # # # . . 
-        # # . . . 
-        # . # . . 
-        . . . # . 
+        # # # . .
+        # # . . .
+        # . # . .
+        . . . # .
         . . . . #
     """)
 
     TRIANGLE: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . . # . . 
-        . # . # . 
-        # # # # # 
+        . . . . .
+        . . # . .
+        . # . # .
+        # # # # #
         . . . . .
     """)
 
     TRIANGLE_LEFT: LedDisplay = LedDisplay.image("""
-        # . . . . 
-        # # . . . 
-        # . # . . 
-        # . . # . 
+        # . . . .
+        # # . . .
+        # . # . .
+        # . . # .
         # # # # #
     """)
 
     CHESSBOARD: LedDisplay = LedDisplay.image("""
-        . # . # . 
-        # . # . # 
-        . # . # . 
-        # . # . # 
+        . # . # .
+        # . # . #
+        . # . # .
+        # . # . #
         . # . # .
     """)
 
     DIAMOND: LedDisplay = LedDisplay.image("""
-        . . # . . 
-        . # . # . 
-        # . . . # 
-        . # . # . 
+        . . # . .
+        . # . # .
+        # . . . #
+        . # . # .
         . . # . .
     """)
 
     DIAMOND_SMALL: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . . # . . 
-        . # . # . 
-        . . # . . 
+        . . . . .
+        . . # . .
+        . # . # .
+        . . # . .
         . . . . .
     """)
 
     SQUARE: LedDisplay = LedDisplay.image("""
-        # # # # # 
-        # . . . # 
-        # . . . # 
-        # . . . # 
+        # # # # #
+        # . . . #
+        # . . . #
+        # . . . #
         # # # # #
     """)
 
     SQUARE_SMALL: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . # # # . 
-        . # . # . 
-        . # # # . 
+        . . . . .
+        . # # # .
+        . # . # .
+        . # # # .
         . . . . .
     """)
 
     RABBIT: LedDisplay = LedDisplay.image("""
-        # . # . . 
-        # . # . . 
-        # # # # . 
-        # # . # . 
+        # . # . .
+        # . # . .
+        # # # # .
+        # # . # .
         # # # # .
     """)
 
     COW: LedDisplay = LedDisplay.image("""
-        # . . . # 
-        # . . . # 
-        # # # # # 
-        . # # # . 
+        # . . . #
+        # . . . #
+        # # # # #
+        . # # # .
         . . # . .
     """)
 
     MUSIC_CROTCHET: LedDisplay = LedDisplay.image("""
-        . . # . . 
-        . . # . . 
-        . . # . . 
-        # # # . . 
+        . . # . .
+        . . # . .
+        . . # . .
+        # # # . .
         # # # . .
     """)
 
     MUSIC_QUAVER: LedDisplay = LedDisplay.image("""
-        . . # . . 
-        . . # # . 
-        . . # . # 
-        # # # . . 
+        . . # . .
+        . . # # .
+        . . # . #
+        # # # . .
         # # # . .
     """)
 
     MUSIC_QUAVERS: LedDisplay = LedDisplay.image("""
-        . # # # # 
-        . # . . # 
-        . # . . # 
-        # # . # # 
+        . # # # #
+        . # . . #
+        . # . . #
+        # # . # #
         # # . # #
     """)
 
     PITCHFORK: LedDisplay = LedDisplay.image("""
-        # . # . # 
-        # . # . # 
-        # # # # # 
-        . . # . . 
+        # . # . #
+        # . # . #
+        # # # # #
+        . . # . .
         . . # . .
     """)
 
     XMAS: LedDisplay = LedDisplay.image("""
-        . . # . . 
-        . # # # . 
-        . . # . . 
-        . # # # . 
+        . . # . .
+        . # # # .
+        . . # . .
+        . # # # .
         # # # # #
     """)
 
     PACMAN: LedDisplay = LedDisplay.image("""
-        . # # # # 
-        # # . # . 
-        # # # . . 
-        # # # # . 
+        . # # # #
+        # # . # .
+        # # # . .
+        # # # # .
         . # # # #
     """)
 
     TARGET: LedDisplay = LedDisplay.image("""
-        . . # . . 
-        . # # # . 
-        # # . # # 
-        . # # # . 
+        . . # . .
+        . # # # .
+        # # . # #
+        . # # # .
         . . # . .
     """)
 
     # The following images were designed by Abbie Brooks.
 
     TSHIRT: LedDisplay = LedDisplay.image("""
-        # # . # # 
-        # # # # # 
-        . # # # . 
-        . # # # . 
+        # # . # #
+        # # # # #
+        . # # # .
+        . # # # .
         . # # # .
     """)
 
     ROLLERSKATE: LedDisplay = LedDisplay.image("""
-        . . . # # 
-        . . . # # 
-        # # # # # 
-        # # # # # 
+        . . . # #
+        . . . # #
+        # # # # #
+        # # # # #
         . # . # .
     """)
 
     DUCK: LedDisplay = LedDisplay.image("""
-        . # # . . 
-        # # # . . 
-        . # # # # 
-        . # # # . 
+        . # # . .
+        # # # . .
+        . # # # #
+        . # # # .
         . . . . .
     """)
 
     HOUSE: LedDisplay = LedDisplay.image("""
-        . . # . . 
-        . # # # . 
-        # # # # # 
-        . # # # . 
+        . . # . .
+        . # # # .
+        # # # # #
+        . # # # .
         . # . # .
     """)
 
     TORTOISE: LedDisplay = LedDisplay.image("""
-        . . . . . 
-        . # # # . 
-        # # # # # 
-        . # . # . 
+        . . . . .
+        . # # # .
+        # # # # #
+        . # . # .
         . . . . .
     """)
 
     BUTTERFLY: LedDisplay = LedDisplay.image("""
-        # # . # # 
-        # # # # # 
-        . . # . . 
-        # # # # # 
+        # # . # #
+        # # # # #
+        . . # . .
+        # # # # #
         # # . # #
     """)
 
     STICKFIGURE: LedDisplay = LedDisplay.image("""
-        . . # . . 
-        # # # # # 
-        . . # . . 
-        . # . # . 
+        . . # . .
+        # # # # #
+        . . # . .
+        . # . # .
         # . . . #
     """)
 
     GHOST: LedDisplay = LedDisplay.image("""
-        # # # # # 
-        # . # . # 
-        # # # # # 
-        # # # # # 
+        # # # # #
+        # . # . #
+        # # # # #
+        # # # # #
         # . # . #
     """)
 
     SWORD: LedDisplay = LedDisplay.image("""
-        . . # . . 
-        . . # . . 
-        . . # . . 
-        . # # # . 
+        . . # . .
+        . . # . .
+        . . # . .
+        . # # # .
         . . # . .
     """)
 
     GIRAFFE: LedDisplay = LedDisplay.image("""
-        # # . . . 
-        . # . . . 
-        . # . . . 
-        . # # # . 
+        # # . . .
+        . # . . .
+        . # . . .
+        . # # # .
         . # . # .
     """)
 
     SKULL: LedDisplay = LedDisplay.image("""
-        . # # # . 
-        # . # . # 
-        # # # # # 
-        . # # # . 
+        . # # # .
+        # . # . #
+        # # # # #
+        . # # # .
         . # # # .
     """)
 
     UMBRELLA: LedDisplay = LedDisplay.image("""
-        . # # # . 
-        # # # # # 
-        . . # . . 
-        # . # . . 
+        . # # # .
+        # # # # #
+        . . # . .
+        # . # . .
         . # # . .
     """)
 
     SNAKE: LedDisplay = LedDisplay.image("""
-        # # . . . 
-        # # . # # 
-        . # . # . 
-        . # # # . 
+        # # . . .
+        # # . # #
+        . # . # .
+        . # # # .
         . . . . .
     """)
 
     SCISSORS: LedDisplay = LedDisplay.image("""
-        # # . . # 
-        # # . # . 
-        . . # . . 
-        # # . # . 
+        # # . . #
+        # # . # .
+        . . # . .
+        # # . # .
         # # . . #
     """)
