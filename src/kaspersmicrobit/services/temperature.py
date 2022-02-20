@@ -14,7 +14,7 @@ class TemperatureService:
 
     Dit zijn alle mogelijkheden aangeboden door de bluetooth temperature service
 
-    See Also: https://lancaster-university.github.io/microbit-docs/ble/temperature-service//
+    See Also: https://lancaster-university.github.io/microbit-docs/ble/temperature-service/
     """
 
     def __init__(self, device: BluetoothDevice):
