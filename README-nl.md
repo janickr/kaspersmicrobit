@@ -4,7 +4,7 @@ om je [bbc micro:bit](https://microbit.org/) als **wireless gamecontroller** te 
 Dat kan je doen met dit python package! Pair je [micro:bit](https://microbit.org/) met bluetooth aan je computer en 
 **gebruik de A en B knoppen of de accelerometer om je spel te besturen**. Like it? Geef ons een ster op github
 
-
+[![Lint and Test](https://github.com/janickr/kaspersmicrobit/actions/workflows/lint_and_test.yml/badge.svg)](https://github.com/janickr/kaspersmicrobit/actions/workflows/lint_and_test.yml)
 [![Documentation Status](https://readthedocs.org/projects/kaspersmicrobit/badge/?version=latest)](https://kaspersmicrobit.readthedocs.io/en/latest/?badge=latest) 
 [![PyPi](https://img.shields.io/pypi/v/kaspersmicrobit)](https://pypi.org/project/kaspersmicrobit/) 
 [![Nederlands](https://img.shields.io/badge/translation-English-blue)](https://github.com/janickr/kaspersmicrobit/blob/main/README.md)

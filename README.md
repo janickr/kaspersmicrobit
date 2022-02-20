@@ -4,6 +4,7 @@ So you finished [Python for kids](https://nostarch.com/pythonforkids)? Wouldn't 
 this python package! Pair your [micro:bit](https://microbit.org/) to your computer with bluetooth and **use buttons A 
 and B or the accelerometer to control your game**. Like it? Give us a :star: on github!
 
+[![Lint and Test](https://github.com/janickr/kaspersmicrobit/actions/workflows/lint_and_test.yml/badge.svg)](https://github.com/janickr/kaspersmicrobit/actions/workflows/lint_and_test.yml)
 [![Documentation Status](https://readthedocs.org/projects/kaspersmicrobit/badge/?version=latest)](https://kaspersmicrobit.readthedocs.io/en/latest/?badge=latest) 
 [![PyPi](https://img.shields.io/pypi/v/kaspersmicrobit)](https://pypi.org/project/kaspersmicrobit/)
 [![Nederlands](https://img.shields.io/badge/vertaling-Nederlands-blue)](https://github.com/janickr/kaspersmicrobit/blob/main/README-nl.md)
