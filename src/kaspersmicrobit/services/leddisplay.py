@@ -11,7 +11,7 @@ class LedDisplay:
     """
     def __init__(self, _bytes: bytearray = None):
         """
-        Maakt Leds met alle leds uit
+        Maakt display met alle leds uit
         """
         self._display = _bytes if _bytes else bytearray(5)
 
@@ -45,7 +45,7 @@ class LedDisplay:
         else:
             self._display[row-1] &= ~(1 << (5 - column))
 
-    def to_bytes(self):
+    def to_bytes(self) -> bytearray:
         return self._display
 
     @staticmethod

@@ -243,7 +243,7 @@ class Characteristic(Enum):
     Read Mandatory
     Write Mandatory
     Fields
-    1. Pin_AD_Config_Value : uint24
+    1. Pin_AD_Config_Value : uint32
     """
 
     PIN_IO_CONFIGURATION = 'E95DB9FE-251D-470A-A062-FA1922DFA9A8'
@@ -262,7 +262,7 @@ class Characteristic(Enum):
     Read Mandatory
     Write Mandatory
     Fields
-    1. Pin_IO_Config_Value : uint24
+    1. Pin_IO_Config_Value : uint32
     """
 
     PWM_CONTROL = 'E95DD822-251D-470A-A062-FA1922DFA9A8'
