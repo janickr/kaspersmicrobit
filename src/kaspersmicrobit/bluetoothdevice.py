@@ -3,7 +3,7 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 import concurrent.futures
 from abc import ABCMeta, abstractmethod
-from typing import Union
+from typing import Union, Callable
 from bleak import BleakClient
 import asyncio
 from threading import Thread
@@ -80,11 +80,11 @@ class BluetoothDevice:
         self.loop.run_async(self.client.write_gatt_char(characteristic.value, data)).result()
         print("written")
 
-    def notify(self, characteristic: Characteristic, callback) -> None:
-        def wrap_try_catch(fn):
-            def suggest_do_in_tkinter(*arg):
+    def notify(self, characteristic: Characteristic, callback: Callable[[int, bytearray], None]) -> None:
+        def wrap_try_catch(fn: Callable[[int, bytearray], None]):
+            def suggest_do_in_tkinter(sender: int, data: bytearray):
                 try:
-                    callback(*arg)
+                    fn(sender, data)
                 except RuntimeError as e:
                     message, = e.args
                     if message == "main thread is not in main loop":
