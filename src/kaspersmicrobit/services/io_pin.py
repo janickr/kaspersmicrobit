@@ -11,8 +11,9 @@ from ..bluetoothprofile.characteristics import Characteristic
 
 class Pin(IntEnum):
     """
-    De pins beschikbaar voor configuratie en uitlezen vie de io pin service.
-    pin 17 en 18 zijn niet beschikbaar
+    De pins beschikbaar voor configuratie en uitlezen via de io pin service.
+
+    Pins 17 en 18 zijn niet beschikbaar
     """
     P0 = 0
     P1 = 1
@@ -184,7 +185,9 @@ class IOPinService:
     Dit zijn alle mogelijkheden aangeboden door de bluetooth io pin service
 
     See Also: https://tech.microbit.org/hardware/edgeconnector/
+
     See Also: https://www.micro-bit.nl/kennisbank-pinnen
+
     See Also: https://lancaster-university.github.io/microbit-docs/ble/iopin-service/
     """
 
@@ -267,7 +270,9 @@ class IOPinService:
     def write_pwm_control_data(self, pwm_control1: PwmControlData, pwm_control2: PwmControlData = None):
         """
         Schrijft Pulse Width Modulation opdrachten naar de microbit. 1 of 2 opdrachten kunnen tegelijk gegeven worden
+
         See Also: https://microbit-micropython.readthedocs.io/en/latest/pin.html
+
         See Also: https://www.micro-bit.nl/kennisbank-pinnen
 
         Args:

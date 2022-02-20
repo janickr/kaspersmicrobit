@@ -77,6 +77,7 @@ class AccelerometerService:
     Dit zijn alle mogelijkheden aangeboden door de accelerometer bluetooth service
 
     See Also: https://lancaster-university.github.io/microbit-docs/ble/accelerometer-service/
+
     See Also: https://lancaster-university.github.io/microbit-docs/ubit/accelerometer/
     """
     def __init__(self, device: BluetoothDevice):

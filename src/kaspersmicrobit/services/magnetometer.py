@@ -85,6 +85,7 @@ class MagnetometerService:
     Dit zijn alle mogelijkheden aangeboden door de bluetooth magnetometer service
 
     See Also: https://lancaster-university.github.io/microbit-docs/ble/magnetometer-service/
+
     See Also: https://lancaster-university.github.io/microbit-docs/ubit/compass/
     """
     def __init__(self, device: BluetoothDevice):

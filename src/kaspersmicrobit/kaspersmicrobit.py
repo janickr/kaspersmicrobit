@@ -74,6 +74,7 @@ class KaspersMicrobit:
 
 
     See Also: https://makecode.microbit.org/reference/bluetooth
+
     See Also: https://makecode.microbit.org/device
     """
 
