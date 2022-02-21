@@ -31,7 +31,6 @@ class ThreadEventLoop(BluetoothEventLoop):
 
     @staticmethod
     def _start_background_loop(loop: asyncio.AbstractEventLoop) -> None:
-        asyncio.set_event_loop(loop)
         loop.run_forever()
 
     def run_async(self, coroutine) -> concurrent.futures.Future:
@@ -101,14 +100,17 @@ class BluetoothDevice:
         print("notify")
 
     def wait_for(self, characteristic: Characteristic) -> concurrent.futures.Future[ByteData]:
-        future = self.loop.create_future()
+        asyncio_future = self.loop.create_future()
+
+        def set_result_and_stop_notify(sender, data):
+            asyncio_future.set_result(data)
+            self.client.stop_notify(characteristic.value)
 
         print("wait-for notify")
-        self.loop.run_async(self.client.start_notify(characteristic.value,
-                                                     lambda sender, data: future.set_result(data))).result()
+        self.loop.run_async(self.client.start_notify(characteristic.value, set_result_and_stop_notify )).result()
 
         async def await_future():
-            return await future
+            return await asyncio_future
 
         print("wait-for future")
         return self.loop.run_async(await_future())
