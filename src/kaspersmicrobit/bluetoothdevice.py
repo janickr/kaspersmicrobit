@@ -1,13 +1,16 @@
 #  This Source Code Form is subject to the terms of the Mozilla Public
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+import asyncio
 import concurrent.futures
+import logging
 from abc import ABCMeta, abstractmethod
 from typing import Union, Callable
 from bleak import BleakClient
-import asyncio
 from threading import Thread
 from .bluetoothprofile.characteristics import Characteristic
+
+logger = logging.getLogger(__name__)
 
 ByteData = Union[bytes, bytearray, memoryview]
 
@@ -61,25 +64,25 @@ class BluetoothDevice:
         self.disconnect()
 
     def connect(self) -> None:
-        print("connecting")
+        logger.info("Connecting...")
         self.loop.run_async(self.client.connect()).result()
-        print("connected")
+        logger.info("Connected")
 
     def disconnect(self) -> None:
-        print("disconnecting")
+        logger.info("Disconnecting...")
         self.loop.run_async(self.client.disconnect()).result()
-        print("disconnected")
+        logger.info("Disconnected")
 
     def read(self, characteristic: Characteristic) -> bytearray:
-        print("reading")
+        logger.info("Reading %s", characteristic)
         result = self.loop.run_async(self.client.read_gatt_char(characteristic.value)).result()
-        print("read")
+        logger.info("Read %s, data=%s", characteristic, result)
         return result
 
     def write(self, characteristic: Characteristic, data: ByteData) -> None:
-        print("writing")
+        logger.info("Writing %s, data=%s", characteristic, data)
         self.loop.run_async(self.client.write_gatt_char(characteristic.value, data)).result()
-        print("written")
+        logger.info("Written %s", characteristic)
 
     def notify(self, characteristic: Characteristic, callback: Callable[[int, bytearray], None]) -> None:
         def wrap_try_catch(fn: Callable[[int, bytearray], None]):
@@ -96,8 +99,9 @@ class BluetoothDevice:
                     raise e
             return suggest_do_in_tkinter
 
+        logger.info("Enable notify %s", characteristic)
         self.loop.run_async(self.client.start_notify(characteristic.value, wrap_try_catch(callback))).result()
-        print("notify")
+        logger.info("Enabled notify %s", characteristic)
 
     def wait_for(self, characteristic: Characteristic) -> concurrent.futures.Future[ByteData]:
         asyncio_future = self.loop.create_future()
@@ -105,12 +109,12 @@ class BluetoothDevice:
         def set_result_and_stop_notify(sender, data):
             asyncio_future.set_result(data)
             self.client.stop_notify(characteristic.value)
+            logger.info("Stopped waiting for notify %s data received=%s", characteristic, data)
 
-        print("wait-for notify")
-        self.loop.run_async(self.client.start_notify(characteristic.value, set_result_and_stop_notify )).result()
+        logger.info("Wait for notify %s", characteristic)
+        self.loop.run_async(self.client.start_notify(characteristic.value, set_result_and_stop_notify)).result()
 
         async def await_future():
             return await asyncio_future
 
-        print("wait-for future")
         return self.loop.run_async(await_future())

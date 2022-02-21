@@ -1,11 +1,13 @@
 #  This Source Code Form is subject to the terms of the Mozilla Public
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
+import logging
 import time
 
 from kaspersmicrobit import KaspersMicrobit
 from kaspersmicrobit.services.magnetometer import MagnetometerData
+
+logging.basicConfig(level=logging.INFO)
 
 MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
 # example {
