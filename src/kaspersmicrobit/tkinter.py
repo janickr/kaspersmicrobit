@@ -8,9 +8,9 @@ class _Queue:
         self._deque = deque()
         self._active = Event()
 
-    def append(self, e):
+    def append(self, item):
         if self._active.is_set():
-            self._deque.append(e)
+            self._deque.append(item)
 
     def offer(self):
         try:
@@ -23,10 +23,10 @@ class _Queue:
 
 
 def _consume_event(tk, event_queue: _Queue, callback: Callable[[Any], None], delay_in_ms: int):
-    e = event_queue.offer()
-    while e:
-        callback(e)
-        e = event_queue.offer()
+    event = event_queue.offer()
+    while event:
+        callback(event)
+        event = event_queue.offer()
 
     tk.after(delay_in_ms, lambda: _consume_event(tk, event_queue, callback, delay_in_ms))
 
@@ -54,7 +54,7 @@ def do_in_tkinter(tk, callback: Callable[[Any], None], delay_in_ms: int = 10) ->
         delay_in_ms (int): het interval waarop Tk nakijkt of er nieuwe data is
 
     Returns (Callable[[Any], None]):
-        een nieuwe callback functie die ervoorzorgt dat de gegeven callback functie laat uitvoeren op de Tk thread
+        een nieuwe callback functie die ervoor zorgt dat de gegeven callback functie laat uitvoeren op de Tk thread
     """
     queue = _Queue()
     tk.after(delay_in_ms, lambda: _start_consuming_events(tk, queue, callback, delay_in_ms))
