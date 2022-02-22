@@ -1,47 +1,52 @@
-from unittest.mock import patch, ANY
+from unittest.mock import patch
 
 import pytest
 from kaspersmicrobit.bluetoothdevice import BluetoothDevice, ThreadEventLoop
 from kaspersmicrobit.bluetoothprofile.characteristics import Characteristic
 
 
-def test_client_is_created_with_address():
-    device = BluetoothDevice("address")
+@pytest.fixture
+def client():
+    with patch('kaspersmicrobit.bluetoothdevice.BleakClient', autospec=True) as client_type:
+        yield client_type.return_value
 
-    assert device.client.address == "address"
 
+def test_connect(client):
+    client.connect.return_value = None
 
-@patch('kaspersmicrobit.bluetoothdevice.BleakClient.connect', autospec=True)
-def test_connect(connect):
     BluetoothDevice("address").connect()
 
-    connect.assert_called_with(ANY)
+    client.connect.assert_called_with()
 
 
-@patch('kaspersmicrobit.bluetoothdevice.BleakClient.disconnect', autospec=True)
-def test_disconnect(disconnect):
+def test_disconnect(client):
+    client.disconnect.return_value = None
+
     BluetoothDevice("address").disconnect()
 
-    disconnect.assert_called_with(ANY)
+    client.disconnect.assert_called_with()
 
 
-@patch('kaspersmicrobit.bluetoothdevice.BleakClient.read_gatt_char', autospec=True, return_value=b'test device name')
-def test_read(read_gatt_char):
+def test_read(client):
+    client.read_gatt_char.return_value = b'test device name'
+
     read_result = BluetoothDevice("address").read(Characteristic.DEVICE_NAME)
 
-    read_gatt_char.assert_called_with(ANY, Characteristic.DEVICE_NAME.value)
+    client.read_gatt_char.assert_called_with(Characteristic.DEVICE_NAME.value)
+
     assert read_result == b'test device name'
 
 
-@patch('kaspersmicrobit.bluetoothdevice.BleakClient.write_gatt_char', autospec=True)
-def test_write(write_gatt_char):
+def test_write(client):
+    client.write_gatt_char.return_value = None
     BluetoothDevice("address").write(Characteristic.DEVICE_NAME, b'test device name')
 
-    write_gatt_char.assert_called_with(ANY, Characteristic.DEVICE_NAME.value, b'test device name')
+    client.write_gatt_char.assert_called_with(Characteristic.DEVICE_NAME.value, b'test device name')
+    client.write_gatt_char.assert_awaited()
 
 
-@patch('kaspersmicrobit.bluetoothdevice.BleakClient.start_notify', autospec=True)
-def test_notify(notify):
+def test_notify(client):
+    client.start_notify.return_value = None
     callback_data = None
 
     def callback(sender, data):
@@ -49,7 +54,8 @@ def test_notify(notify):
         callback_data = data
 
     BluetoothDevice("address").notify(Characteristic.TEMPERATURE, callback)
-    client, characteristic, new_callback = notify.call_args.args
+    characteristic, new_callback = client.start_notify.call_args.args
+    client.start_notify.assert_awaited()
 
     assert characteristic == Characteristic.TEMPERATURE.value
 
@@ -57,13 +63,15 @@ def test_notify(notify):
     assert callback_data == b'the data'
 
 
-@patch('kaspersmicrobit.bluetoothdevice.BleakClient.start_notify', autospec=True)
-def test_notify_suggests_do_in_tkinter_on_tk_error(notify):
+def test_notify_suggests_do_in_tkinter_on_tk_error(client):
+    client.start_notify.return_value = None
+
     def callback(sender, data):
         raise RuntimeError("main thread is not in main loop")
 
     BluetoothDevice("address").notify(Characteristic.TEMPERATURE, callback)
-    client, characteristic, new_callback = notify.call_args.args
+    characteristic, new_callback = client.start_notify.call_args.args
+    client.start_notify.assert_awaited()
 
     assert characteristic == Characteristic.TEMPERATURE.value
 
@@ -71,10 +79,11 @@ def test_notify_suggests_do_in_tkinter_on_tk_error(notify):
         new_callback(sender=-1, data=b'this should fail')
 
 
-@patch('kaspersmicrobit.bluetoothdevice.BleakClient.start_notify', autospec=True)
-def test_wait_for_calls_notify_and_blocks_until_first_notification(start_notify):
+def test_wait_for_calls_notify_and_blocks_until_first_notification(client):
+    client.start_notify.return_value = None
     future = BluetoothDevice("address").wait_for(Characteristic.MAGNETOMETER_CALIBRATION)
-    client, characteristic, callback = start_notify.call_args.args
+    characteristic, callback = client.start_notify.call_args.args
+    client.start_notify.assert_awaited()
 
     assert characteristic == Characteristic.MAGNETOMETER_CALIBRATION.value
     assert not future.done()
@@ -87,14 +96,14 @@ def test_wait_for_calls_notify_and_blocks_until_first_notification(start_notify)
     assert future.result() == b'the data you were waiting for'
 
 
-@patch('kaspersmicrobit.bluetoothdevice.BleakClient.start_notify', autospec=True)
-@patch('kaspersmicrobit.bluetoothdevice.BleakClient.stop_notify', autospec=True)
-def test_wait_for_unsubscribes_after_result_available(stop_notify, start_notify):
+def test_wait_for_unsubscribes_after_result_available(client):
+    client.start_notify.return_value = None
+    client.stop_notify.return_value = None
     future = BluetoothDevice("address").wait_for(Characteristic.MAGNETOMETER_CALIBRATION)
-    client, characteristic, callback = start_notify.call_args.args
+    characteristic, callback = client.start_notify.call_args.args
 
     assert characteristic == Characteristic.MAGNETOMETER_CALIBRATION.value
-    stop_notify.assert_not_called()
+    client.stop_notify.assert_not_called()
 
     async def call():
         callback(sender=-1, data=b'the data you were waiting for')
@@ -102,4 +111,4 @@ def test_wait_for_unsubscribes_after_result_available(stop_notify, start_notify)
     ThreadEventLoop.single_thread().run_async(call())
 
     future.result()
-    stop_notify.assert_called_with(ANY, Characteristic.MAGNETOMETER_CALIBRATION.value)
+    client.stop_notify.assert_called_with(Characteristic.MAGNETOMETER_CALIBRATION.value)
