@@ -31,7 +31,10 @@ class LedService:
         instellen via de scrolling delay.
 
         Args:
-            text: De te tonen tekst (maximum 20 characters)
+            text: De te tonen tekst (maximum 20 tekens)
+
+        Raises:
+            ValueError: indien text meer dan 20 tekens bevat
         """
         octets = text.encode("utf-8")
         if len(octets) > 20:

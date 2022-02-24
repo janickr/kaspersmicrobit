@@ -79,6 +79,9 @@ class LedDisplay:
 
         Returns (LedDisplay):
             Een LedDisplay die de gegeven string image voorstelt
+
+        Raises:
+            ValueError: Indien de gegeven string niet exact 25 on/off waarden bevat
         """
         image: List[bool] = []
         for s in string:
