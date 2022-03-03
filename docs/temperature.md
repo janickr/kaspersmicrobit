@@ -1,7 +1,7 @@
 The API documentation: 
 
-- [kaspersmicrobit.services.temperature](/reference/services/temperature/)
-- [kaspersmicrobit](/reference/kaspersmicrobit)
+- [kaspersmicrobit.services.temperature](../reference/services/temperature/)
+- [kaspersmicrobit](../reference/kaspersmicrobit)
 
 Example:
 

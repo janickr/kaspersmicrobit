@@ -1,7 +1,7 @@
 The API documentation: 
 
-- [kaspersmicrobit.services.accelerometer](/reference/services/accelerometer/)
-- [kaspersmicrobit](/reference/kaspersmicrobit)
+- [kaspersmicrobit.services.accelerometer](../reference/services/accelerometer/)
+- [kaspersmicrobit](../reference/kaspersmicrobit)
 
 Example:
 

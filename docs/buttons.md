@@ -1,7 +1,7 @@
 The API documentation: 
 
-- [kaspersmicrobit.services.buttons](/reference/services/buttons/)
-- [kaspersmicrobit](/reference/kaspersmicrobit)
+- [kaspersmicrobit.services.buttons](../reference/services/buttons/)
+- [kaspersmicrobit](../reference/kaspersmicrobit)
 
 Example:
 

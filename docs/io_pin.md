@@ -1,7 +1,7 @@
 The API documentation: 
 
-- [kaspersmicrobit.services.io_pin](/reference/services/io_pin/)
-- [kaspersmicrobit](/reference/kaspersmicrobit)
+- [kaspersmicrobit.services.io_pin](../reference/services/io_pin/)
+- [kaspersmicrobit](../reference/kaspersmicrobit)
 
 Example:
 

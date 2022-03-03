@@ -1,7 +1,7 @@
 The API documentation: 
 
-- [kaspersmicrobit.services.uart](/reference/services/uart/)
-- [kaspersmicrobit](/reference/kaspersmicrobit)
+- [kaspersmicrobit.services.uart](../reference/services/uart/)
+- [kaspersmicrobit](../reference/kaspersmicrobit)
 
 Example:
 

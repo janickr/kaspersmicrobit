@@ -1,7 +1,7 @@
 The API documentation: 
 
-- [kaspersmicrobit.services.magnetometer](/reference/services/magnetometer/)
-- [kaspersmicrobit](/reference/kaspersmicrobit)
+- [kaspersmicrobit.services.magnetometer](../reference/services/magnetometer/)
+- [kaspersmicrobit](../reference/kaspersmicrobit)
 
 Example:
 
