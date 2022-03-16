@@ -1,8 +1,7 @@
-## Download a .hex file
-To enable the Bluetooth services copy 
-
+## Option 1: Download a .hex file
+To enable the Bluetooth services copy
 [this hex file](https://github.com/janickr/kaspersmicrobit/blob/main/hex/microbit-bluetooth-all-services-active.hex) file to your microbit. The hex file was created using 
-[this makecode project](https://makecode.microbit.org/_cdLL0DH1Hc02) 
+[this makecode project](https://makecode.microbit.org/_cdLL0DH1Hc02).
 It will enable following services:
 
   - [accelerometer](../accelerometer.md)
@@ -13,7 +12,7 @@ It will enable following services:
   - [magnetometer](../magnetometer.md)
   - [uart](../uart.md)
 
-## Use MakeCode yourself
+## Option 2: Use MakeCode yourself
 You could also create the [MakeCode](https://makecode.microbit.org) project yourself:  
 
 ### Create project
