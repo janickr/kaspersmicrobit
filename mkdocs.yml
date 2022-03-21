@@ -57,6 +57,9 @@ nav:
           - Magnetometer: magnetometer.md
           - Uart: uart.md
           - I/O Pin: io_pin.md
+          - Events:
+              - micro:bit v1: events_v1.md
+              - micro:bit v2: events_v2.md
       - Tkinter examples:
           - Buttons move a rectangle: tkinter/use_buttons_to_move_rectangle.md
           - Accelerometer moves a ball: tkinter/use_accelerometer_to_move_ball.md
