@@ -54,7 +54,7 @@ with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
         Event(v2_events.DEVICE_ID_GESTURE)  # all gesture events / alle bewegings gebeurtenissen
     )
 
-    print(f"Tilt your microbit or click button A to receive events")
+    print("Tilt your microbit or click button A to receive events")
 
     time.sleep(15)
 # }

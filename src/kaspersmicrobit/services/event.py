@@ -46,4 +46,3 @@ class Event:
             result += event.to_bytes()
 
         return result
-

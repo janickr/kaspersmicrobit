@@ -8,9 +8,11 @@ from ..bluetoothdevice import BluetoothDevice
 from ..bluetoothprofile.characteristics import Characteristic
 from .event import Event
 
+
 def _for_each(list: List[Event], callback: Callable[[Event], None]):
     for event in list:
         callback(event)
+
 
 class EventService:
     """
