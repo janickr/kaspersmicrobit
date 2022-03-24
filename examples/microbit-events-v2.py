@@ -19,21 +19,20 @@ def print_events(event: Event):
 
 
 def event_to_string(event: Event):
-    match event:
-        case Event(v2_events.DEVICE_ID_BUTTON_A, v2_events.EVENT_BUTTON_CLICK):
-            return "Button A Click"
-        case Event(v2_events.DEVICE_ID_GESTURE, v2_events.EVENT_GESTURE_TILT_UP):
-            return "Tilt Up"
-        case Event(v2_events.DEVICE_ID_GESTURE, v2_events.EVENT_GESTURE_TILT_DOWN):
-            return "Tilt Down"
-        case Event(v2_events.DEVICE_ID_GESTURE, v2_events.EVENT_GESTURE_TILT_LEFT):
-            return "Tilt Left"
-        case Event(v2_events.DEVICE_ID_GESTURE, v2_events.EVENT_GESTURE_TILT_RIGHT):
-            return "Tilt Right"
-        case Event(v2_events.DEVICE_ID_GESTURE, x):
-            return f"Some gesture {x}"
-        case Event(device, value):
-            return f"Unkown {device} {value}"
+    if event == Event(v2_events.DEVICE_ID_BUTTON_A, v2_events.EVENT_BUTTON_CLICK):
+        return "Button A Click"
+    elif event == Event(v2_events.DEVICE_ID_GESTURE, v2_events.EVENT_GESTURE_TILT_UP):
+        return "Tilt Up"
+    elif event == Event(v2_events.DEVICE_ID_GESTURE, v2_events.EVENT_GESTURE_TILT_DOWN):
+        return "Tilt Down"
+    elif event == Event(v2_events.DEVICE_ID_GESTURE, v2_events.EVENT_GESTURE_TILT_LEFT):
+        return "Tilt Left"
+    elif event == Event(v2_events.DEVICE_ID_GESTURE, v2_events.EVENT_GESTURE_TILT_RIGHT):
+        return "Tilt Right"
+    elif event.device_id == v2_events.DEVICE_ID_GESTURE:
+        return f"Some gesture {event.event_value}"
+    else:
+        return f"Unkown {event.device_id} {event.event_value}"
 
 
 with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
