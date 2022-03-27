@@ -43,7 +43,7 @@ you want to use, and [pair](https://kaspersmicrobit.readthedocs.io/en/stable/blu
 to your computer.  
 
 To enable the services you can use [MakeCode](https://makecode.microbit.org) or copy
-[this hex file](https://github.com/janickr/kaspersmicrobit/blob/main/hex/microbit-bluetooth-all-services-active.hex)
+[a hex file](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/enable-bluetooth/)
 to your microbit.
 
 For detailed instructions take a look in [Getting started - Enable Bluetooth](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/enable-bluetooth/)
@@ -56,7 +56,7 @@ On https://kaspersmicrobit.readthedocs.io you can find:
  - Examples that show kaspersmicrobit in combination with tkinter 
 
 
-The same examples can also be found in the [examples](https://github.com/janickr/kaspersmicrobit/tree/main/examples) directory.
+The source code of all examples from the documentation can be found in the [examples](https://github.com/janickr/kaspersmicrobit/tree/main/examples) directory.
 
 
 ## Troubleshooting
