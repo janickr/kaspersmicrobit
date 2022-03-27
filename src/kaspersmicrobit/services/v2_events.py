@@ -1,6 +1,9 @@
 #  This Source Code Form is subject to the terms of the Mozilla Public
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+"""
+Device IDs and events ids for Microbit v2.x
+"""
 
 DEVICE_ID_BLE = 1000
 EVENT_BLE_CONNECTED = 1
@@ -128,6 +131,8 @@ DEVICE_ID_RADIO_DATA_READY = 10
 # protocol if not one of following:
 # RADIO_PROTOCOL_DATAGRAM = 1  // A simple, single frame datagram. a little like UDP but with smaller packets. :-)
 # RADIO_PROTOCOL_EVENTBUS = 2  // Transparent propogation of events from one micro:bit to another.
+
+DEVICE_ID_MULTIBUTTON_ATTACH = 11
 
 DEVICE_ID_SERIAL = 12
 EVENT_SERIAL_DELIM_MATCH = 1
