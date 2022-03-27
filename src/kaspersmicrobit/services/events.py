@@ -9,8 +9,8 @@ from ..bluetoothprofile.characteristics import Characteristic
 from .event import Event
 
 
-def _for_each(list: List[Event], callback: Callable[[Event], None]):
-    for event in list:
+def _for_each(events: List[Event], callback: Callable[[Event], None]):
+    for event in events:
         callback(event)
 
 
@@ -84,7 +84,7 @@ class EventService:
         """
         return Event.list_from_bytes(self._device.read(Characteristic.MICROBIT_EVENT))
 
-    def write_client_requirements(self, event: Event):
+    def write_client_requirements(self, *events: Event):
         """
         Met deze methode geeft je aan in welke events van de microbit je geïnteresseerd bent. Deze events kan je dan
         ontvangen met `notify_microbit_event` of uitlezen met `read_microbit_event` als ze zich voordoen.
@@ -93,17 +93,19 @@ class EventService:
         event van het gegeven device_id
 
         Args:
-            event (Event): een event die je wil ontvangen van de microbit
+            *events (Event): de events die je wil ontvangen van de microbit
         """
-        self._device.write(Characteristic.CLIENT_REQUIREMENTS, event.to_bytes())
+        for event in events:
+            self._device.write(Characteristic.CLIENT_REQUIREMENTS, event.to_bytes())
 
-    def write_client_event(self, event: Event):
+    def write_client_event(self, *events: Event):
         """
-        Met deze methode zend je een event naar de microbit. Hiermee kan je de microbit op de hoogte houden van events die
-        zich voordoen in je applicatie. Zend enkel events waarvan de microbit heet aangegeven ze te willen ontvangen
+        Met deze methode zend je events naar de microbit. Hiermee kan je de microbit op de hoogte houden van events die
+        zich voordoen in je applicatie. Zend enkel events waarvan de microbit heeft aangegeven ze te willen ontvangen
         door `notify_microbit_requirements` of `read_microbit_requirements`
 
         Args:
-           event (Event): een event die je wil verzenden naar de microbit
+           *events (Event): de events die je wil verzenden naar de microbit
         """
-        self._device.write(Characteristic.CLIENT_EVENT, event.to_bytes())
+        for event in events:
+            self._device.write(Characteristic.CLIENT_EVENT, event.to_bytes())

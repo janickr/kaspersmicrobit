@@ -44,12 +44,8 @@ with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
     microbit.events.write_client_requirements(
         # listen to listeners added to the message bus /
         # luister naar het toevoegen van event listeners aan de message bus
-        Event(v1_events.DEVICE_ID_MESSAGE_BUS_LISTENER)
-    )
-    microbit.events.write_client_requirements(
-        Event(v1_events.DEVICE_ID_BUTTON_A, v1_events.EVENT_BUTTON_CLICK)  # Button A clicks / Knop A klikken
-    )
-    microbit.events.write_client_requirements(
+        Event(v1_events.DEVICE_ID_MESSAGE_BUS_LISTENER),
+        Event(v1_events.DEVICE_ID_BUTTON_A, v1_events.EVENT_BUTTON_CLICK),  # Button A clicks / Knop A klikken
         Event(v1_events.DEVICE_ID_GESTURE)  # all gesture events / alle bewegings gebeurtenissen
     )
 
