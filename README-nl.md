@@ -1,6 +1,6 @@
-# Kasper's microbit
+# Kasper's micro:bit
 Heb je [Programmeren met Python](https://www.visualsteps.nl/programmerenpython/) uitgelezen? Zou het niet geweldig zijn
-om je [bbc micro:bit](https://microbit.org/) als **wireless gamecontroller** te gebruiken voor je zelf gemaakte games? 
+om je [BBC micro:bit](https://microbit.org/) als **wireless gamecontroller** te gebruiken voor je zelf gemaakte games? 
 Dat kan je doen met dit python package! Pair je [micro:bit](https://microbit.org/) met bluetooth aan je computer en 
 **gebruik de A en B knoppen of de accelerometer om je spel te besturen**. Like it? Geef ons een ster op github
 
