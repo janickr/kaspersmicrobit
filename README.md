@@ -1,6 +1,6 @@
 # Kasper's microbit
 So you finished [Python for kids](https://nostarch.com/pythonforkids)? Wouldn't it be awesome to use your
-[bbc micro:bit](https://microbit.org/) as a **wireless game controller** for your own DIY games? You can do this with 
+[bbc micro:bit](https://microbit.org/) as a **wireless game controller** for your own DIY games? You can do it with 
 this python package! Pair your [micro:bit](https://microbit.org/) to your computer with bluetooth and **use buttons A 
 and B or the accelerometer to control your game**. Like it? Give us a :star: on github!
 

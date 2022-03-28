@@ -40,13 +40,13 @@ It will enable following services:
 
 Enabled by default
 
-  - [event service](../events_v2.md)
+  - [event service](../events_v1.md)
 
 #### Only magnetometer + uart
 To enable the Bluetooth [magnetometer](../magnetometer.md) and [uart](../uart.md) services copy
 [this hex file](https://github.com/janickr/kaspersmicrobit/blob/main/hex/microbit-v1-bluetooth-magnetometer-uart.hex)
 file to your microbit. The hex file was created using [this makecode project](https://makecode.microbit.org/_YHz6WqMqKA7E).
-The [event service](../events_v2.md) will be enabled by default
+The [event service](../events_v1.md) will be enabled by default
 
 
 ## Option 2: Use MakeCode yourself
