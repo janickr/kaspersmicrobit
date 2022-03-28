@@ -1,9 +1,9 @@
 ## Option 1: Download a .hex file
 
-### Microbit v2
+### The micro:bit v2
 To enable the Bluetooth services copy
 [this hex file](https://github.com/janickr/kaspersmicrobit/blob/main/hex/microbit-v2-bluetooth-all-services-active.hex)
-file to your microbit. The hex file was created using [this makecode project](https://makecode.microbit.org/_cdLL0DH1Hc02).
+file to your micro:bit. The hex file was created using [this makecode project](https://makecode.microbit.org/_cdLL0DH1Hc02).
 It will enable following services:
 
   - [accelerometer](../accelerometer.md)
@@ -18,10 +18,10 @@ Enabled by default
 
   - [event service](../events_v2.md)
   
-### Microbit v1
-The microbit v1 has too little memory to enable all bluetooth services. If you try to enable them all, after 
-copying the hex the microbit, the LED display wil show a sad face and then scroll 020, this means the microbit is out of memory.
-See also: the microbit [error codes](https://makecode.microbit.org/device/error-codes)
+### The micro:bit v1
+The micro:bit v1 has too little memory to enable all bluetooth services. If you try to enable them all, after 
+copying the hex the micro:bit, the LED display wil show a sad face and then scroll 020, this means the micro:bit is out of memory.
+See also: the micro:bit [error codes](https://makecode.microbit.org/device/error-codes)
 
 Below you can find links to hex files with a subset of services enabled. Of course, you could also create a hex file
 with a different subset of services by using [MakeCode](#option-2-use-makecode-yourself)
@@ -29,7 +29,7 @@ with a different subset of services by using [MakeCode](#option-2-use-makecode-y
 #### All services except magnetometer and uart
 To enable these services copy
 [this hex file](https://github.com/janickr/kaspersmicrobit/blob/main/hex/microbit-v1-bluetooth-without-magnetometer-or-uart.hex)
-file to your microbit. The hex file was created using [this makecode project](https://makecode.microbit.org/_c5RJFdEqkdAs).
+file to your micro:bit. The hex file was created using [this makecode project](https://makecode.microbit.org/_c5RJFdEqkdAs).
 It will enable following services:
 
   - [accelerometer](../accelerometer.md)
@@ -45,7 +45,7 @@ Enabled by default
 #### Only magnetometer + uart
 To enable the Bluetooth [magnetometer](../magnetometer.md) and [uart](../uart.md) services copy
 [this hex file](https://github.com/janickr/kaspersmicrobit/blob/main/hex/microbit-v1-bluetooth-magnetometer-uart.hex)
-file to your microbit. The hex file was created using [this makecode project](https://makecode.microbit.org/_YHz6WqMqKA7E).
+file to your micro:bit. The hex file was created using [this makecode project](https://makecode.microbit.org/_YHz6WqMqKA7E).
 The [event service](../events_v1.md) will be enabled by default
 
 
@@ -53,7 +53,7 @@ The [event service](../events_v1.md) will be enabled by default
 You could also create the [MakeCode](https://makecode.microbit.org) project yourself:  
 
 ### Create project
-In MakeCode for microbit, select "New Project"  
+In MakeCode for micro:bit, select "New Project"  
 
 ![New project](makecode-1.png)  
   
@@ -90,5 +90,5 @@ Drag the services you want to enable in an "On start" block
 
 ![Create project](makecode-8.png)  
 
-Download the hex file and copy it to your microbit!  
+Download the hex file and copy it to your micro:bit!  
 

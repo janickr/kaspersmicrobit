@@ -2,7 +2,7 @@
 In this example the `accelerometer_data` callback is registered for the accelerometer data with 
 `microbit.accelerometer.notify`
 
-This happens when the microbit offers new accelerometer data:
+This happens when the micro:bit offers new accelerometer data:
 
  - the `accelerometer_data` callback is called with the new data as argument
  - the callback registers the data as the ball.direction

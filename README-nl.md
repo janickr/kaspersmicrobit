@@ -9,8 +9,8 @@ Dat kan je doen met dit python package! Pair je [micro:bit](https://microbit.org
 [![PyPi](https://img.shields.io/pypi/v/kaspersmicrobit)](https://pypi.org/project/kaspersmicrobit/) 
 [![Nederlands](https://img.shields.io/badge/translation-English-blue)](https://github.com/janickr/kaspersmicrobit/blob/main/README.md)
 
-Kasper's microbit is een python package om een verbinding te kunnen maken met een bbc microbit met behulp van de Bluetooth LE GATT services 
-die de microbit aanbiedt.
+Kasper's microbit is een python package om een verbinding te kunnen maken met een BBC micro:bit met behulp van de Bluetooth LE GATT services 
+die de micro:bit aanbiedt.
 
 ## Installatie
 ```bash
@@ -38,31 +38,31 @@ with KaspersMicrobit(VERANDER_DIT_NAAR_JOUW_MICROBIT_BLUETOOTH_ADDRESS) as micro
 ```
 
 ## Connecteren
-Om met je microbit te kunnen verbinden moet je de [bluetooth services](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/enable-bluetooth/) 
-die je wil gebruiken op je microbit aanzetten, en je microbit [pairen](https://kaspersmicrobit.readthedocs.io/en/stable/bluetooth-pairing/windows/pairing-microbit-windows/) 
+Om met je micro:bit te kunnen verbinden moet je de [bluetooth services](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/enable-bluetooth/) 
+die je wil gebruiken op je micro:bit aanzetten, en je micro:bit [pairen](https://kaspersmicrobit.readthedocs.io/en/stable/bluetooth-pairing/windows/pairing-microbit-windows/) 
 met je computer. 
 
 Om de Bluetooth services aan te zetten kan je [MakeCode](https://makecode.microbit.org) gebruiken of 
 [een hex bestand](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/enable-bluetooth/)
-naar je microbit kopiëren.
+naar je micro:bit kopiëren.
 
 Voor meer gedetailleerde instructies zie [Getting started - Enable Bluetooth](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/enable-bluetooth/)
 
 ## Api documentatie
 Op https://kaspersmicrobit.readthedocs.io, vind je het volgende:
 
- - Eenvoudige voorbeelden die tonen hoe je de functies van iedere service aangeboden door de microbit gebruikt
+ - Eenvoudige voorbeelden die tonen hoe je de functies van iedere service aangeboden door de micro:bit gebruikt
  - Volledige Api documentation
  - Voorbeelden van kaspersmicrobit in combinatie met tkinter 
 
 
-De code van alle voorbeelden kan je vinden in de [examples](https://github.com/janickr/kaspersmicrobit/tree/main/examples)  folder.
+De code van alle voorbeelden kan je vinden in de [examples](https://github.com/janickr/kaspersmicrobit/tree/main/examples) folder.
 
 ## Probleemoplossing
 
 ### Bluetooth connection
-Problemen in verband met bluetooth connecties met de microbit kunnen vaak verholpen worden door je computer
-opnieuw te pairen met je microbit.
+Problemen in verband met bluetooth connecties met de micro:bit kunnen vaak verholpen worden door je computer
+opnieuw te pairen met je micro:bit.
 
 Zie ook: https://support.microbit.org/helpdesk/attachments/19075694226
 
@@ -71,10 +71,10 @@ dat je in elk geval ook .disconnect() oproept wanneer je de connectie niet meer 
 programma eindigt)
 
 
-### Microbit V1 en Microsoft Windows
-Om kaspersmicrobit te gebruiken moet je microbit gepaired zijn met je computer, maar niet "verbonden". We hebben
-gemerkt dat onze microbit V1 zich altijd verbindt met windows wanneer hij gepaired is. Dit zorgt ervoor dat
-kaspersmicrobit er niet mee kan verbinden. Onder linux gedraagt de V1 zich wel correct. De microbit V2 
+### De micro:bit V1 en Microsoft Windows
+Om kaspersmicrobit te gebruiken moet je micro:bit gepaired zijn met je computer, maar niet "verbonden". We hebben
+gemerkt dat onze micro:bit V1 zich altijd verbindt met windows wanneer hij gepaired is. Dit zorgt ervoor dat
+kaspersmicrobit er niet mee kan verbinden. Onder linux gedraagt de V1 zich wel correct. De micro:bit V2 
 werkt wel correct op zowel Windows als linux.
 
 ### tkinter "main thread is not in main loop"

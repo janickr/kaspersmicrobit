@@ -1,10 +1,10 @@
-Install kaspersmicrobit:
+Install kaspersmicro:bit:
 
 ```bash
-$ pip install kaspersmicrobit
+$ pip install kaspersmicro:bit
 ```
 
-Write your application (don't forget to use the address of your microbit):  
+Write your application (don't forget to use the address of your micro:bit):  
 ```python
 
 import time
@@ -24,4 +24,4 @@ with KaspersMicrobit(CHANGE_THIS_TO_YOUR_MICROBIT_BLUETOOTH_ADDRESS) as microbit
 
 ```
 
-Switch your microbit on, and run your application!
+Switch your micro:bit on, and run your application!
