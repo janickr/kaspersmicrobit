@@ -12,8 +12,7 @@ and B or the accelerometer to control your game**. Like it? Give us a :star: on 
 Kasper's microbit is a python package to make a connection to a BBC micro:bit by means of the Bluetooth LE GATT services
 exposed by the micro:bit.
 
-[![Video of games created with kaspersmicrobit](https://kaspersmicrobit.readthedocs.io/en/latest/kaspersmicrobit-youtube.gif)](https://www.youtube.com/watch?v=t3JARVPQE9Q)
-
+![Video of games created with kaspersmicrobit](https://kaspersmicrobit.readthedocs.io/en/latest/kaspersmicrobit-youtube.gif)
 
 ## Installation
 ```bash
