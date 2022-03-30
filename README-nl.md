@@ -13,6 +13,8 @@ Kasper's microbit is een python package om een verbinding te kunnen maken met ee
 die de micro:bit aanbiedt.
 
 [![Video of games created with kaspersmicrobit](https://kaspersmicrobit.readthedocs.io/en/latest/kaspersmicrobit-youtube.gif)](https://www.youtube.com/watch?v=t3JARVPQE9Q)
+  
+Bekijk de volledige video [hier](https://www.youtube.com/watch?v=t3JARVPQE9Q)
 
 ## Installatie
 ```bash
