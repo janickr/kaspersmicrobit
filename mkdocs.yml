@@ -71,7 +71,8 @@ plugins:
   - search
   - gen-files:
       scripts:
-        - docs/generate_apiref_nav.py
+        - docs/scripts/generate_apiref_nav.py
+        - docs/scripts/copy_hex_files.py
   - literate-nav:
       nav_file: SUMMARY.md
   - autorefs

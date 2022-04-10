@@ -2,7 +2,7 @@
 
 ### The micro:bit v2
 To enable the Bluetooth services copy
-[this hex file](https://github.com/janickr/kaspersmicrobit/blob/main/hex/microbit-v2-bluetooth-all-services-active.hex)
+[this hex file](../hex/microbit-v2-bluetooth-all-services-active.hex)
 file to your micro:bit. The hex file was created using [this makecode project](https://makecode.microbit.org/_cdLL0DH1Hc02).
 It will enable following services:
 
@@ -28,7 +28,7 @@ with a different subset of services by using [MakeCode](#option-2-use-makecode-y
 
 #### All services except magnetometer and uart
 To enable these services copy
-[this hex file](https://github.com/janickr/kaspersmicrobit/blob/main/hex/microbit-v1-bluetooth-without-magnetometer-or-uart.hex)
+[this hex file](../hex/microbit-v1-bluetooth-without-magnetometer-or-uart.hex)
 file to your micro:bit. The hex file was created using [this makecode project](https://makecode.microbit.org/_c5RJFdEqkdAs).
 It will enable following services:
 
@@ -44,7 +44,7 @@ Enabled by default
 
 #### Only magnetometer + uart
 To enable the Bluetooth [magnetometer](../magnetometer.md) and [uart](../uart.md) services copy
-[this hex file](https://github.com/janickr/kaspersmicrobit/blob/main/hex/microbit-v1-bluetooth-magnetometer-uart.hex)
+[this hex file](../hex/microbit-v1-bluetooth-magnetometer-uart.hex)
 file to your micro:bit. The hex file was created using [this makecode project](https://makecode.microbit.org/_YHz6WqMqKA7E).
 The [event service](../events_v1.md) will be enabled by default
 
