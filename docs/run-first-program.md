@@ -1,7 +1,7 @@
-Install kaspersmicro:bit:
+Install kaspersmicrobit:
 
 ```bash
-$ pip install kaspersmicro:bit
+$ pip install kaspersmicrobit
 ```
 
 Write your application (don't forget to use the address of your micro:bit):  
