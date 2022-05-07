@@ -14,11 +14,16 @@ exposed by the micro:bit.
 
 [![Video of games created with kaspersmicrobit](https://kaspersmicrobit.readthedocs.io/en/latest/kaspersmicrobit-youtube.gif)](https://www.youtube.com/watch?v=t3JARVPQE9Q)
   
-Watch the full video [here](https://www.youtube.com/watch?v=t3JARVPQE9Q)
+Watch the full video [on youtube](https://www.youtube.com/watch?v=t3JARVPQE9Q)
 
 ## Installation
 ```bash
 $ pip install kaspersmicrobit
+```
+
+Or upgrade to the latest version with:
+```bash
+$  pip install --upgrade kaspersmicrobit  
 ```
 
 ## Example

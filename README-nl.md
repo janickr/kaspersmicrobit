@@ -14,11 +14,16 @@ die de micro:bit aanbiedt.
 
 [![Video of games created with kaspersmicrobit](https://kaspersmicrobit.readthedocs.io/en/latest/kaspersmicrobit-youtube.gif)](https://www.youtube.com/watch?v=t3JARVPQE9Q)
   
-Bekijk de volledige video [hier](https://www.youtube.com/watch?v=t3JARVPQE9Q)
+Bekijk de volledige video [op youtube](https://www.youtube.com/watch?v=t3JARVPQE9Q)
 
 ## Installatie
 ```bash
 $ pip install kaspersmicrobit
+```
+
+Of upgrade naar de laatste versie met:
+```bash
+$  pip install --upgrade kaspersmicrobit  
 ```
 
 ## Een voorbeeld
