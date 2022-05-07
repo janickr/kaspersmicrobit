@@ -25,15 +25,15 @@ for path in paths:
     doc_path = path.relative_to("src", "kaspersmicrobit").with_suffix(".md")
     full_doc_path = Path("reference", doc_path)
 
-    parts = list(module_path.parts)
+    parts = tuple(module_path.parts)
     if parts[-1] != '__init__':
-        nav[parts] = doc_path
+        nav[parts] = str(doc_path)
 
-    with mkdocs_gen_files.open(full_doc_path, "w") as fd:
-        ident = ".".join(module_path.parts)
-        print("::: " + ident, file=fd)
+        with mkdocs_gen_files.open(full_doc_path, "w") as fd:
+            ident = ".".join(module_path.parts)
+            print("::: " + ident, file=fd)
 
-    mkdocs_gen_files.set_edit_path(full_doc_path, path)
+        mkdocs_gen_files.set_edit_path(full_doc_path, path)
 
 with mkdocs_gen_files.open("reference/SUMMARY.md", "w") as nav_file:
     nav_file.writelines(nav.build_literate_nav())
