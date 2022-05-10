@@ -1,3 +1,8 @@
+---
+title: Pair a microbit in Windows
+description: Detailed instructions on how to pair your microbit in Windows
+---
+
 Click on the Bluetooth icon in your system tray.  
 Click "Show Bluetooth devices"
 
