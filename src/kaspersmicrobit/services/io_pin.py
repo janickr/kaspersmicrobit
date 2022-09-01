@@ -3,7 +3,7 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 from dataclasses import dataclass
 from enum import Enum, IntEnum
-from typing import Callable, TypeVar, Union, Generic, Type
+from typing import Callable, TypeVar, Union, Generic, Type, List
 
 from ..bluetoothdevice import BluetoothDevice, ByteData
 from ..bluetoothprofile.characteristics import Characteristic
@@ -195,7 +195,7 @@ class IOPinService:
         self._pin_ad_config = PinADConfiguration()
         self._device = device
 
-    def notify_data(self, callback: Callable[[[PinValue]], None]):
+    def notify_data(self, callback: Callable[[List[PinValue]], None]):
         """
         Deze methode kan je oproepen wanneer je verwittigd wil worden van de waarde van pins. Deze pins moet je
         voorafgaand geconfigureerd hebben als PinIO.INPUT pins vie write_io_configuration. Je wordt verwittigd wanneer
