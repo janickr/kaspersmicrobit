@@ -1,3 +1,7 @@
+---
+title: Move a paddle with the buttons of the microbit
+description: Draw a rectangle on a tkinter canvas in python, and move it sideways by pressing the micro:bit buttons
+---
 
 In this example callbacks are registered for buttons A and B for their "press" and "release" events. For the sake 
 of the example the `button_pressed` and `button_released` callbacks emit tk events using the event_generate method: this

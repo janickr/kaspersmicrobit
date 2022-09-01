@@ -1,3 +1,8 @@
+---
+title: Running your first application
+description: Install kaspersmicrobit package and run your first application
+---
+
 Install kaspersmicrobit:
 
 ```bash

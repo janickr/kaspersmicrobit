@@ -1,3 +1,7 @@
+---
+title: Move a ball with the accelerometer of the microbit
+description: Draw a ball on a tkinter canvas in python, and move it around by tilting a micro:bit 
+---
 
 In this example the `accelerometer_data` callback is registered for the accelerometer data with 
 `microbit.accelerometer.notify`

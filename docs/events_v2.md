@@ -1,3 +1,8 @@
+---
+title: Using the event service (microbit v2)
+description: Learn how to use the bluetooth event service of the micro:bit v2 from python (by example)
+---
+
 The API documentation: 
 
 - [kaspersmicrobit.services.events](../reference/services/events/)

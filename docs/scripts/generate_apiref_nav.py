@@ -30,8 +30,13 @@ for path in paths:
         nav[parts] = str(doc_path)
 
         with mkdocs_gen_files.open(full_doc_path, "w") as fd:
-            ident = ".".join(module_path.parts)
-            print("::: " + ident, file=fd)
+            full_module_name = ".".join(module_path.parts)
+            module_name = ".".join(module_path.parts[1:])
+            print("---", file=fd)
+            print(f"title: {module_name} API Documentation", file=fd)
+            print(f"description: API Documentation for the '{module_name}' module of Kasper's microbit", file=fd)
+            print("---", file=fd)
+            print(f"::: {full_module_name}", file=fd)
 
         mkdocs_gen_files.set_edit_path(full_doc_path, path)
 

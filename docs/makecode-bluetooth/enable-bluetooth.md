@@ -1,3 +1,8 @@
+---
+title: Enable the bluetooth services on a microbit
+description: Detailed instructions on how to pair your microbit in Linux (gnome) 
+---
+
 ## Option 1: Download a .hex file
 
 ### The micro:bit v2
