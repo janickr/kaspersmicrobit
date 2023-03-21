@@ -44,35 +44,49 @@ class AccelerometerService:
     Deze klasse bevat de functies die je kan aanspreken in verband met de accelerometer van de microbit
 
     De accelerometer meet kracht/versnelling langs 3 assen:
-        - x: horizontaal (van links naar rechts)
-        - y: horizontaal (van achter naar voor)
-        - z: vertical (van onder naar boven)
+
+    - x: horizontaal (van links naar rechts)
+    - y: horizontaal (van achter naar voor)
+    - z: vertical (van onder naar boven)
 
     De waarden van x, y en z zijn integers en zijn waarden in milli-g, waarbij 1 g, dus 1000 milli-g gelijk is aan de
-    valversnelling op aarde. In vrije val zullen de waarden langs de assen ongeveer 0 zijn: (x=0, y=0, z=0)
+    valversnelling op aarde. In vrije val zullen de waarden langs de assen ongeveer 0 zijn:
+
+        AccelerometerData(x=0, y=0, z=0)
 
     Wanneer de microbit recht voor je met de knoppen zichtbaar en de pins naar je toe ligt,
     dan zal een meting van de accelerometer (ongeveer) het volgende geven:
-    (x=-50, y=-50, z=-1024)
+
+        AccelerometerData(x=-50, y=-50, z=-1024)
+
     dat z ongeveer -1000 (ipv 1000 zoals je misschien verwacht zou hebben) valt te verklaren door dat je de kracht meet
     die de microbit tegenhoudt (bvb wanneer je de microbit vasthoudt: de kracht die je arm uitoefent, en die de microbit
     weerhoudt van te vallen)
 
     Kantel je de microbit vanuit deze startpositie naar je toe,
     dan stijgen y en z in waarde en blijft x ongeveer gelijk:
-    (x=-28, y=972, z=-56)
+
+        AccelerometerData(x=-28, y=972, z=-56)
+
     Kantel je de microbit vanuit de startpositie van je weg,
     dan daalt y, en stijgt z in waarde en blijft x ongeveer gelijk:
-    (x=-104, y=-960, z=124)
+
+        AccelerometerData(x=-104, y=-960, z=124)
+
     Kantel je de microbit vanuit de startpositie naar links
     dan daalt x, en stijgt z in waarde en blijft y ongeveer gelijk:
-    (x=-1108, y=72, z=-160)
+
+        AccelerometerData(x=-1108, y=72, z=-160)
+
     Kantel je de microbit vanuit de startpositie naar rechts
     dan stijgen x en z in waarde en blijft y ongeveer gelijk:
-    (x=960, y=60, z=0)
+
+        AccelerometerData(x=960, y=60, z=0)
+
     Draai je de microbit helemaal ondersteboven
     dan stijgt z ongeveer tot 1000 en blijven x en y ongeveer gelijk:
-    AccelerometerData(x=-56, y=-36, z=1024)
+
+        AccelerometerData(x=-56, y=-36, z=1024)
 
     Dit zijn alle mogelijkheden aangeboden door de accelerometer bluetooth service
 
