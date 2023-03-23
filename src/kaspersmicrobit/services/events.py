@@ -6,6 +6,7 @@ from typing import Callable, List
 
 from ..bluetoothdevice import BluetoothDevice
 from ..bluetoothprofile.characteristics import Characteristic
+from ..bluetoothprofile.services import Service
 from .event import Event
 
 
@@ -34,6 +35,15 @@ class EventService:
     def __init__(self, device: BluetoothDevice):
         self._device = device
 
+    def is_available(self) -> bool:
+        """
+        Kijkt na of de event bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+        Returns (bool):
+            true als de event service gevonden werd, false indien niet.
+        """
+        return self._device.is_service_available(Service.EVENT)
+
     def notify_microbit_requirements(self, callback: Callable[[Event], None]):
         """
         Deze methode kan je oproepen wanneer je verwittigd wil worden welke events de microbit zou willen ontvangen
@@ -59,7 +69,7 @@ class EventService:
         Returns ([Event]):
             Een lijst van events waarvan je de microbit moet verwittigen wanneer ze zich voordoen
         """
-        return Event.list_from_bytes(self._device.read(Characteristic.MICROBIT_REQUIREMENTS))
+        return Event.list_from_bytes(self._device.read(Service.EVENT, Characteristic.MICROBIT_REQUIREMENTS))
 
     def notify_microbit_event(self, callback: Callable[[Event], None]):
         """
@@ -70,7 +80,7 @@ class EventService:
         Args:
             callback: een functie die wordt opgeroepen met een Event
         """
-        self._device.notify(Characteristic.MICROBIT_EVENT,
+        self._device.notify(Service.EVENT, Characteristic.MICROBIT_EVENT,
                             lambda sender, data: _for_each(Event.list_from_bytes(data), callback))
 
     def read_microbit_event(self) -> [Event]:
@@ -82,7 +92,7 @@ class EventService:
         Returns ([Event]):
             Een lijst van events die zich hebben voorgedaan op de microbit
         """
-        return Event.list_from_bytes(self._device.read(Characteristic.MICROBIT_EVENT))
+        return Event.list_from_bytes(self._device.read(Service.EVENT, Characteristic.MICROBIT_EVENT))
 
     def write_client_requirements(self, *events: Event):
         """
@@ -96,7 +106,7 @@ class EventService:
             *events (Event): de events die je wil ontvangen van de microbit
         """
         for event in events:
-            self._device.write(Characteristic.CLIENT_REQUIREMENTS, event.to_bytes())
+            self._device.write(Service.EVENT, Characteristic.CLIENT_REQUIREMENTS, event.to_bytes())
 
     def write_client_event(self, *events: Event):
         """
@@ -108,4 +118,4 @@ class EventService:
            *events (Event): de events die je wil verzenden naar de microbit
         """
         for event in events:
-            self._device.write(Characteristic.CLIENT_EVENT, event.to_bytes())
+            self._device.write(Service.EVENT, Characteristic.CLIENT_EVENT, event.to_bytes())

@@ -4,6 +4,7 @@
 from typing import Callable
 
 from ..bluetoothprofile.characteristics import Characteristic
+from ..bluetoothprofile.services import Service
 from ..bluetoothdevice import BluetoothDevice
 
 
@@ -20,6 +21,15 @@ class TemperatureService:
     def __init__(self, device: BluetoothDevice):
         self._device = device
 
+    def is_available(self) -> bool:
+        """
+        Kijkt na of de temperatuur bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+        Returns (bool):
+            true als de temperatuur service gevonden werd, false indien niet.
+        """
+        return self._device.is_service_available(Service.TEMPERATURE)
+
     def notify(self, callback: Callable[[int], None]):
         """
         Deze methode kan je oproepen wanneer je verwittigd wil worden van de temperatuur. Hoe vaak je gegevens ontvangt
@@ -28,8 +38,8 @@ class TemperatureService:
         Args:
             callback: een functie die periodiek wordt opgeroepen met de temperatuur als argument
         """
-        self._device.notify(Characteristic.TEMPERATURE, lambda sender, data: callback(
-            int.from_bytes(data[0:1], 'little', signed=True)))
+        self._device.notify(Service.TEMPERATURE, Characteristic.TEMPERATURE,
+                            lambda sender, data: callback(int.from_bytes(data[0:1], 'little', signed=True)))
 
     def read(self) -> int:
         """
@@ -38,7 +48,8 @@ class TemperatureService:
         Returns (int):
             de temperatuur in graden Celcius
         """
-        return int.from_bytes(self._device.read(Characteristic.TEMPERATURE)[0:1], 'little', signed=True)
+        return int.from_bytes(
+            self._device.read(Service.TEMPERATURE, Characteristic.TEMPERATURE)[0:1], 'little', signed=True)
 
     def set_period(self, period: int):
         """
@@ -48,7 +59,7 @@ class TemperatureService:
         Args:
             period (int): het interval waarmee je temperatuurgegevens ontvangt in milliseconden
         """
-        self._device.write(Characteristic.TEMPERATURE_PERIOD, period.to_bytes(2, "little"))
+        self._device.write(Service.TEMPERATURE, Characteristic.TEMPERATURE_PERIOD, period.to_bytes(2, "little"))
 
     def read_period(self) -> int:
         """
@@ -57,4 +68,5 @@ class TemperatureService:
         Returns (int):
             Het interval in milliseconden
         """
-        return int.from_bytes(self._device.read(Characteristic.TEMPERATURE_PERIOD)[0:2], "little")
+        return int.from_bytes(
+            self._device.read(Service.TEMPERATURE, Characteristic.TEMPERATURE_PERIOD)[0:2], "little")

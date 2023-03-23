@@ -3,6 +3,7 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 from ..bluetoothprofile.characteristics import Characteristic
+from ..bluetoothprofile.services import Service
 from ..bluetoothdevice import BluetoothDevice, ByteData
 from typing import Union, Literal, Callable
 from dataclasses import dataclass
@@ -97,6 +98,15 @@ class AccelerometerService:
     def __init__(self, device: BluetoothDevice):
         self._device = device
 
+    def is_available(self) -> bool:
+        """
+        Kijkt na of de accelerometer bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+        Returns (bool):
+            true als de accelerometer gevonden werd, false indien niet.
+        """
+        return self._device.is_service_available(Service.ACCELEROMETER)
+
     def notify(self, callback: Callable[[AccelerometerData], None]):
         """
         Deze methode kan je oproepen wanneer je verwittigd wil worden van nieuwe accelerometer gegevens. Hoe vaak je
@@ -106,7 +116,7 @@ class AccelerometerService:
             callback (Callable[[AccelerometerData], None]): een functie die wordt opgeroepen wanneer er nieuwe gegevens
                 zijn van de accelerometer. De nieuwe AccelerometerData worden meegegeven als argument aan deze functie
         """
-        self._device.notify(Characteristic.ACCELEROMETER_DATA,
+        self._device.notify(Service.ACCELEROMETER, Characteristic.ACCELEROMETER_DATA,
                             lambda sender, data: callback(AccelerometerData.from_bytes(data)))
 
     def read(self) -> AccelerometerData:
@@ -116,7 +126,7 @@ class AccelerometerService:
         Returns (AccelerometerData):
             De gegevens van de accelerometer (x, y en z)
         """
-        return AccelerometerData.from_bytes(self._device.read(Characteristic.ACCELEROMETER_DATA))
+        return AccelerometerData.from_bytes(self._device.read(Service.ACCELEROMETER, Characteristic.ACCELEROMETER_DATA))
 
     def set_period(self, period: AccelerometerPeriod):
         """
@@ -130,7 +140,7 @@ class AccelerometerService:
             Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet werkt/klopt zoals ik verwacht
             TODO te onderzoeken
         """
-        self._device.write(Characteristic.ACCELEROMETER_PERIOD, period.to_bytes(2, "little"))
+        self._device.write(Service.ACCELEROMETER, Characteristic.ACCELEROMETER_PERIOD, period.to_bytes(2, "little"))
 
     def read_period(self) -> int:
         """
@@ -139,4 +149,4 @@ class AccelerometerService:
         Returns (int):
             Het interval in milliseconden
         """
-        return int.from_bytes(self._device.read(Characteristic.ACCELEROMETER_PERIOD)[0:2], "little")
+        return int.from_bytes(self._device.read(Service.ACCELEROMETER, Characteristic.ACCELEROMETER_PERIOD)[0:2], "little")

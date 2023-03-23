@@ -4,6 +4,7 @@
 from typing import Callable
 from enum import IntEnum
 from ..bluetoothprofile.characteristics import Characteristic
+from ..bluetoothprofile.services import Service
 from ..bluetoothdevice import BluetoothDevice
 
 ButtonCallback = Callable[[str], None]
@@ -15,9 +16,10 @@ Een functie met 1 argument (de knop "A" of "B")
 class ButtonState(IntEnum):
     """
     Alle mogelijke toestanden van een knop:
-        - RELEASE: losgelaten
-        - PRESS: ingedrukt
-        - LONG_PRESS: minstens 2 seconden lang ingedrukt
+
+    - RELEASE: losgelaten
+    - PRESS: ingedrukt
+    - LONG_PRESS: minstens 2 seconden lang ingedrukt
     """
     RELEASE = 0
     PRESS = 1
@@ -49,6 +51,15 @@ class ButtonService:
                 pass
         return button_callback
 
+    def is_available(self) -> bool:
+        """
+        Kijkt na of de button bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+        Returns (bool):
+            true als de button service gevonden werd, false indien niet.
+        """
+        return self._device.is_service_available(Service.BUTTON)
+
     def on_button_a(self, press: ButtonCallback = None, long_press: ButtonCallback = None,
                     release: ButtonCallback = None):
         """
@@ -64,7 +75,7 @@ class ButtonService:
                 de A knop gedrukt wordt
             release (ButtonCallback): een functie die wordt opgeroepen wanneer de A knop wordt losgelaten
         """
-        self._device.notify(Characteristic.BUTTON_A,
+        self._device.notify(Service.BUTTON, Characteristic.BUTTON_A,
                             ButtonService._create_button_callback('A', press, long_press, release))
 
     def on_button_b(self, press: ButtonCallback = None, long_press: ButtonCallback = None,
@@ -82,23 +93,23 @@ class ButtonService:
                 de B knop gedrukt wordt
             release (ButtonCallback): een functie die wordt opgeroepen wanneer de B knop wordt losgelaten
         """
-        self._device.notify(Characteristic.BUTTON_B,
+        self._device.notify(Service.BUTTON, Characteristic.BUTTON_B,
                             ButtonService._create_button_callback('B', press, long_press, release))
 
-    def read_button_a(self):
+    def read_button_a(self) -> ButtonState:
         """
         Geef de toestand van de A knop
 
         Returns (ButtonState):
             De toestand van de A knop (RELEASE, PRESS of LONG_PRESS)
         """
-        return ButtonState(self._device.read(Characteristic.BUTTON_A)[0])
+        return ButtonState(self._device.read(Service.BUTTON, Characteristic.BUTTON_A)[0])
 
-    def read_button_b(self):
+    def read_button_b(self) -> ButtonState:
         """
         Geef de toestand van de B knop
 
         Returns (ButtonState):
             De toestand van de B knop (RELEASE, PRESS of LONG_PRESS)
         """
-        return ButtonState(self._device.read(Characteristic.BUTTON_B)[0])
+        return ButtonState(self._device.read(Service.BUTTON, Characteristic.BUTTON_B)[0])

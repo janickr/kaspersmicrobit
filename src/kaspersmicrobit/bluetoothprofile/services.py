@@ -4,6 +4,7 @@
 
 from enum import Enum
 
+
 # flake8: noqa
 class Service(Enum):
     """
@@ -12,13 +13,13 @@ class Service(Enum):
     See Also: https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html
     """
 
-    GENERIC_ACCESS = '00001800-0000-1000-8000-00805F9B34FB'
+    GENERIC_ACCESS = '00001800-0000-1000-8000-00805f9b34fb'
     """
     The generic_access service contains generic information about the device.
     All available Characteristics are readonly.
     """
 
-    GENERIC_ATTRIBUTE = '00001801-0000-1000-8000-00805F9B34FB'
+    GENERIC_ATTRIBUTE = '00001801-0000-1000-8000-00805f9b34fb'
     """
     """
 
@@ -31,7 +32,7 @@ class Service(Enum):
     Only one instance of the Device Information Service is exposed on a device.
     """
 
-    ACCELEROMETER = 'E95D0753-251D-470A-A062-FA1922DFA9A8'
+    ACCELEROMETER = 'e95d0753-251d-470a-a062-fa1922dfa9a8'
     """
     Exposes accelerometer data. An accelerometer is an electromechanical device that will measure acceleration forces. 
     These forces may be static, like the constant force of gravity pulling at your feet, or they could be dynamic 
@@ -43,24 +44,24 @@ class Service(Enum):
     Data can be read on demand or notified periodically.
     """
 
-    MAGNETOMETER = 'E95DF2D8-251D-470A-A062-FA1922DFA9A8'
+    MAGNETOMETER = 'e95df2d8-251d-470a-a062-fa1922dfa9a8'
     """
     Exposes magnetometer data.  A magnetometer measures a magnetic field such as the earth's magnetic field in 3 axes.
     """
 
-    BUTTON = 'E95D9882-251D-470A-A062-FA1922DFA9A8'
+    BUTTON = 'e95d9882-251d-470a-a062-fa1922dfa9a8'
     """
     Exposes the two Micro Bit buttons and allows 'commands' associated with button state changes to be associated 
     with button states and notified to a connected client.
     """
 
-    IO_PIN = 'E95D127B-251D-470A-A062-FA1922DFA9A8'
+    IO_PIN = 'e95d127b-251d-470a-a062-fa1922dfa9a8'
     """
     Provides read/write access to I/O pins, individually or collectively. Allows configuration of each pin for 
     input/output and analogue/digital use.
     """
 
-    LED = 'E95DD91D-251D-470A-A062-FA1922DFA9A8'
+    LED = 'e95dd91d-251d-470a-a062-fa1922dfa9a8'
     """
     Provides access to and control of LED state. 
     Allows the state (ON or OFF) of all 25 LEDs to be set in a single write operation. 
@@ -68,7 +69,7 @@ class Service(Enum):
     controlled by the Scrolling Delay characteristic.
     """
 
-    EVENT = 'E95D93AF-251D-470A-A062-FA1922DFA9A8'
+    EVENT = 'e95d93af-251d-470a-a062-fa1922dfa9a8'
     """
     A generic, bi-directional event communication service. 
 
@@ -95,20 +96,33 @@ class Service(Enum):
     };
     """
 
-    DFU_CONTROL = 'E95D93B0-251D-470A-A062-FA1922DFA9A8'
+    DFU_CONTROL = 'e95d93b0-251d-470a-a062-fa1922dfa9a8'
     """
     Allows clients to initiate the micro:bit pairing and over the air firmware update procedures.
     """
 
-    TEMPERATURE = 'E95D6100-251D-470A-A062-FA1922DFA9A8'
+    TEMPERATURE = 'e95d6100-251d-470a-a062-fa1922dfa9a8'
     """
     Ambient temperature derived from several internal temperature sensors on the micro:bit
     """
 
-    UART = '6E400001-B5A3-F393-E0A9-E50E24DCCA9E'
+    UART = '6e400001-b5a3-f393-e0a9-e50e24dcca9e'
     """
     This is an implementation of Nordic Semiconductor's UART/Serial Port Emulation over Bluetooth low energy. 
 
     See https://developer.nordicsemi.com/nRF5_SDK/nRF51_SDK_v8.x.x/doc/8.0.0/s110/html/a00072.html for the original 
     Nordic Semiconductor documentation by way of background.
     """
+
+    @staticmethod
+    def lookup(uuid: str):
+        """
+        Looks up the enum corresponding the given uuid
+
+        Returns (Service):
+            The enum with the given uuid, None if not found.
+        """
+        try:
+            return Service(uuid)
+        except ValueError:
+            return None

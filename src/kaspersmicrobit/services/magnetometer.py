@@ -5,6 +5,7 @@ from concurrent.futures import Future
 from dataclasses import dataclass
 from typing import Callable, Literal, Union
 from ..bluetoothprofile.characteristics import Characteristic
+from ..bluetoothprofile.services import Service
 from ..bluetoothdevice import BluetoothDevice, ByteData
 
 MagnetometerPeriod = Union[
@@ -92,6 +93,15 @@ class MagnetometerService:
         self._device = device
         self._calibration = None
 
+    def is_available(self) -> bool:
+        """
+        Kijkt na of de magnetometer bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+        Returns (bool):
+            true als de magnetometer gevonden werd, false indien niet.
+        """
+        return self._device.is_service_available(Service.MAGNETOMETER)
+
     def notify_data(self, callback: Callable[[MagnetometerData], None]):
         """
         Deze methode kan je oproepen wanneer je verwittigd wil worden van nieuwe magnetometer gegevens. Hoe vaak je
@@ -105,7 +115,7 @@ class MagnetometerService:
                 zijn van de magnetometer. De nieuwe MagnetometerData worden meegegeven als argument aan deze functie
 
         """
-        self._device.notify(Characteristic.MAGNETOMETER_DATA,
+        self._device.notify(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_DATA,
                             lambda sender, data: callback(MagnetometerData.from_bytes(data)))
 
     def read_data(self) -> MagnetometerData:
@@ -115,7 +125,7 @@ class MagnetometerService:
         Returns (MagnetometerData):
             De gegevens van de magnetometer (x, y en z)
         """
-        return MagnetometerData.from_bytes(self._device.read(Characteristic.MAGNETOMETER_DATA))
+        return MagnetometerData.from_bytes(self._device.read(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_DATA))
 
     def set_period(self, period: MagnetometerPeriod):
         """
@@ -129,7 +139,7 @@ class MagnetometerService:
             Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet werkt/klopt zoals ik verwacht
             TODO te onderzoeken
         """
-        self._device.write(Characteristic.MAGNETOMETER_PERIOD, period.to_bytes(2, "little"))
+        self._device.write(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_PERIOD, period.to_bytes(2, "little"))
 
     def read_period(self) -> int:
         """
@@ -138,7 +148,8 @@ class MagnetometerService:
         Returns (int):
             Het interval in milliseconden
         """
-        return int.from_bytes(self._device.read(Characteristic.MAGNETOMETER_PERIOD)[0:2], "little")
+        return int.from_bytes(
+            self._device.read(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_PERIOD)[0:2], "little")
 
     def notify_bearing(self, callback: Callable[[int], None]):
         """
@@ -152,7 +163,7 @@ class MagnetometerService:
             callback (Callable[[int], None]): een functie die periodiek wordt opgeroepen met de hoek in graden ten
                 opzichte van het noorden
         """
-        self._device.notify(Characteristic.MAGNETOMETER_BEARING,
+        self._device.notify(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_BEARING,
                             lambda sender, data: callback(int.from_bytes(data[0:2], "little")))
 
     def read_bearing(self) -> int:
@@ -162,7 +173,8 @@ class MagnetometerService:
         Returns (int):
             de hoek in graden tov het noorden
         """
-        return int.from_bytes(self._device.read(Characteristic.MAGNETOMETER_BEARING)[0:2], 'little')
+        return int.from_bytes(
+            self._device.read(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_BEARING)[0:2], 'little')
 
     def calibrate(self) -> Calibration:
         """
@@ -182,8 +194,8 @@ class MagnetometerService:
         if self._calibration and not self._calibration.done():
             return self._calibration
 
-        self._device.write(Characteristic.MAGNETOMETER_CALIBRATION, int.to_bytes(1, 1, 'little'))
-        future = self._device.wait_for(Characteristic.MAGNETOMETER_CALIBRATION)
+        self._device.write(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_CALIBRATION, int.to_bytes(1, 1, 'little'))
+        future = self._device.wait_for(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_CALIBRATION)
         calibration = Calibration(future)
         self._calibration = calibration
         return calibration

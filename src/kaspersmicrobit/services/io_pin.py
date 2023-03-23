@@ -7,6 +7,7 @@ from typing import Callable, TypeVar, Union, Generic, Type, List
 
 from ..bluetoothdevice import BluetoothDevice, ByteData
 from ..bluetoothprofile.characteristics import Characteristic
+from ..bluetoothprofile.services import Service
 
 
 class Pin(IntEnum):
@@ -195,6 +196,15 @@ class IOPinService:
         self._pin_ad_config = PinADConfiguration()
         self._device = device
 
+    def is_available(self) -> bool:
+        """
+        Kijkt na of de I/O pin bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+        Returns (bool):
+            true als de I/O pin service gevonden werd, false indien niet.
+        """
+        return self._device.is_service_available(Service.IO_PIN)
+
     def notify_data(self, callback: Callable[[List[PinValue]], None]):
         """
         Deze methode kan je oproepen wanneer je verwittigd wil worden van de waarde van pins. Deze pins moet je
@@ -204,7 +214,7 @@ class IOPinService:
         Args:
             callback: een functie die wordt opgeroepen met een lijst van PinValue objecten
         """
-        self._device.notify(Characteristic.PIN_DATA,
+        self._device.notify(Service.IO_PIN, Characteristic.PIN_DATA,
                             lambda sender, data: callback(PinValue.list_from_bytes(self._pin_ad_config, data)))
 
     def read_data(self) -> [PinValue]:
@@ -214,7 +224,7 @@ class IOPinService:
         Returns ([PinValue]):
             Een lijst van input pins en hun bijhorende waarde
         """
-        return PinValue.list_from_bytes(self._pin_ad_config, self._device.read(Characteristic.PIN_DATA))
+        return PinValue.list_from_bytes(self._pin_ad_config, self._device.read(Service.IO_PIN, Characteristic.PIN_DATA))
 
     def write_data(self, values: [PinValue]):
         """
@@ -225,7 +235,8 @@ class IOPinService:
             values ([PinValue]): de output pins en hun bijhorende waarde
         """
         if values:
-            self._device.write(Characteristic.PIN_DATA, PinValue.list_to_bytes(self._pin_ad_config, values))
+            self._device.write(Service.IO_PIN, Characteristic.PIN_DATA,
+                               PinValue.list_to_bytes(self._pin_ad_config, values))
 
     def read_ad_configuration(self) -> PinADConfiguration:
         """
@@ -234,7 +245,7 @@ class IOPinService:
         Returns (PinADConfiguration):
             De analoog-digitaal configuratie voor iedere pin
         """
-        return PinADConfiguration.from_bytes(self._device.read(Characteristic.PIN_AD_CONFIGURATION))
+        return PinADConfiguration.from_bytes(self._device.read(Service.IO_PIN, Characteristic.PIN_AD_CONFIGURATION))
 
     def write_ad_configuration(self, config: PinADConfiguration):
         """
@@ -243,7 +254,7 @@ class IOPinService:
         Args:
             config (PinADConfiguration): De analoog-digitaal configuratie voor iedere pin
         """
-        self._device.write(Characteristic.PIN_AD_CONFIGURATION, config.to_bytes())
+        self._device.write(Service.IO_PIN, Characteristic.PIN_AD_CONFIGURATION, config.to_bytes())
         self._pin_ad_config = PinADConfiguration(config[:])
 
     def read_io_configuration(self) -> PinIOConfiguration:
@@ -253,7 +264,7 @@ class IOPinService:
         Returns (PinIOConfiguration):
             De input-output configuratie voor iedere pin
         """
-        return PinIOConfiguration.from_bytes(self._device.read(Characteristic.PIN_IO_CONFIGURATION))
+        return PinIOConfiguration.from_bytes(self._device.read(Service.IO_PIN, Characteristic.PIN_IO_CONFIGURATION))
 
     def write_io_configuration(self, config: PinIOConfiguration):
         """
@@ -265,7 +276,7 @@ class IOPinService:
         Args:
             config (PinIOConfiguration): De input-output configuratie voor iedere pin
         """
-        self._device.write(Characteristic.PIN_IO_CONFIGURATION, config.to_bytes())
+        self._device.write(Service.IO_PIN, Characteristic.PIN_IO_CONFIGURATION, config.to_bytes())
 
     def write_pwm_control_data(self, pwm_control1: PwmControlData, pwm_control2: PwmControlData = None):
         """
@@ -280,4 +291,4 @@ class IOPinService:
             pwm_control2 (PwmControlData): een optionele PWM opdracht
         """
         data = pwm_control1.to_bytes() + pwm_control2.to_bytes() if pwm_control2 else pwm_control1.to_bytes()
-        self._device.write(Characteristic.PWM_CONTROL, data)
+        self._device.write(Service.IO_PIN, Characteristic.PWM_CONTROL, data)

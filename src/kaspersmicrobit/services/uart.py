@@ -4,6 +4,7 @@
 from typing import Callable
 
 from ..bluetoothprofile.characteristics import Characteristic
+from ..bluetoothprofile.services import Service
 from ..bluetoothdevice import BluetoothDevice, ByteData
 
 PDU_BYTE_LIMIT = 20
@@ -18,6 +19,15 @@ class UartService:
     def __init__(self, device: BluetoothDevice):
         self._device = device
 
+    def is_available(self) -> bool:
+        """
+        Kijkt na of de uart bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+        Returns (bool):
+            true als de uart service gevonden werd, false indien niet.
+        """
+        return self._device.is_service_available(Service.UART)
+
     def receive(self, callback: Callable[[ByteData], None]):
         """
         Deze methode kan je oproepen wanneer je verwittigd wil wanneer er bytes worden verstuurd vanuit de microbit
@@ -27,7 +37,7 @@ class UartService:
             callback (Callable[[ByteData], None]): een functie wordt opgeroepen met de ontvangen bytes
 
         """
-        self._device.notify(Characteristic.TX_CHARACTERISTIC, lambda sender, data: callback(data))
+        self._device.notify(Service.UART, Characteristic.TX_CHARACTERISTIC, lambda sender, data: callback(data))
 
     def receive_string(self, callback: Callable[[str], None]):
         """
@@ -49,7 +59,7 @@ class UartService:
 
         """
         for i in range(0, len(data), PDU_BYTE_LIMIT):
-            self._device.write(Characteristic.RX_CHARACTERISTIC, data[i:i + PDU_BYTE_LIMIT])
+            self._device.write(Service.UART, Characteristic.RX_CHARACTERISTIC, data[i:i + PDU_BYTE_LIMIT])
 
     def send_string(self, string: str):
         """

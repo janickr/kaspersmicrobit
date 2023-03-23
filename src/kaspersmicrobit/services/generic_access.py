@@ -4,6 +4,7 @@
 
 from ..bluetoothdevice import BluetoothDevice
 from ..bluetoothprofile.characteristics import Characteristic
+from ..bluetoothprofile.services import Service
 
 
 class GenericAccessService:
@@ -15,6 +16,15 @@ class GenericAccessService:
     def __init__(self, device: BluetoothDevice):
         self._device = device
 
+    def is_available(self) -> bool:
+        """
+        Kijkt na of de generic access bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+        Returns (bool):
+            true als de generic access service gevonden werd, false indien niet.
+        """
+        return self._device.is_service_available(Service.GENERIC_ACCESS)
+
     def read_device_name(self) -> str:
         """
         Leest de naam van de microbit.
@@ -22,4 +32,4 @@ class GenericAccessService:
         Returns (str):
             de naam van de microbit
         """
-        return str(self._device.read(Characteristic.DEVICE_NAME), "utf-8")
+        return str(self._device.read(Service.GENERIC_ACCESS, Characteristic.DEVICE_NAME), "utf-8")

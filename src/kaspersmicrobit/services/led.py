@@ -4,6 +4,7 @@
 
 from .leddisplay import LedDisplay
 from ..bluetoothprofile.characteristics import Characteristic
+from ..bluetoothprofile.services import Service
 from ..bluetoothdevice import BluetoothDevice
 
 
@@ -14,16 +15,25 @@ class LedService:
     def __init__(self, device: BluetoothDevice):
         self._device = device
 
+    def is_available(self) -> bool:
+        """
+        Kijkt na of de led bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+        Returns (bool):
+            true als de led service gevonden werd, false indien niet.
+        """
+        return self._device.is_service_available(Service.LED)
+
     def show(self, led_display: LedDisplay):
         """
         Zet de leds op de microbit aan zoals de leds parameter aangeeft
         Args:
             led_display: de aan/uit staat van de leds
         """
-        self._device.write(Characteristic.LED_MATRIX_STATE, led_display.to_bytes())
+        self._device.write(Service.LED, Characteristic.LED_MATRIX_STATE, led_display.to_bytes())
 
     def read(self) -> LedDisplay:
-        return LedDisplay.from_bytes(self._device.read(Characteristic.LED_MATRIX_STATE))
+        return LedDisplay.from_bytes(self._device.read(Service.LED, Characteristic.LED_MATRIX_STATE))
 
     def show_text(self, text: str):
         """
@@ -40,7 +50,7 @@ class LedService:
         if len(octets) > 20:
             raise ValueError('Text too long, maximum 20 characters allowed')
 
-        self._device.write(Characteristic.LED_TEXT, octets)
+        self._device.write(Service.LED, Characteristic.LED_TEXT, octets)
 
     def set_scrolling_delay(self, delay_in_milis: int):
         """
@@ -49,7 +59,7 @@ class LedService:
         Args:
             delay_in_milis:  de tijd die 1 letter er over doet om over het scherm voorbij te komen in milliseconden
         """
-        self._device.write(Characteristic.SCROLLING_DELAY, delay_in_milis.to_bytes(2, 'little'))
+        self._device.write(Service.LED, Characteristic.SCROLLING_DELAY, delay_in_milis.to_bytes(2, 'little'))
 
     def get_scrolling_delay(self) -> int:
         """
@@ -58,4 +68,4 @@ class LedService:
         Returns (int):
              de tijd die 1 letter er over doet om over het scherm voorbij te komen in milliseconden
         """
-        return int.from_bytes(self._device.read(Characteristic.SCROLLING_DELAY)[0:2], 'little')
+        return int.from_bytes(self._device.read(Service.LED, Characteristic.SCROLLING_DELAY)[0:2], 'little')
