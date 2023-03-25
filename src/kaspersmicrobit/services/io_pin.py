@@ -38,13 +38,19 @@ class Pin(IntEnum):
 
 
 class PinAD(Enum):
+    """De analoog-digitaal configuratie van een pin"""
     DIGITAL = 0
+    """Geeft aan dat een pin voor een digitaal signaal gebruikt wordt"""
     ANALOG = 1
+    """Geeft aan dat een pin voor een analoog signaal gebruikt wordt"""
 
 
 class PinIO(Enum):
+    """De input-output configuratie van een pin"""
     OUTPUT = 0
+    """Geeft aan dat een pin gebruikt wordt om van te lezen"""
     INPUT = 1
+    """Geeft aan dat een pin gebruikt wordt om naar toe te schrijven"""
 
 
 PinConfigurationValue = Union[PinAD, PinIO]
@@ -154,7 +160,7 @@ class PinValue:
 @dataclass
 class PwmControlData:
     """
-    Een klasse om PWM opdrachten te geven aan de microbit
+    Een klasse om PWM opdrachten te geven aan de micro:bit
 
     Attributes:
         pin (Pin): de pin waar de opdracht voor dient
@@ -181,7 +187,7 @@ class PwmControlData:
 
 class IOPinService:
     """
-    Deze klasse bevat de functies die je kan aanspreken in verband met de io pins op de rand van de microbit
+    Deze klasse bevat de functies die je kan aanspreken in verband met de io pins op de rand van de micro:bit
 
     Dit zijn alle mogelijkheden aangeboden door de bluetooth io pin service
 
@@ -200,7 +206,7 @@ class IOPinService:
         """
         Kijkt na of de I/O pin bluetooth service gevonden wordt op de geconnecteerde micro:bit.
 
-        Returns (bool):
+        Returns:
             true als de I/O pin service gevonden werd, false indien niet.
         """
         return self._device.is_service_available(Service.IO_PIN)
@@ -213,6 +219,11 @@ class IOPinService:
 
         Args:
             callback: een functie die wordt opgeroepen met een lijst van PinValue objecten
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+                om de notificaties voor de pin data te activeren (komt normaal gezien niet voor)
         """
         self._device.notify(Service.IO_PIN, Characteristic.PIN_DATA,
                             lambda sender, data: callback(PinValue.list_from_bytes(self._pin_ad_config, data)))
@@ -221,8 +232,13 @@ class IOPinService:
         """
         Geeft de waarden voor iedere pin die geconfigureerd is als PinIO.INPUT via write_io_configuration.
 
-        Returns (List[PinValue]):
+        Returns:
             Een lijst van input pins en hun bijhorende waarde
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+                om de pin data te lezen (komt normaal gezien niet voor)
         """
         return PinValue.list_from_bytes(self._pin_ad_config, self._device.read(Service.IO_PIN, Characteristic.PIN_DATA))
 
@@ -233,6 +249,11 @@ class IOPinService:
 
         Args:
             values (List[PinValue]): de output pins en hun bijhorende waarde
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+                om de pin data te schrijven (komt normaal gezien niet voor)
         """
         if values:
             self._device.write(Service.IO_PIN, Characteristic.PIN_DATA,
@@ -242,8 +263,13 @@ class IOPinService:
         """
         Geeft voor iedere pin of die geconfigureerd is als een PinAD.DIGITAL of PinAD.ANALOG pin.
 
-        Returns (PinADConfiguration):
+        Returns:
             De analoog-digitaal configuratie voor iedere pin
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+                om de pin analoog-digitaal configuratie te lezen (komt normaal gezien niet voor)
         """
         return PinADConfiguration.from_bytes(self._device.read(Service.IO_PIN, Characteristic.PIN_AD_CONFIGURATION))
 
@@ -253,6 +279,11 @@ class IOPinService:
 
         Args:
             config (PinADConfiguration): De analoog-digitaal configuratie voor iedere pin
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+                om de analoog-digitaal configuratie te schrijven (komt normaal gezien niet voor)
         """
         self._device.write(Service.IO_PIN, Characteristic.PIN_AD_CONFIGURATION, config.to_bytes())
         self._pin_ad_config = PinADConfiguration(config[:])
@@ -261,8 +292,13 @@ class IOPinService:
         """
         Geeft voor iedere pin of die geconfigureerd is als een PinIO.INPUT of PinIO.OUTPUT pin.
 
-        Returns (PinIOConfiguration):
+        Returns:
             De input-output configuratie voor iedere pin
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+                om de input-output configuratie te lezen (komt normaal gezien niet voor)
         """
         return PinIOConfiguration.from_bytes(self._device.read(Service.IO_PIN, Characteristic.PIN_IO_CONFIGURATION))
 
@@ -275,12 +311,17 @@ class IOPinService:
 
         Args:
             config (PinIOConfiguration): De input-output configuratie voor iedere pin
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+                om de input-output configuratie te schrijven (komt normaal gezien niet voor)
         """
         self._device.write(Service.IO_PIN, Characteristic.PIN_IO_CONFIGURATION, config.to_bytes())
 
     def write_pwm_control_data(self, pwm_control1: PwmControlData, pwm_control2: PwmControlData = None):
         """
-        Schrijft Pulse Width Modulation opdrachten naar de microbit. 1 of 2 opdrachten kunnen tegelijk gegeven worden
+        Schrijft Pulse Width Modulation opdrachten naar de micro:bit. 1 of 2 opdrachten kunnen tegelijk gegeven worden
 
         See Also: https://microbit-micropython.readthedocs.io/en/latest/pin.html
 
@@ -289,6 +330,11 @@ class IOPinService:
         Args:
             pwm_control1 (PwmControlData): een PWM opdracht
             pwm_control2 (PwmControlData): een optionele PWM opdracht
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+                om de pwm control data te schrijven (komt normaal gezien niet voor)
         """
         data = pwm_control1.to_bytes() + pwm_control2.to_bytes() if pwm_control2 else pwm_control1.to_bytes()
         self._device.write(Service.IO_PIN, Characteristic.PWM_CONTROL, data)

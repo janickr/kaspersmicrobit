@@ -1,8 +1,12 @@
 #  This Source Code Form is subject to the terms of the Mozilla Public
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+from typing import List, Union
 
-from .bluetoothdevice import BluetoothDevice, BluetoothEventLoop
+from bleak import BleakClient, BleakScanner
+
+from .bluetoothdevice import BluetoothDevice, BluetoothEventLoop, ThreadEventLoop
+from .errors import KaspersMicrobitNotFound
 from .services.device_information import DeviceInformationService
 from .services.generic_access import GenericAccessService
 from .services.buttons import ButtonService
@@ -17,33 +21,27 @@ from .services.led import LedService
 
 class KaspersMicrobit:
     """
-    Dit is de klasse die je kan gebruiken om met een microbit te verbinden.
-    Door middel van deze klasse kan je onder meer
+    Dit is de klasse die je kan gebruiken om met een micro:bit te verbinden.
+    Je kan hiermee:
 
-    - gegevens over de microbit uitlezen
-    - gegevens van de sensoren van de microbit uitlezen of je laten verwittigen van gegevens van sensoren
-    - componenten op de microbit aansturen, bvb de LEDs
+    - gegevens over de micro:bit uitlezen
+    - gegevens van de sensoren van de micro:bit uitlezen of je laten verwittigen van gegevens van sensoren
+    - componenten op de micro:bit aansturen, bvb de LEDs
 
     Example:
     ```python
-    with KaspersMicrobit("MICROBIT_BLUETOOTH_ADDRESS") as microbit:
+    with KaspersMicrobit.find_one_microbit() as microbit:
         microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, up=released)
-        microbit.buttons.on_button_b(press=pressed, long_press=pressed_long, up=released)
         microbit.temperature.notify(lambda temp: print(f'{temp}°C'))
-        print(microbit.accelerometer.read())
-        microbit.uart.send_string("Hello kasper, this is working out very well\\n")
         time.sleep(25)
     ```
 
     ```python
-    microbit = KaspersMicrobit("MICROBIT_BLUETOOTH_ADDRESS")
+    microbit = KaspersMicrobit.find_one_microbit()
     try:
         microbit.connect()
         microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, up=released)
-        microbit.buttons.on_button_b(press=pressed, long_press=pressed_long, up=released)
         microbit.temperature.notify(lambda temp: print(f'{temp}°C'))
-        print(microbit.accelerometer.read())
-        microbit.uart.send_string("Hello kasper, this is working out very well\\n")
         time.sleep(25)
     finally:
         microbit.disconnect()
@@ -51,26 +49,26 @@ class KaspersMicrobit:
 
     Attributes:
         device_information (DeviceInformationService):
-            Om informatie te vragen over de maker van je microbit
+            Om informatie te vragen over de maker van je micro:bit
         generic_access (GenericAccessService):
-            Om informatie te vragen over je microbit
+            Om informatie te vragen over je micro:bit
         buttons (ButtonService):
-            Om je te laten verwittigen wanneer een van de twee knoppen van de microbit worden ingedrukt (of losgelaten)
+            Om je te laten verwittigen wanneer een van de twee knoppen van de micro:bit worden ingedrukt (of losgelaten)
         temperature (TemperatureService):
-            Om de temperatuur van de omgeving van de microbit op te vragen (of je te laten verwittigen)
+            Om de temperatuur van de omgeving van de micro:bit op te vragen (of je te laten verwittigen)
         accelerometer (AccelerometerService):
-            Om je te laten verwittigen van versnelling (beweging, botsing,...) van de microbit
+            Om je te laten verwittigen van versnelling (beweging, botsing,...) van de micro:bit
         events (EventService):
-            Om je in te schrijven op het ontvangen van gebeurtenissen van verschillende componenten van de microbit
+            Om je in te schrijven op het ontvangen van gebeurtenissen van verschillende componenten van de micro:bit
         uart (UartService):
-            Om tekst te sturen naar of te ontvangen van de microbit
+            Om tekst te sturen naar of te ontvangen van de micro:bit
         io_pin (IOPinService):
-            Bestuur, lees, configureer de I/O contacten (pins) op de microbit
+            Bestuur, lees, configureer de I/O contacten (pins) op de micro:bit
         led (LedService):
-            Bestuur de LEDs van de microbit
+            Bestuur de LEDs van de micro:bit
         magnetometer (MagnetometerService):
             Om de gegevens van de magnetometer uit te lezen, of je ervan te laten verwittigen. De magnetometer meet
-            heet magnetisch veld in de omgeving van de microbit (bvb het magnetisch veld van de aarde)
+            het magnetisch veld in de omgeving van de micro:bit (bvb het magnetisch veld van de aarde)
 
 
     See Also: https://makecode.microbit.org/reference/bluetooth
@@ -78,16 +76,18 @@ class KaspersMicrobit:
     See Also: https://makecode.microbit.org/device
     """
 
-    def __init__(self, address: str, loop: BluetoothEventLoop = None):
+    def __init__(self, address_or_bluetoothdevice: Union[str, BluetoothDevice]):
         """
         Maak een KaspersMicrobit object met een gegeven bluetooth address.
 
         Args:
-            address (str): het bluetooth adres van de microbit
-            loop (BluetoothEventLoop): dit mag je leeg laten, dit bepaalt welke thread de communicatie met de microbit
-                uitvoert.
+            address_or_bluetoothdevice: het bluetooth adres van de micro:bit
         """
-        self._device = BluetoothDevice(address, loop=loop)
+        if isinstance(address_or_bluetoothdevice, BluetoothDevice):
+            self._device = address_or_bluetoothdevice
+        else:
+            self._device = BluetoothDevice(BleakClient(address_or_bluetoothdevice))
+
         self.device_information = DeviceInformationService(self._device)
         self.generic_access = GenericAccessService(self._device)
         self.buttons = ButtonService(self._device)
@@ -108,12 +108,21 @@ class KaspersMicrobit:
 
     def connect(self) -> None:
         """
-        Connecteer met de microbit. Dit brengt een verbinding tot stand.
-        Een microbit moet gepaired zijn met je computer voor dat je ermee kan verbinden. Je microbit mag nog geen
+        Connecteer met de micro:bit. Dit brengt een verbinding tot stand. Je micro:bit mag nog geen (andere)
         verbinding hebben.
 
-        Problemen in verband met bluetooth connecties met de microbit kunnen vaak verholpen worden door je computer
-        opnieuw te pairen met je microbit.
+        Troubleshooting:
+            First try turning the micro:bit off and on again.
+
+            If you are not using the "with"-block, but calling .connect() yourself, always make sure that in any case
+            you call .disconnect() when you don't need the connection anymore
+            (for instance when you exit your application)
+
+            - In case you are using "No pairing required":
+              Make sure the micro:bit is not paired to your computer, if it was, remove it from the paired bluetooth
+              devices
+            - In case you are using "Just works pairing":
+              Try to remove the micro:bit from the paired bluetooth devices and pairing it your computer again.
 
         See Also: https://support.microbit.org/helpdesk/attachments/19075694226
         """
@@ -121,7 +130,69 @@ class KaspersMicrobit:
 
     def disconnect(self) -> None:
         """
-        Verbreek de verbinding met de microbit.
-        Je moet verbonden zijn met deze microbit om deze methode succesvol te kunnen oproepen.
+        Verbreek de verbinding met de micro:bit.
+        Je moet verbonden zijn met deze micro:bit om deze methode succesvol te kunnen oproepen.
         """
         self._device.disconnect()
+
+    @staticmethod
+    def find_microbits(timeout: int = 3, loop: BluetoothEventLoop = None) -> List['KaspersMicrobit']:
+        """
+        Scant naar bluetooth toestellen. Geeft een lijst van micro:bits die gevonden werd binnen de timeout
+
+        Args:
+             timeout: hoe lang er maximaal gescand wordt (in seconden)
+             loop (BluetoothEventLoop): dit mag je leeg laten, dit bepaalt welke thread de communicatie met de micro:bit
+                  uitvoert.
+
+        Returns:
+            List[KaspersMicrobit]: Een lijst van gevonden micro:bits, deze kan ook leeg zijn,
+                  als er geen micro:bits gevonden werden
+
+        """
+
+        loop = loop if loop else ThreadEventLoop.single_thread()
+        devices = loop.run_async(BleakScanner.discover(timeout)).result()
+        return [
+            KaspersMicrobit(BluetoothDevice(BleakClient(d), loop))
+            for d in devices
+            if d.name and d.name.startswith(KaspersMicrobit._full_name())
+        ]
+
+    @staticmethod
+    def find_one_microbit(microbit_name: str = None, timeout: int = 3, loop: BluetoothEventLoop = None) -> 'KaspersMicrobit':
+        """
+        Scant naar bluetooth toestellen. Geeft exact 1 micro:bit terug als er een gevonden wordt. Je kan optioneel
+        een naam opgeven waarop er moet gezocht worden. Als er geen naam gegeven wordt, en er zijn meerdere micro:bits
+        actief dan wordt er willekeurig een micro:bit gevonden.
+
+        Warning:
+            Enkel wanneer de micro:bit werkt met "No pairing required" adverteert de micro:bit een naam. Dus enkel in
+            het geval je hex bestanden gebruikt met "No pairing required" is het nuttig om de 'microbit_name' parameter
+            te gebruiken.
+            Bij een micro:bit die gepaird is werkt dit niet.
+
+        Args:
+             microbit_name: de naam van de micro:bit. Dit is een naam van 5 letters zoals bvb 'tupaz' of 'gatug' ofzo
+                  Dit is optioneel.
+             timeout: hoe lang er maximaal gescand wordt (in seconden)
+             loop (BluetoothEventLoop): dit mag je leeg laten, dit bepaalt welke thread de communicatie met de micro:bit
+                  uitvoert.
+
+        Returns:
+            KaspersMicrobit: De gevonden micro:bit
+
+        Raises:
+            KaspersMicrobitNotFound: indien er geen micro:bit werd
+        """
+        loop = loop if loop else ThreadEventLoop.single_thread()
+        name = KaspersMicrobit._full_name(microbit_name)
+        device = loop.run_async(BleakScanner.find_device_by_name(name, timeout=timeout)).result()
+        if device:
+            return KaspersMicrobit(BluetoothDevice(BleakClient(device), loop))
+        else:
+            raise KaspersMicrobitNotFound(microbit_name, loop.run_async(BleakScanner.discover(timeout)).result())
+
+    @staticmethod
+    def _full_name(microbit_name: str = None):
+        return f'BBC micro:bit [{microbit_name.strip()}]' if microbit_name else 'BBC micro:bit'

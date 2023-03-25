@@ -7,7 +7,7 @@ from enum import Enum
 # flake8: noqa
 class Characteristic(Enum):
     """
-    Lists all characteristics in the microbit GATT profile
+    Lists all characteristics in the micro:bit GATT profile
 
     See Also: https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html
     """

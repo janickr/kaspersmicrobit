@@ -6,7 +6,7 @@
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 """
-Device IDs and events ids for outdated firmware versions (Microbit v1)
+Device IDs and events ids for outdated firmware versions (micro:bit v1)
 """
 
 DEVICE_ID_BLE = 1000

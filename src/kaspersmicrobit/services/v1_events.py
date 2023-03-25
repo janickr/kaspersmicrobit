@@ -2,7 +2,7 @@
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 """
-Device IDs and events ids for firmware version 0249 (Microbit v1.x)
+Device IDs and events ids for firmware version 0249 (micro:bit v1.x)
 """
 
 DEVICE_ID_BLE = 1000

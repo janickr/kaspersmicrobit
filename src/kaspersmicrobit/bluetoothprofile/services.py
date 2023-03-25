@@ -8,7 +8,7 @@ from enum import Enum
 # flake8: noqa
 class Service(Enum):
     """
-    Lists all services that could be offered by the microbit
+    Lists all services that could be offered by the micro:bit
 
     See Also: https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html
     """

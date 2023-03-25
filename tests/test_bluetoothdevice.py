@@ -10,8 +10,8 @@ import pytest
 from bleak.backends.descriptor import BleakGATTDescriptor
 from bleak.backends.service import BleakGATTService
 
-from kaspersmicrobit.bluetoothdevice import BluetoothDevice, ThreadEventLoop, BluetoothServiceNotFound, \
-    BluetoothCharacteristicNotFound
+from kaspersmicrobit.bluetoothdevice import BluetoothDevice, ThreadEventLoop
+from kaspersmicrobit.errors import BluetoothCharacteristicNotFound, BluetoothServiceNotFound
 from kaspersmicrobit.bluetoothprofile.characteristics import Characteristic
 from kaspersmicrobit.bluetoothprofile.services import Service
 from bleak import BleakGATTCharacteristic, BleakGATTServiceCollection
@@ -78,14 +78,14 @@ class StubBleakGATTCharacteristic(BleakGATTCharacteristic):
 
 @pytest.fixture
 def client():
-    with patch('kaspersmicrobit.bluetoothdevice.BleakClient', autospec=True) as client_type:
+    with patch('bleak.BleakClient', autospec=True) as client_type:
         yield client_type.return_value
 
 
 def test_connect(client):
     client.connect.return_value = None
 
-    BluetoothDevice("address").connect()
+    BluetoothDevice(client).connect()
 
     client.connect.assert_called_with()
 
@@ -93,7 +93,7 @@ def test_connect(client):
 def test_disconnect(client):
     client.disconnect.return_value = None
 
-    BluetoothDevice("address").disconnect()
+    BluetoothDevice(client).disconnect()
 
     client.disconnect.assert_called_with()
 
@@ -102,7 +102,7 @@ def test_read(client):
     client.read_gatt_char.return_value = b'test device name'
     gatt_characteristic = setup_characteristic(client, Service.DEVICE_INFORMATION, Characteristic.DEVICE_NAME)
 
-    read_result = BluetoothDevice("address").read(Service.DEVICE_INFORMATION, Characteristic.DEVICE_NAME)
+    read_result = BluetoothDevice(client).read(Service.DEVICE_INFORMATION, Characteristic.DEVICE_NAME)
 
     client.read_gatt_char.assert_called_with(gatt_characteristic)
 
@@ -113,7 +113,7 @@ def test_write(client):
     client.write_gatt_char.return_value = None
     gatt_characteristic = setup_characteristic(client, Service.DEVICE_INFORMATION, Characteristic.DEVICE_NAME)
 
-    BluetoothDevice("address").write(Service.DEVICE_INFORMATION, Characteristic.DEVICE_NAME, b'test device name')
+    BluetoothDevice(client).write(Service.DEVICE_INFORMATION, Characteristic.DEVICE_NAME, b'test device name')
 
     client.write_gatt_char.assert_called_with(gatt_characteristic, b'test device name')
     client.write_gatt_char.assert_awaited()
@@ -129,7 +129,7 @@ def test_notify(client):
         nonlocal callback_data
         callback_data = data
 
-    BluetoothDevice("address").notify(Service.TEMPERATURE, Characteristic.TEMPERATURE, callback)
+    BluetoothDevice(client).notify(Service.TEMPERATURE, Characteristic.TEMPERATURE, callback)
     characteristic, new_callback = client.start_notify.call_args.args
     client.start_notify.assert_awaited()
 
@@ -146,7 +146,7 @@ def test_notify_suggests_do_in_tkinter_on_tk_error(client):
     def callback(sender, data):
         raise RuntimeError("main thread is not in main loop")
 
-    BluetoothDevice("address").notify(Service.TEMPERATURE, Characteristic.TEMPERATURE, callback)
+    BluetoothDevice(client).notify(Service.TEMPERATURE, Characteristic.TEMPERATURE, callback)
     characteristic, new_callback = client.start_notify.call_args.args
     client.start_notify.assert_awaited()
 
@@ -159,7 +159,8 @@ def test_notify_suggests_do_in_tkinter_on_tk_error(client):
 def test_wait_for_calls_notify_and_blocks_until_first_notification(client):
     gatt_characteristic = setup_characteristic(client, Service.MAGNETOMETER, Characteristic.MAGNETOMETER_CALIBRATION)
     client.start_notify.return_value = None
-    future = BluetoothDevice("address").wait_for(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_CALIBRATION)
+    client.stop_notify.return_value = None
+    future = BluetoothDevice(client).wait_for(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_CALIBRATION)
     characteristic, callback = client.start_notify.call_args.args
     client.start_notify.assert_awaited()
 
@@ -178,7 +179,7 @@ def test_wait_for_unsubscribes_after_result_available(client):
     gatt_characteristic = setup_characteristic(client, Service.MAGNETOMETER, Characteristic.MAGNETOMETER_CALIBRATION)
     client.start_notify.return_value = None
     client.stop_notify.return_value = None
-    future = BluetoothDevice("address").wait_for(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_CALIBRATION)
+    future = BluetoothDevice(client).wait_for(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_CALIBRATION)
     characteristic, callback = client.start_notify.call_args.args
 
     assert characteristic == gatt_characteristic
@@ -205,7 +206,7 @@ def test_service_not_available(client):
                            '(Service.DEVICE_INFORMATION  uuid=0000180a-0000-1000-8000-00805f9b34fb)\n\n'
                            'Is this micro:bit loaded with the correct ".hex" file?'
                        )):
-        BluetoothDevice("address").read(Service.TEMPERATURE, Characteristic.TEMPERATURE)
+        BluetoothDevice(client).read(Service.TEMPERATURE, Characteristic.TEMPERATURE)
 
 
 def test_characteristic_not_found(client):
@@ -220,13 +221,13 @@ def test_characteristic_not_found(client):
                            '  - Device Name                         '
                            '(Characteristic.DEVICE_NAME               uuid=00002a00-0000-1000-8000-00805f9b34fb)'
                        )):
-        BluetoothDevice("address").read(Service.DEVICE_INFORMATION, Characteristic.FIRMWARE_REVISION_STRING)
+        BluetoothDevice(client).read(Service.DEVICE_INFORMATION, Characteristic.FIRMWARE_REVISION_STRING)
 
 
 def test_is_service_available(client):
     setup_characteristic(client, Service.DEVICE_INFORMATION, Characteristic.DEVICE_NAME)
 
-    device = BluetoothDevice("address")
+    device = BluetoothDevice(client)
 
     assert device.is_service_available(Service.DEVICE_INFORMATION)
     assert not device.is_service_available(Service.ACCELEROMETER)

@@ -20,16 +20,21 @@ class GenericAccessService:
         """
         Kijkt na of de generic access bluetooth service gevonden wordt op de geconnecteerde micro:bit.
 
-        Returns (bool):
+        Returns:
             true als de generic access service gevonden werd, false indien niet.
         """
         return self._device.is_service_available(Service.GENERIC_ACCESS)
 
     def read_device_name(self) -> str:
         """
-        Leest de naam van de microbit.
+        Leest de naam van de micro:bit.
 
-        Returns (str):
-            de naam van de microbit
+        Returns:
+            de naam van de micro:bit
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de generic access service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de generic acces service actief is, maar er geen manier was
+                om de device naam te lezen (komt normaal gezien niet voor)
         """
         return str(self._device.read(Service.GENERIC_ACCESS, Characteristic.DEVICE_NAME), "utf-8")

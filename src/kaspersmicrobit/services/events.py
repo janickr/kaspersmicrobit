@@ -17,15 +17,15 @@ def _for_each(events: List[Event], callback: Callable[[Event], None]):
 
 class EventService:
     """
-    Met behulp van deze klasse kan je luisteren naar gebeurtenissen (events) die plaatsvinden op de microbit.
-    De microbit meldt deze gebeurtenissen op zijn interne messagebus.
+    Met behulp van deze klasse kan je luisteren naar gebeurtenissen (events) die plaatsvinden op de micro:bit.
+    De micro:bit meldt deze gebeurtenissen op zijn interne messagebus.
 
-    De device ids en event ids verschillen tussen de verschillende microbit versies.
-    Zie `kaspersmicrobit.services.v1_events` voor de ids van de microbit v1, en
-    `kaspersmicrobit.services.v2_events` voor de ids van de microbit v2
+    De device ids en event ids verschillen tussen de verschillende micro:bit versies.
+    Zie `kaspersmicrobit.services.v1_events` voor de ids van de micro:bit v1, en
+    `kaspersmicrobit.services.v2_events` voor de ids van de micro:bit v2
 
-    Ook de microbit zelf kan via deze service aangeven dat hij geïnteresseerd is om bepaalde events te onvangen.
-    Je kan dus ook zelfgemaakte events naar de microbit doorsturen.
+    Ook de micro:bit zelf kan via deze service aangeven dat hij geïnteresseerd is om bepaalde events te onvangen.
+    Je kan dus ook zelfgemaakte events naar de micro:bit doorsturen.
 
     Dit zijn alle mogelijkheden aangeboden door de bluetooth event service
 
@@ -39,83 +39,113 @@ class EventService:
         """
         Kijkt na of de event bluetooth service gevonden wordt op de geconnecteerde micro:bit.
 
-        Returns (bool):
+        Returns:
             true als de event service gevonden werd, false indien niet.
         """
         return self._device.is_service_available(Service.EVENT)
 
     def notify_microbit_requirements(self, callback: Callable[[Event], None]):
         """
-        Deze methode kan je oproepen wanneer je verwittigd wil worden welke events de microbit zou willen ontvangen
-        Wanneer een event een event_waarde van 0 bevat betekent dit dat de microbit geinformeerd wil worden van elke
+        Deze methode kan je oproepen wanneer je verwittigd wil worden welke events de micro:bit zou willen ontvangen
+        Wanneer een event een event_waarde van 0 bevat betekent dit dat de micro:bit geinformeerd wil worden van elke
         event van het gegeven device_id
 
-        Je kan dan met `write_client_event` de microbit op de hoogte houden van deze gebeurtenissen
+        Je kan dan met `write_client_event` de micro:bit op de hoogte houden van deze gebeurtenissen
 
         Args:
             callback: een functie die wordt opgeroepen met een Event
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+                om de notificaties voor de microbit requirements te activeren (komt normaal gezien niet voor)
         """
         self._device.notify(Characteristic.MICROBIT_REQUIREMENTS,
                             lambda sender, data: _for_each(Event.list_from_bytes(data), callback))
 
     def read_microbit_requirements(self) -> List[Event]:
         """
-        Leest de lijst van events die de microbit zou willen ontvangen van jou wanneer ze zich voordoen
-        Wanneer een event een event_waarde van 0 bevat betekent dit dat de microbit geinformeerd wil worden van elke
+        Leest de lijst van events die de micro:bit zou willen ontvangen van jou wanneer ze zich voordoen
+        Wanneer een event een event_waarde van 0 bevat betekent dit dat de micro:bit geinformeerd wil worden van elke
         event van het gegeven device_id
 
-        Je kan dan met `write_client_event` de microbit op de hoogte houden van deze gebeurtenissen
+        Je kan dan met `write_client_event` de micro:bit op de hoogte houden van deze gebeurtenissen
 
-        Returns (List[Event]):
-            Een lijst van events waarvan je de microbit moet verwittigen wanneer ze zich voordoen
+        Returns:
+            List[Event]: Een lijst van events waarvan je de micro:bit moet verwittigen wanneer ze zich voordoen
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+                om de microbit requirements te lezen (komt normaal gezien niet voor)
         """
         return Event.list_from_bytes(self._device.read(Service.EVENT, Characteristic.MICROBIT_REQUIREMENTS))
 
     def notify_microbit_event(self, callback: Callable[[Event], None]):
         """
-        Deze methode kan je oproepen wanneer je verwittigd wil worden van events die zich voordoen op de microbit
+        Deze methode kan je oproepen wanneer je verwittigd wil worden van events die zich voordoen op de micro:bit
         Je zal enkel verwittigd worden van events waarvan je met `write_client_requirements` hebt aangegeven dat
         je ze wil ontvangen
 
         Args:
             callback: een functie die wordt opgeroepen met een Event
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+                om de notificaties voor de microbit events te activeren (komt normaal gezien niet voor)
         """
         self._device.notify(Service.EVENT, Characteristic.MICROBIT_EVENT,
                             lambda sender, data: _for_each(Event.list_from_bytes(data), callback))
 
     def read_microbit_event(self) -> List[Event]:
         """
-        Leest de lijst van events die zich hebben voorgedaan op de microbit
+        Leest de lijst van events die zich hebben voorgedaan op de micro:bit
         Je zal enkel events kunnen uitlezen waarvan je met `write_client_requirements` hebt aangegeven dat
         je ze wil ontvangen
 
-        Returns (List[Event]):
-            Een lijst van events die zich hebben voorgedaan op de microbit
+        Returns:
+            List[Event]: Een lijst van events die zich hebben voorgedaan op de micro:bit
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+                om de microbit events te lezen (komt normaal gezien niet voor)
         """
         return Event.list_from_bytes(self._device.read(Service.EVENT, Characteristic.MICROBIT_EVENT))
 
     def write_client_requirements(self, *events: Event):
         """
-        Met deze methode geeft je aan in welke events van de microbit je geïnteresseerd bent. Deze events kan je dan
+        Met deze methode geeft je aan in welke events van de micro:bit je geïnteresseerd bent. Deze events kan je dan
         ontvangen met `notify_microbit_event` of uitlezen met `read_microbit_event` als ze zich voordoen.
 
         Wanneer je een event met een event_waarde van 0 schrijft betekent dit dat je geinformeerd wil worden van elke
         event van het gegeven device_id
 
         Args:
-            *events (Event): de events die je wil ontvangen van de microbit
+            *events (Event): de events die je wil ontvangen van de micro:bit
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+                om de client requirements te schrijven (komt normaal gezien niet voor)
         """
         for event in events:
             self._device.write(Service.EVENT, Characteristic.CLIENT_REQUIREMENTS, event.to_bytes())
 
     def write_client_event(self, *events: Event):
         """
-        Met deze methode zend je events naar de microbit. Hiermee kan je de microbit op de hoogte houden van events die
-        zich voordoen in je applicatie. Zend enkel events waarvan de microbit heeft aangegeven ze te willen ontvangen
+        Met deze methode zend je events naar de micro:bit. Hiermee kan je de micro:bit op de hoogte houden van events die
+        zich voordoen in je applicatie. Zend enkel events waarvan de micro:bit heeft aangegeven ze te willen ontvangen
         door `notify_microbit_requirements` of `read_microbit_requirements`
 
         Args:
-           *events (Event): de events die je wil verzenden naar de microbit
+           *events (Event): de events die je wil verzenden naar de micro:bit
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+                om de client events te schrijven (komt normaal gezien niet voor)
         """
         for event in events:
             self._device.write(Service.EVENT, Characteristic.CLIENT_EVENT, event.to_bytes())

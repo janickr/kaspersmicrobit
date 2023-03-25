@@ -9,9 +9,9 @@ from ..bluetoothdevice import ByteData
 
 class LedDisplay:
     """
-    Een klasse die het LED scherm van de microbit voorstelt.
-    De LED linksboven op de microbit is de LED op rij 1, kolom 1
-    De LED rechtsbeneden op de microbit is de LED op rij 5, kolom 5
+    Een klasse die het LED scherm van de micro:bit voorstelt.
+    De LED linksboven op de micro:bit is de LED op rij 1, kolom 1
+    De LED rechtsbeneden op de micro:bit is de LED op rij 5, kolom 5
     """
     def __init__(self, _bytes: bytearray = None):
         """
@@ -27,12 +27,12 @@ class LedDisplay:
             row int: de rij van de LED (geldige waarden zijn 1 tot en met 5)
             column int: de kolom van de LED (geldige waarden zijn 1 tot en met 5)
 
-        Returns (bool):
+        Returns:
             True wanneer de LED aan staat, False als de LED uit staat
         """
         return ((self._display[row-1] >> (5 - column)) & 1) == 1
 
-    def set_led(self, row: int, column: int, on: bool):
+    def set_led(self, row: int, column: int, on: bool = True):
         """
         Zet een LED op de gegeven rij en kolom aan of uit
 
@@ -40,9 +40,6 @@ class LedDisplay:
             row int: de rij van de LED (geldige waarden zijn 1 tot en met 5)
             column int: de kolom van de LED (geldige waarden zijn 1 tot en met 5)
             on bool: indien True word de LED aan gezet, indien False uit
-
-        Returns (bool):
-            True wanneer de LED aan staat, False als de LED uit staat
         """
         if on:
             self._display[row-1] |= 1 << (5 - column)
@@ -57,7 +54,7 @@ class LedDisplay:
         return LedDisplay(bytearray(value))
 
     @staticmethod
-    def image(string: str, on='#', off='.'):
+    def image(string: str, on='#', off='.') -> 'LedDisplay':
         """
         Maakt een LedDisplay van een string.
 
@@ -81,7 +78,7 @@ class LedDisplay:
             on: de letter die een LED voorstelt die 'aan' is ('#' indien niet ingevuld)
             off: de letter die een LED voorstelt die 'uit' is ('.' indien niet ingevuld)
 
-        Returns (LedDisplay):
+        Returns:
             Een LedDisplay die de gegeven string image voorstelt
 
         Raises:

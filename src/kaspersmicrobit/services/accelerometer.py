@@ -16,7 +16,7 @@ AccelerometerPeriod = Union[
 Het interval waarmee de Accelerometer wordt uitgelezen is een integer en drukt het aantal milliseconden uit.
 Er is een beperkt aantal geldige periodes: 1, 2, 5, 10, 20, 80, 160, 640
 
-Opgelet:
+Warning:
     Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet werkt/klopt zoals ik verwacht
     TODO te onderzoeken
 """
@@ -25,7 +25,12 @@ Opgelet:
 @dataclass
 class AccelerometerData:
     """
-    De waarden van op de 3 assen van een meting van de accelerometer, in milli-g. (met g de valversnelling op aarde)
+    De waarden van de 3 assen van een meting van de accelerometer, in milli-g. (met g de valversnelling op aarde)
+
+    Attributes:
+        x (int): horizontaal (van links naar rechts)
+        y (int): horizontaal (van achter naar voor)
+        z (int): verticaal (van onder naar boven)
     """
     x: int
     y: int
@@ -42,49 +47,49 @@ class AccelerometerData:
 
 class AccelerometerService:
     """
-    Deze klasse bevat de functies die je kan aanspreken in verband met de accelerometer van de microbit
+    Deze klasse bevat de functies die je kan aanspreken in verband met de accelerometer van de micro:bit
 
     De accelerometer meet kracht/versnelling langs 3 assen:
 
     - x: horizontaal (van links naar rechts)
     - y: horizontaal (van achter naar voor)
-    - z: vertical (van onder naar boven)
+    - z: verticaal (van onder naar boven)
 
     De waarden van x, y en z zijn integers en zijn waarden in milli-g, waarbij 1 g, dus 1000 milli-g gelijk is aan de
     valversnelling op aarde. In vrije val zullen de waarden langs de assen ongeveer 0 zijn:
 
         AccelerometerData(x=0, y=0, z=0)
 
-    Wanneer de microbit recht voor je met de knoppen zichtbaar en de pins naar je toe ligt,
+    Wanneer de micro:bit recht voor je met de knoppen zichtbaar en de pins naar je toe ligt,
     dan zal een meting van de accelerometer (ongeveer) het volgende geven:
 
         AccelerometerData(x=-50, y=-50, z=-1024)
 
     dat z ongeveer -1000 (ipv 1000 zoals je misschien verwacht zou hebben) valt te verklaren door dat je de kracht meet
-    die de microbit tegenhoudt (bvb wanneer je de microbit vasthoudt: de kracht die je arm uitoefent, en die de microbit
-    weerhoudt van te vallen)
+    die de micro:bit tegenhoudt (bvb wanneer je de micro:bit vasthoudt: de kracht die je arm uitoefent, en die
+    de micro:bit weerhoudt van te vallen)
 
-    Kantel je de microbit vanuit deze startpositie naar je toe,
+    Kantel je de micro:bit vanuit deze startpositie naar je toe,
     dan stijgen y en z in waarde en blijft x ongeveer gelijk:
 
         AccelerometerData(x=-28, y=972, z=-56)
 
-    Kantel je de microbit vanuit de startpositie van je weg,
+    Kantel je de micro:bit vanuit de startpositie van je weg,
     dan daalt y, en stijgt z in waarde en blijft x ongeveer gelijk:
 
         AccelerometerData(x=-104, y=-960, z=124)
 
-    Kantel je de microbit vanuit de startpositie naar links
+    Kantel je de micro:bit vanuit de startpositie naar links
     dan daalt x, en stijgt z in waarde en blijft y ongeveer gelijk:
 
         AccelerometerData(x=-1108, y=72, z=-160)
 
-    Kantel je de microbit vanuit de startpositie naar rechts
+    Kantel je de micro:bit vanuit de startpositie naar rechts
     dan stijgen x en z in waarde en blijft y ongeveer gelijk:
 
         AccelerometerData(x=960, y=60, z=0)
 
-    Draai je de microbit helemaal ondersteboven
+    Draai je de micro:bit helemaal ondersteboven
     dan stijgt z ongeveer tot 1000 en blijven x en y ongeveer gelijk:
 
         AccelerometerData(x=-56, y=-36, z=1024)
@@ -102,7 +107,7 @@ class AccelerometerService:
         """
         Kijkt na of de accelerometer bluetooth service gevonden wordt op de geconnecteerde micro:bit.
 
-        Returns (bool):
+        Returns:
             true als de accelerometer gevonden werd, false indien niet.
         """
         return self._device.is_service_available(Service.ACCELEROMETER)
@@ -115,6 +120,11 @@ class AccelerometerService:
         Args:
             callback (Callable[[AccelerometerData], None]): een functie die wordt opgeroepen wanneer er nieuwe gegevens
                 zijn van de accelerometer. De nieuwe AccelerometerData worden meegegeven als argument aan deze functie
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de accelerometer service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de accelerometer service actief is, maar er geen manier was om de
+                accelerometer data notificaties te activeren (komt normaal gezien niet voor)
         """
         self._device.notify(Service.ACCELEROMETER, Characteristic.ACCELEROMETER_DATA,
                             lambda sender, data: callback(AccelerometerData.from_bytes(data)))
@@ -123,8 +133,13 @@ class AccelerometerService:
         """
         Geeft de gegevens van de accelerometer.
 
-        Returns (AccelerometerData):
+        Returns:
             De gegevens van de accelerometer (x, y en z)
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de accelerometer service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de accelerometer service actief is, maar er geen manier was om de
+                accelerometer data te lezen (komt normaal gezien niet voor)
         """
         return AccelerometerData.from_bytes(self._device.read(Service.ACCELEROMETER, Characteristic.ACCELEROMETER_DATA))
 
@@ -136,7 +151,12 @@ class AccelerometerService:
             period (AccelerometerPeriod): het interval waarop de accelerometer metingen doet,
                 geldige waarden zijn: 1, 2, 5, 10, 20, 80, 160, 640
 
-        Opgelet:
+        Raises:
+            BluetoothServiceNotFound: Wanneer de accelerometer service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de accelerometer service actief is, maar er geen manier was om de
+                accelerometer periode te wijzigen (komt normaal gezien niet voor)
+
+        Warning:
             Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet werkt/klopt zoals ik verwacht
             TODO te onderzoeken
         """
@@ -146,7 +166,12 @@ class AccelerometerService:
         """
         Geeft het interval terug waarmee de accelerometer metingen doet
 
-        Returns (int):
+        Returns:
             Het interval in milliseconden
+
+        Raises:
+            BluetoothServiceNotFound: Wanneer de accelerometer service niet actief is op de micro:bit
+            BluetoothCharacteristicNotFound: Wanneer de accelerometer service actief is, maar er geen manier was om de
+                accelerometer periode te lezen (komt normaal gezien niet voor)
         """
         return int.from_bytes(self._device.read(Service.ACCELEROMETER, Characteristic.ACCELEROMETER_PERIOD)[0:2], "little")
