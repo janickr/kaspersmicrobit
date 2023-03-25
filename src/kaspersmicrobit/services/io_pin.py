@@ -55,7 +55,7 @@ T = TypeVar('T', bound=PinConfigurationValue)
 class PinConfiguration(Generic[T]):
     NUMBER_OF_PINS = len(Pin)
 
-    def __init__(self, configuration_value_type: Type[T], configuration: [T] = None):
+    def __init__(self, configuration_value_type: Type[T], configuration: List[T] = None):
         self._configuration = configuration if configuration \
             else [configuration_value_type(0)] * PinConfiguration.NUMBER_OF_PINS
 
@@ -76,7 +76,7 @@ class PinConfiguration(Generic[T]):
         return bits.to_bytes(4, "little")
 
     @staticmethod
-    def list_from_bytes(configuration_value_type: Type[T], value: ByteData) -> [T]:
+    def list_from_bytes(configuration_value_type: Type[T], value: ByteData) -> List[T]:
         bits = int.from_bytes(value[0:4], "little")
         configuration = []
         for pin in range(PinConfiguration.NUMBER_OF_PINS):
@@ -89,7 +89,7 @@ class PinIOConfiguration(PinConfiguration[PinIO]):
     """
     De pin IO configuratie. Bevat voor iedere pin of die voor INPUT of OUTPUT gebruikt wordt
     """
-    def __init__(self, configuration: [T] = None):
+    def __init__(self, configuration: List[T] = None):
         super(PinIOConfiguration, self).__init__(PinIO, configuration=configuration)
 
     @staticmethod
@@ -101,7 +101,7 @@ class PinADConfiguration(PinConfiguration[PinAD]):
     """
     De pin AD configuratie. Bevat voor iedere pin of die voor ANALOG of DIGITAL gebruik is
     """
-    def __init__(self, configuration: [T] = None):
+    def __init__(self, configuration: List[T] = None):
         super(PinADConfiguration, self).__init__(PinAD, configuration=configuration)
 
     @staticmethod
@@ -135,7 +135,7 @@ class PinValue:
         return self.pin.value.to_bytes(1, "little") + compressed_value.to_bytes(1, "little")
 
     @staticmethod
-    def list_from_bytes(ad_config: PinADConfiguration, values: ByteData) -> ['PinValue']:
+    def list_from_bytes(ad_config: PinADConfiguration, values: ByteData) -> List['PinValue']:
         result = []
         for i in range(0, len(values), 2):
             result.append(PinValue.from_bytes(ad_config, values[i:i+2]))
@@ -143,7 +143,7 @@ class PinValue:
         return result
 
     @staticmethod
-    def list_to_bytes(ad_config: PinADConfiguration, values: ['PinValue']) -> bytes:
+    def list_to_bytes(ad_config: PinADConfiguration, values: List['PinValue']) -> bytes:
         result = bytes()
         for pin_value in values:
             result += pin_value.to_bytes(ad_config)
@@ -217,22 +217,22 @@ class IOPinService:
         self._device.notify(Service.IO_PIN, Characteristic.PIN_DATA,
                             lambda sender, data: callback(PinValue.list_from_bytes(self._pin_ad_config, data)))
 
-    def read_data(self) -> [PinValue]:
+    def read_data(self) -> List[PinValue]:
         """
         Geeft de waarden voor iedere pin die geconfigureerd is als PinIO.INPUT via write_io_configuration.
 
-        Returns ([PinValue]):
+        Returns (List[PinValue]):
             Een lijst van input pins en hun bijhorende waarde
         """
         return PinValue.list_from_bytes(self._pin_ad_config, self._device.read(Service.IO_PIN, Characteristic.PIN_DATA))
 
-    def write_data(self, values: [PinValue]):
+    def write_data(self, values: List[PinValue]):
         """
         Schrijft waarden naar 1 of meer pins. Deze pins moet je voorafgaand geconfigureerd hebben als PinIO.OUTPUT pins
         via write_io_configuration. Wanneer jes chrijft naar een input pin zal dit genegeerd worden
 
         Args:
-            values ([PinValue]): de output pins en hun bijhorende waarde
+            values (List[PinValue]): de output pins en hun bijhorende waarde
         """
         if values:
             self._device.write(Service.IO_PIN, Characteristic.PIN_DATA,

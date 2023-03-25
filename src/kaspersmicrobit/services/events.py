@@ -58,7 +58,7 @@ class EventService:
         self._device.notify(Characteristic.MICROBIT_REQUIREMENTS,
                             lambda sender, data: _for_each(Event.list_from_bytes(data), callback))
 
-    def read_microbit_requirements(self) -> [Event]:
+    def read_microbit_requirements(self) -> List[Event]:
         """
         Leest de lijst van events die de microbit zou willen ontvangen van jou wanneer ze zich voordoen
         Wanneer een event een event_waarde van 0 bevat betekent dit dat de microbit geinformeerd wil worden van elke
@@ -66,7 +66,7 @@ class EventService:
 
         Je kan dan met `write_client_event` de microbit op de hoogte houden van deze gebeurtenissen
 
-        Returns ([Event]):
+        Returns (List[Event]):
             Een lijst van events waarvan je de microbit moet verwittigen wanneer ze zich voordoen
         """
         return Event.list_from_bytes(self._device.read(Service.EVENT, Characteristic.MICROBIT_REQUIREMENTS))
@@ -83,13 +83,13 @@ class EventService:
         self._device.notify(Service.EVENT, Characteristic.MICROBIT_EVENT,
                             lambda sender, data: _for_each(Event.list_from_bytes(data), callback))
 
-    def read_microbit_event(self) -> [Event]:
+    def read_microbit_event(self) -> List[Event]:
         """
         Leest de lijst van events die zich hebben voorgedaan op de microbit
         Je zal enkel events kunnen uitlezen waarvan je met `write_client_requirements` hebt aangegeven dat
         je ze wil ontvangen
 
-        Returns ([Event]):
+        Returns (List[Event]):
             Een lijst van events die zich hebben voorgedaan op de microbit
         """
         return Event.list_from_bytes(self._device.read(Service.EVENT, Characteristic.MICROBIT_EVENT))

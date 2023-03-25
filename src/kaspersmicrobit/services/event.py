@@ -2,6 +2,8 @@
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 from dataclasses import dataclass
+from typing import List
+
 from ..bluetoothdevice import ByteData
 
 
@@ -32,7 +34,7 @@ class Event:
         return self.device_id.to_bytes(2, "little") + self.event_value.to_bytes(2, "little")
 
     @staticmethod
-    def list_from_bytes(values: ByteData) -> ['Event']:
+    def list_from_bytes(values: ByteData) -> List['Event']:
         result = []
         for i in range(0, len(values), 4):
             result.append(Event.from_bytes(values[i:i + 4]))
@@ -40,7 +42,7 @@ class Event:
         return result
 
     @staticmethod
-    def list_to_bytes(values: ['Event']) -> bytes:
+    def list_to_bytes(values: List['Event']) -> bytes:
         result = bytes()
         for event in values:
             result += event.to_bytes()
