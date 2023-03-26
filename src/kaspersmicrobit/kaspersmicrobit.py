@@ -153,10 +153,11 @@ class KaspersMicrobit:
 
         loop = loop if loop else ThreadEventLoop.single_thread()
         devices = loop.run_async(BleakScanner.discover(timeout)).result()
+        name_filter = KaspersMicrobit._name_filter()
         return [
             KaspersMicrobit(BluetoothDevice(BleakClient(d), loop))
             for d in devices
-            if d.name and d.name.startswith(KaspersMicrobit._full_name())
+            if name_filter(d.name)
         ]
 
     @staticmethod
@@ -186,13 +187,16 @@ class KaspersMicrobit:
             KaspersMicrobitNotFound: indien er geen micro:bit werd
         """
         loop = loop if loop else ThreadEventLoop.single_thread()
-        name = KaspersMicrobit._full_name(microbit_name)
-        device = loop.run_async(BleakScanner.find_device_by_name(name, timeout=timeout)).result()
+        name_filter = lambda d, ad: KaspersMicrobit._name_filter(microbit_name)(ad.local_name)
+        device = loop.run_async(BleakScanner.find_device_by_filter(filterfunc=name_filter, timeout=timeout)).result()
         if device:
             return KaspersMicrobit(BluetoothDevice(BleakClient(device), loop))
         else:
             raise KaspersMicrobitNotFound(microbit_name, loop.run_async(BleakScanner.discover(timeout)).result())
 
     @staticmethod
-    def _full_name(microbit_name: str = None):
-        return f'BBC micro:bit [{microbit_name.strip()}]' if microbit_name else 'BBC micro:bit'
+    def _name_filter(microbit_name: str = None):
+        return lambda \
+            device_name: device_name == f'BBC micro:bit [{microbit_name.strip()}]' \
+            if microbit_name \
+            else device_name and device_name.startswith('BBC micro:bit')
