@@ -135,6 +135,15 @@ class KaspersMicrobit:
         """
         self._device.disconnect()
 
+    def address(self) -> str:
+        """
+        Geeft het Bluetooth adres van deze micro:bit
+
+        Returns:
+            Het adres van de micro:bit
+        """
+        return self._device.address()
+
     @staticmethod
     def find_microbits(timeout: int = 3, loop: BluetoothEventLoop = None) -> List['KaspersMicrobit']:
         """

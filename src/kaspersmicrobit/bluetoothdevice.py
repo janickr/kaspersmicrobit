@@ -131,6 +131,9 @@ class BluetoothDevice:
     def is_service_available(self, service: Service) -> bool:
         return not self._get_gatt_service(service) is None
 
+    def address(self) -> str:
+        return self._client.address
+
     def _find_gatt_attribute(self, service: Service, characteristic: Characteristic) -> BleakGATTCharacteristic:
         gatt_service = self._get_gatt_service(service)
         if not gatt_service:
