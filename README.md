@@ -51,6 +51,9 @@ Or take a look at the [examples](https://github.com/janickr/kaspersmicrobit/tree
 ## Micro:bit versions, operating systems, Bluetooth pairing
 
 Below you can find which combinations of operating systems and microbit versions have been known to work.
+I don't have a mac to test kaspersmicrobit on. Let me know here: https://github.com/janickr/kaspersmicrobit/issues/5 
+if it works or not!
+
 
 | micro:bit v2.x | No pairing required | Just works pairing |
 |----------------|---------------------|--------------------|
