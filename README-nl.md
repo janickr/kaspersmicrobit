@@ -51,8 +51,6 @@ Of neem een kijkje in de [voorbeelden](https://github.com/janickr/kaspersmicrobi
 ## Micro:bit versies, operating systems, Bluetooth pairing
 
 In de onderstaande tabellen zie je welke combinatie van besturingssystemen en micro:bit versies werken.
-Ik heb geen mac om kaspersmicrobit op te testen. Laat me hier https://github.com/janickr/kaspersmicrobit/issues/5 weten 
-of het werkt of niet!
 
 | micro:bit v2.x | No pairing required | Just works pairing |
 |----------------|---------------------|--------------------|
@@ -60,6 +58,9 @@ of het werkt of niet!
 | Linux          | :heavy_check_mark:  | :heavy_check_mark: |
 | MacOS          | :grey_question:     | :grey_question:    |
 
+
+Ik heb geen mac om kaspersmicrobit op te testen. Laat me [hier (#5)](https://github.com/janickr/kaspersmicrobit/issues/5) weten 
+of het werkt of niet!
 
 | micro:bit v1.x | No pairing required | Just works pairing |
 |----------------|---------------------|--------------------|
