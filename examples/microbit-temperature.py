@@ -8,7 +8,6 @@ from kaspersmicrobit import KaspersMicrobit
 
 logging.basicConfig(level=logging.INFO)
 
-MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
 # example {
 
 
@@ -16,7 +15,7 @@ def print_temperature(temperature):
     print(f"Temperature update: {temperature}°C")
 
 
-with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
+with KaspersMicrobit.find_one_microbit() as microbit:
     # read the current temperature / lees de huidige temperatuur
     print(f"The temperature is now: {microbit.temperature.read()}")
 

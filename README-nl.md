@@ -16,75 +16,85 @@ die de micro:bit aanbiedt.
   
 Bekijk de volledige video [op youtube](https://www.youtube.com/watch?v=t3JARVPQE9Q)
 
-## Installatie
+## Hoe te starten
+Installeer kaspersmicrobit:
 ```bash
 $ pip install kaspersmicrobit
 ```
-
-Of upgrade naar de laatste versie met:
-```bash
-$  pip install --upgrade kaspersmicrobit  
-```
-
-## Een voorbeeld
+Kopieer [dit hex bestand](https://kaspersmicrobit.readthedocs.io/en/latest/hex/microbit-bluetooth-accel-buttons-led-temp-no-pairing.hex)
+naar de micro:bit en start je eerste programma:
 ```python
-
 import time
 
 from kaspersmicrobit import KaspersMicrobit
 
-VERANDER_DIT_NAAR_JOUW_MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
 
+def pressed(button):
+    print(f"button {button} pressed")
 
-def ingedrukt(knop):
-    print(f"knop {knop} ingedrukt")
-
-
-with KaspersMicrobit(VERANDER_DIT_NAAR_JOUW_MICROBIT_BLUETOOTH_ADDRESS) as microbit:
-    microbit.buttons.on_button_a(press=ingedrukt)
+with KaspersMicrobit.find_one_microbit() as microbit:
+    microbit.buttons.on_button_a(press=pressed)
     time.sleep(10)
-
 ```
 
-## Connecteren
-Om met je micro:bit te kunnen verbinden moet je de [bluetooth services](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/enable-bluetooth/) 
-die je wil gebruiken op je micro:bit aanzetten, en je micro:bit [pairen](https://kaspersmicrobit.readthedocs.io/en/stable/bluetooth-pairing/windows/pairing-microbit-windows/) 
-met je computer. 
+## Leer meer
+Bezoek https://kaspersmicrobit.readthedocs.io:
 
-Om de Bluetooth services aan te zetten kan je [MakeCode](https://makecode.microbit.org) gebruiken of 
-[een hex bestand](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/enable-bluetooth/)
-naar je micro:bit kopiëren.
+ - Probeer de [accelerometer](https://kaspersmicrobit.readthedocs.io/en/stable/accelerometer/), of de [led display](https://kaspersmicrobit.readthedocs.io/en/stable/led/)
+ - [Leer](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/create-a-makecode-project-without-pairing/) je eigen .hex bestanden te maken
+ - [Eenvoudige voorbeelden](https://kaspersmicrobit.readthedocs.io/en/stable/buttons/), leer hoe je iedere Bluetooth service van de micro:bit kan gebruiken 
+ - [Volledige Api documentatie](https://kaspersmicrobit.readthedocs.io/en/stable/reference/kaspersmicrobit/)
+ - Combineer [KaspersMicrobit met tkinter](https://kaspersmicrobit.readthedocs.io/en/stable/tkinter/use_buttons_to_move_rectangle/)
 
-Voor meer gedetailleerde instructies zie [Getting started - Enable Bluetooth](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/enable-bluetooth/)
+Of neem een kijkje in de [voorbeelden](https://github.com/janickr/kaspersmicrobit/tree/main/examples).
 
-## Api documentatie
-Op https://kaspersmicrobit.readthedocs.io, vind je het volgende:
+## Micro:bit versies, operating systems, Bluetooth pairing
 
- - Eenvoudige voorbeelden die tonen hoe je de functies van iedere service aangeboden door de micro:bit gebruikt
- - Volledige Api documentation
- - Voorbeelden van kaspersmicrobit in combinatie met tkinter 
+In de onderstaande tabellen zie je welke combinatie van besturingssystemen en micro:bit versies werken.
+
+| micro:bit v2.x | No pairing required | Just works pairing |
+|----------------|---------------------|--------------------|
+| Windows        | :heavy_check_mark:  | :heavy_check_mark: |
+| Linux          | :heavy_check_mark:  | :heavy_check_mark: |
+| MacOS          | :grey_question:     | :grey_question:    |
 
 
-De code van alle voorbeelden kan je vinden in de [examples](https://github.com/janickr/kaspersmicrobit/tree/main/examples) folder.
+| micro:bit v1.x | No pairing required | Just works pairing |
+|----------------|---------------------|--------------------|
+| Windows        | :heavy_check_mark:  | :x:                |
+| Linux          | :heavy_check_mark:  | :heavy_check_mark: |
+| MacOS          | :grey_question:     | :grey_question:    |
 
-## Probleemoplossing
 
-### Bluetooth connection
-Problemen in verband met bluetooth connecties met de micro:bit kunnen vaak verholpen worden door je computer
-opnieuw te pairen met je micro:bit.
-
-Zie ook: https://support.microbit.org/helpdesk/attachments/19075694226
+## Troubleshooting
+### Upgrade naar de laatste versie
+```bash
+$  pip install --upgrade kaspersmicrobit  
+```
+### Bluetooth connectie
+Schakel je micro:bit eerst een keer uit en aan.
 
 Kijk ook na: indien je de "with"-blok niet gebruikt, maar in de plaats daarvan zelf .connect() oproept, zorg er dan voor 
 dat je in elk geval ook .disconnect() oproept wanneer je de connectie niet meer nodig hebt (bijvoorbeeld wanneer je 
 programma eindigt)
 
+#### No pairing required
+Als het .hex bestand gemaakt werd met de instelling ["No pairing required"](https://kaspersmicrobit.readthedocs.io/en/stable/create-a-makecode-project-without-pairing/#disable-pairing)
+dan mag de micro:bit niet gepaired zijn met je besturingssysteem
 
-### De micro:bit V1 en Microsoft Windows
-Om kaspersmicrobit te gebruiken moet je micro:bit gepaired zijn met je computer, maar niet "verbonden". We hebben
-gemerkt dat onze micro:bit V1 zich altijd verbindt met windows wanneer hij gepaired is. Dit zorgt ervoor dat
-kaspersmicrobit er niet mee kan verbinden. Onder linux gedraagt de V1 zich wel correct. De micro:bit V2 
-werkt wel correct op zowel Windows als linux.
+#### Just works pairing 
+Gebruik geen pairing bij een micro:bit v1 en windows, gebruik  ["No pairing required"](https://kaspersmicrobit.readthedocs.io/en/stable/create-a-makecode-project-without-pairing/#disable-pairing)
+in de plaats.  
+
+Voor andere versies: verwijder de micro:bit van de lijst met gepairde Bluetooth toestellen en pair het opnieuw met je computer.
+
+Zie ook: https://support.microbit.org/helpdesk/attachments/19075694226
+
+### De micro:bit toont een droevige smiley en fout 020
+Dit betekent dat de micro:bit een tekort aan geheugen heeft. Je hebt waarschijnlijk te veel Bluetooth services geactiveerd
+in MakeCode. Of misschien is je MakeCode programma te groot. Omdat de micro:bit v1 minder geheugen heeft dan de v2, is 
+de kans groter dat deze fout zich voordoet bij v1 micro:bits.
+Zie ook: [the micro:bit error codes](https://makecode.microbit.org/device/error-codes)
 
 ### tkinter "main thread is not in main loop"
 Wanneer je kaspersmicrobit combineert met tkinter (de window module die gebruikt wordt in [Programmeren met Python](https://www.visualsteps.nl/programmerenpython/))

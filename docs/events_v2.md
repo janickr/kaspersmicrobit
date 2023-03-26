@@ -1,5 +1,5 @@
 ---
-title: Using the event service (microbit v2)
+title: Using the event service (micro:bit v2)
 description: Learn how to use the bluetooth event service of the micro:bit v2 from python (by example)
 ---
 

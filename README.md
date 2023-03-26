@@ -16,73 +16,84 @@ exposed by the micro:bit.
   
 Watch the full video [on youtube](https://www.youtube.com/watch?v=t3JARVPQE9Q)
 
-## Installation
+## Getting started
+Install kaspersmicrobit:
 ```bash
 $ pip install kaspersmicrobit
 ```
-
-Or upgrade to the latest version with:
-```bash
-$  pip install --upgrade kaspersmicrobit  
-```
-
-## Example
+Copy [this hex file](https://kaspersmicrobit.readthedocs.io/en/latest/hex/microbit-bluetooth-accel-buttons-led-temp-no-pairing.hex) 
+to the micro:bit and run your first program:
 ```python
-
 import time
 
 from kaspersmicrobit import KaspersMicrobit
-
-CHANGE_THIS_TO_YOUR_MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
 
 
 def pressed(button):
     print(f"button {button} pressed")
 
-
-with KaspersMicrobit(CHANGE_THIS_TO_YOUR_MICROBIT_BLUETOOTH_ADDRESS) as microbit:
+with KaspersMicrobit.find_one_microbit() as microbit:
     microbit.buttons.on_button_a(press=pressed)
     time.sleep(10)
-
 ```
 
-## Connecting
-To connect to your micro:bit you'll have to enable the [bluetooth services](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/enable-bluetooth/) 
-you want to use, and [pair](https://kaspersmicrobit.readthedocs.io/en/stable/bluetooth-pairing/windows/pairing-microbit-windows/) your micro:bit 
-to your computer.  
+## Learn more
+Visit https://kaspersmicrobit.readthedocs.io:
 
-To enable the services you can use [MakeCode](https://makecode.microbit.org) or copy
-[a hex file](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/enable-bluetooth/)
-to your micro:bit.
+ - Try the [accelerometer](https://kaspersmicrobit.readthedocs.io/en/stable/accelerometer/), or the [led display](https://kaspersmicrobit.readthedocs.io/en/stable/led/)
+ - [Learn](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/create-a-makecode-project-without-pairing/) to make your own .hex files
+ - [Simple examples](https://kaspersmicrobit.readthedocs.io/en/stable/buttons/), learn how to use each service offered by the micro:bit 
+ - [Full Api documentation](https://kaspersmicrobit.readthedocs.io/en/stable/reference/kaspersmicrobit/)
+ - Combining [KaspersMicrobit with tkinter](https://kaspersmicrobit.readthedocs.io/en/stable/tkinter/use_buttons_to_move_rectangle/)
 
-For detailed instructions take a look in [Getting started - Enable Bluetooth](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/enable-bluetooth/)
+Or take a look at the [examples](https://github.com/janickr/kaspersmicrobit/tree/main/examples) directory.
 
-## Documentation
-On https://kaspersmicrobit.readthedocs.io you can find:
+## Micro:bit versions, operating systems, Bluetooth pairing
 
- - Simple examples, showing how to use the functions of each service offered by the micro:bit 
- - Full Api documentation
- - Examples that show kaspersmicrobit in combination with tkinter 
+Below you can find which combinations of operating systems and microbit versions have been known to work.
+
+| micro:bit v2.x | No pairing required | Just works pairing |
+|----------------|---------------------|--------------------|
+| Windows        | :heavy_check_mark:  | :heavy_check_mark: |
+| Linux          | :heavy_check_mark:  | :heavy_check_mark: |
+| MacOS          | :grey_question:     | :grey_question:    |
 
 
-The source code of all examples from the documentation can be found in the [examples](https://github.com/janickr/kaspersmicrobit/tree/main/examples) directory.
+| micro:bit v1.x | No pairing required | Just works pairing |
+|----------------|---------------------|--------------------|
+| Windows        | :heavy_check_mark:  | :x:                |
+| Linux          | :heavy_check_mark:  | :heavy_check_mark: |
+| MacOS          | :grey_question:     | :grey_question:    |
 
 
 ## Troubleshooting
-
+### Upgrade to the latest version
+```bash
+$  pip install --upgrade kaspersmicrobit  
+```
 ### Bluetooth connection
-Problems related to connecting to the micro:bit over bluetooth are often solved by pairing your computer again to your 
-micro:bit
+First try turning the micro:bit off and on again.
+
+If you are not using the "with"-block, but calling .connect() yourself, always make sure that in any case you 
+call .disconnect() when you don't need the connection anymore (for instance when you exit your application)
+
+#### No pairing required
+If the hex file was created with the setting ["No pairing required"](https://kaspersmicrobit.readthedocs.io/en/stable/create-a-makecode-project-without-pairing/#disable-pairing)
+then the micro:bit should not be paired with the operating system
+
+#### Just works pairing 
+Don't use pairing with a micro:bit v1 on windows, use  ["No pairing required"](https://kaspersmicrobit.readthedocs.io/en/stable/create-a-makecode-project-without-pairing/#disable-pairing)
+ instead.  
+
+For other versions: try to remove the micro:bit from the paired Bluetooth devices and pairing it your computer again.
 
 See also: https://support.microbit.org/helpdesk/attachments/19075694226
 
-Also, if you are not using the "with"-block, but calling .connect() yourself, always make sure that in any case you 
-call .disconnect() when you don't need the connection anymore (for instance when you exit your application)
-
-### The micro:bit V1 and Microsoft Windows
-To use kaspersmicrobit, your micro:bit should be paired with your computer, but not "connected". We noticed that 
-our micro:bit V1 always connects to Windows when it is paired. This prevents kaspersmicrobit to connect to it. On linux 
-it behaves correctly. The micro:bit V2 worked on both Windows and linux.
+### The micro:bit shows a sad face and error 020
+This means the micro:bit is out of memory. You probably have enabled too many Bluetooth services in MakeCode. Or maybe
+your MakeCode program is too large. Because the micro:bit v1 has less memory than the v2, this has a higher chance to
+occur on v1 micro:bits.
+See also: [the micro:bit error codes](https://makecode.microbit.org/device/error-codes)
 
 ### tkinter "main thread is not in main loop"
 When combining kaspersmicrobit with tkinter (the window library used in [Python for kids](https://nostarch.com/pythonforkids))

@@ -9,7 +9,6 @@ from kaspersmicrobit.services.magnetometer import MagnetometerData
 
 logging.basicConfig(level=logging.INFO)
 
-MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
 # example {
 
 
@@ -21,7 +20,7 @@ def bearing(degrees: int):
     print(f"Bearing {degrees}° from North")
 
 
-with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
+with KaspersMicrobit.find_one_microbit() as microbit:
     # First calibrate the magnetometer / Calibreer de magnetometer eerst
     calibration = microbit.magnetometer.calibrate()
     print("Calibrating...")

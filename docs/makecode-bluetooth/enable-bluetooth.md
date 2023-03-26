@@ -1,99 +1,26 @@
 ---
-title: Enable the bluetooth services on a microbit
-description: Detailed instructions on how to pair your microbit in Linux (gnome) 
+title: Enable Bluetooth on a micro:bit
+description: Overview on how to enable Bluetooth on a microbit and choose between pairing or no pairing
 ---
 
-## Option 1: Download a .hex file
+## How to enable the services
+Bluetooth first needs to be enabled on a micro:bit to be able to connect to it using Bluetooth.  
 
-### The micro:bit v2
-To enable the Bluetooth services copy
-[this hex file](../../hex/microbit-v2-bluetooth-all-services-active.hex)
-file to your micro:bit. The hex file was created using [this makecode project](https://makecode.microbit.org/_cdLL0DH1Hc02).
-It will enable following services:
+This can be done [in MakeCode](../create-a-makecode-project-without-pairing/#disable-pairing) or by copying one of our 
+[pre made .hex](../download-a-hex-file-without-pairing/) files to the micro:bit. In MakeCode you can choose which 
+services to enable, and combine it with your own custom program.
 
-  - [accelerometer](../accelerometer.md)
-  - [buttons](../buttons.md)
-  - [led](../led.md)
-  - [temperature](../temperature.md)
-  - [io-pin](../io_pin.md)
-  - [magnetometer](../magnetometer.md)
-  - [uart](../uart.md)
-
-Enabled by default
-
-  - [event service](../events_v2.md)
-  
 ### The micro:bit v1
 The micro:bit v1 has too little memory to enable all bluetooth services. If you try to enable them all, after 
 copying the hex the micro:bit, the LED display wil show a sad face and then scroll 020, this means the micro:bit is out of memory.
-See also: the micro:bit [error codes](https://makecode.microbit.org/device/error-codes)
+See also: [the micro:bit error codes](https://makecode.microbit.org/device/error-codes)
 
-Below you can find links to hex files with a subset of services enabled. Of course, you could also create a hex file
-with a different subset of services by using [MakeCode](#option-2-use-makecode-yourself)
+## Pairing
 
-#### All services except magnetometer and uart
-To enable these services copy
-[this hex file](../../hex/microbit-v1-bluetooth-without-magnetometer-or-uart.hex)
-file to your micro:bit. The hex file was created using [this makecode project](https://makecode.microbit.org/_c5RJFdEqkdAs).
-It will enable following services:
+A project with [pairing disabled ("No pairing required")](../create-a-makecode-project-without-pairing/#disable-pairing) is the easiest to work with:
 
-  - [accelerometer](../accelerometer.md)
-  - [buttons](../buttons.md)
-  - [led](../led.md)
-  - [temperature](../temperature.md)
-  - [io-pin](../io_pin.md)
+- it works on the [widest range of micro:bit versions and operating systems](../../#microbit-versions-operating-systems-bluetooth-pairing)
+- it doesn't require the extra steps of pairing the micro:bit with your operating system
+- it makes the microbit advertise its name, so you can [find it by name](../../reference/kaspersmicrobit/#kaspersmicrobit.kaspersmicrobit.KaspersMicrobit.find_one_microbit)
 
-Enabled by default
-
-  - [event service](../events_v1.md)
-
-#### Only magnetometer + uart
-To enable the Bluetooth [magnetometer](../magnetometer.md) and [uart](../uart.md) services copy
-[this hex file](../../hex/microbit-v1-bluetooth-magnetometer-uart.hex)
-file to your micro:bit. The hex file was created using [this makecode project](https://makecode.microbit.org/_YHz6WqMqKA7E).
-The [event service](../events_v1.md) will be enabled by default
-
-
-## Option 2: Use MakeCode yourself
-You could also create the [MakeCode](https://makecode.microbit.org) project yourself:  
-
-### Create project
-In MakeCode for micro:bit, select "New Project"  
-
-![New project](makecode-1.png)  
-  
-Enter a name:
-
-![Name project](makecode-2.png)  
-
-
-### Add the Bluetooth extension
-You'll need to add the Bluetooth extension.   
-Select "Advanced"
-
-![Create project](makecode-3.png)  
-
-Select "Extensions"  
-
-![Create project](makecode-4.png)  
-
-Search for Bluetooth, and select the Bluetooth extension
-
-![Create project](makecode-5.png)  
-
-A popup appears, informing you that the "radio" extension will be removed if you add Bluetooth. 
-Select "Remove extension and add Bluetooth", this will only apply to this project.  
-
-### Add bluetooth services
-![Create project](makecode-6.png)  
-
-No you can select blocks from the bluetooth tab:  
-
-![Create project](makecode-7.png)  
-
-Drag the services you want to enable in an "On start" block  
-
-![Create project](makecode-8.png)  
-
-Download the hex file and copy it to your micro:bit!  
-
+The disadvantage is that anyone can connect with the micro:bit over Bluetooth, because it is not needed to be paired to it.

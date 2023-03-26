@@ -9,19 +9,19 @@ from kaspersmicrobit.services.leddisplay import Image, LedDisplay
 
 logging.basicConfig(level=logging.INFO)
 
-MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
+
 # example {
 
-with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
+with KaspersMicrobit.find_one_microbit() as microbit:
     # show one of the predefined LED images / toon een van de voorgedefinieerde beelden
     microbit.led.show(Image.HEART)
     time.sleep(3)
 
-    # scroll the text "Hello Kasper" on the microbit display / laat de tekst "Hello Kasper" op het scherm voorbijrollen
+    # scroll the text "Hello Kasper" on the micro:bit display / laat de tekst "Hello Kasper" op het scherm voorbijrollen
     microbit.led.show_text("Hello Kasper")
     time.sleep(10)
 
-    # create your own image and show it on the display / maak je eigen afbeelding en toot die op de microbit
+    # create your own image and show it on the display / maak je eigen afbeelding en toot die op de micro:bit
     microbit.led.show(LedDisplay.image("""
         . . . # #
         . . . # .

@@ -1,5 +1,5 @@
 ---
-title: Move a ball with the accelerometer of the microbit
+title: Move a ball with the accelerometer of the micro:bit
 description: Draw a ball on a tkinter canvas in python, and move it around by tilting a micro:bit 
 ---
 

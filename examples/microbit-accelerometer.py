@@ -10,7 +10,6 @@ from kaspersmicrobit.services.accelerometer import AccelerometerData
 
 logging.basicConfig(level=logging.INFO)
 
-MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
 # example {
 
 
@@ -18,7 +17,7 @@ def accelerometer_data(data: AccelerometerData):
     print(f"Accelerometer data: {data}")
 
 
-with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
+with KaspersMicrobit.find_one_microbit() as microbit:
     # read the current accelerometer data / lees de huidige accelerometer gegevens
     print(f"Current accelerometer reading: {microbit.accelerometer.read()}")
 

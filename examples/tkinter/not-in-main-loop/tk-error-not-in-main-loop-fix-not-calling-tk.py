@@ -5,12 +5,10 @@ import logging
 import time
 
 from tkinter import Tk, Canvas
-from src.kaspersmicrobit import KaspersMicrobit
+from kaspersmicrobit import KaspersMicrobit
 from dot import Dot
 
 logging.basicConfig(level=logging.INFO)
-
-MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
 
 
 tk = Tk()
@@ -34,7 +32,7 @@ def redraw():
 tk.after(10, redraw)
 
 
-with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
+with KaspersMicrobit.find_one_microbit() as microbit:
     microbit.buttons.on_button_a(press=dot_a.show, release=dot_a.hide)
     microbit.buttons.on_button_b(press=dot_b.show, release=dot_b.hide)
 

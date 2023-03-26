@@ -11,8 +11,6 @@ from dot import Dot
 
 logging.basicConfig(level=logging.INFO)
 
-MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
-
 
 tk = Tk()
 tk.title("Example: error in main loop - fix using do_in_tkinter")
@@ -48,7 +46,7 @@ def button_released(button: str):
     tk.event_generate(f'<<MICROBIT_BUTTON_RELEASE_{button.upper()}>>', when='tail')
 
 
-with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
+with KaspersMicrobit.find_one_microbit() as microbit:
     microbit.buttons.on_button_a(press=do_in_tkinter(tk, button_pressed), release=do_in_tkinter(tk, button_released))
     microbit.buttons.on_button_b(press=do_in_tkinter(tk, button_pressed), release=do_in_tkinter(tk, button_released))
 

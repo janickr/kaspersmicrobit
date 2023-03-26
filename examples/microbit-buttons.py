@@ -8,7 +8,6 @@ from kaspersmicrobit import KaspersMicrobit
 
 logging.basicConfig(level=logging.INFO)
 
-MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
 # example {
 
 
@@ -24,7 +23,7 @@ def released(button):
     print(f"button {button} released")
 
 
-with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
+with KaspersMicrobit.find_one_microbit() as microbit:
     # read the state of the buttons / lees de toestant van de knoppen
     print(f"button A state is now: {microbit.buttons.read_button_a()}")
     print(f"button B state is now: {microbit.buttons.read_button_b()}")

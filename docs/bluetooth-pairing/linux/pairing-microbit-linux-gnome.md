@@ -1,6 +1,6 @@
 ---
-title: Pair a microbit in Linux
-description: Detailed instructions on how to pair your microbit in Linux (gnome) 
+title: Pair a micro:bit in Linux
+description: Detailed instructions on how to pair your micro:bit in Linux (gnome) 
 ---
 
 First you'll need to put your micro:bit in "pairing mode":

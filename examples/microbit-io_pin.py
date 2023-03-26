@@ -9,7 +9,6 @@ from kaspersmicrobit.services.io_pin import PinIOConfiguration, Pin, PinIO, PinA
 
 logging.basicConfig(level=logging.INFO)
 
-MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
 # example {
 
 
@@ -17,7 +16,7 @@ def print_pin_data(data):
     print(f"pin data update: {data}")
 
 
-with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
+with KaspersMicrobit.find_one_microbit() as microbit:
     # set P5 (Button A) and P11 (Button B) as INPUT pins / configureer P5 (Knop A) en P11 (Knop B) als INPUT pins
     io_config = PinIOConfiguration()
     io_config[Pin.P5] = PinIO.INPUT

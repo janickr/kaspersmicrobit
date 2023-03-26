@@ -10,7 +10,6 @@ from kaspersmicrobit.services.event import Event
 
 logging.basicConfig(level=logging.INFO)
 
-MICROBIT_BLUETOOTH_ADDRESS = 'D2:16:67:4E:4C:2B'
 # example {
 
 
@@ -35,12 +34,12 @@ def event_to_string(event: Event):
         return f"Unkown {event.device_id} {event.event_value}"
 
 
-with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
+with KaspersMicrobit.find_one_microbit() as microbit:
     # listen for events / luister naar gebeurtenissen
     microbit.events.notify_microbit_event(print_events)
 
-    # inform the microbit of the events we want to receive
-    # / informeer de microbit van de gebeurtenissen waarin we geïnteresseerd zijn
+    # inform the micro:bit of the events we want to receive
+    # / informeer de micro:bit van de gebeurtenissen waarin we geïnteresseerd zijn
     microbit.events.write_client_requirements(
         # listen to listeners added to the message bus /
         # luister naar het toevoegen van event listeners aan de message bus
@@ -49,7 +48,7 @@ with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
         Event(v1_events.DEVICE_ID_GESTURE)  # all gesture events / alle bewegings gebeurtenissen
     )
 
-    print("Tilt your microbit or click button A to receive events")
+    print("Tilt your micro:bit or click button A to receive events")
 
     time.sleep(15)
 # }

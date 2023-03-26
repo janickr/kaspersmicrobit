@@ -1,5 +1,5 @@
 ---
-title: Move a paddle with the buttons of the microbit
+title: Move a paddle with the buttons of the micro:bit
 description: Draw a rectangle on a tkinter canvas in python, and move it sideways by pressing the micro:bit buttons
 ---
 

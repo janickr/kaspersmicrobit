@@ -9,8 +9,6 @@ from kaspersmicrobit.services.accelerometer import AccelerometerData
 
 logging.basicConfig(level=logging.INFO)
 
-MICROBIT_BLUETOOTH_ADDRESS = 'E3:7E:99:0D:C1:BA'
-
 
 class Direction:
     def __init__(self, x, y):
@@ -69,6 +67,6 @@ def accelerometer_data(data: AccelerometerData):
     ball.direction = ball.direction * 0.98 + Direction(data.x, data.y) * 0.0004
 
 
-with KaspersMicrobit(MICROBIT_BLUETOOTH_ADDRESS) as microbit:
+with KaspersMicrobit.find_one_microbit() as microbit:
     microbit.accelerometer.notify(accelerometer_data)
     tk.mainloop()

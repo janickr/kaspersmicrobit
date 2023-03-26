@@ -1,13 +1,13 @@
 #  This Source Code Form is subject to the terms of the Mozilla Public
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+# example {
+
 from kaspersmicrobit.bluetoothprofile.services import Service
 from kaspersmicrobit.services.leddisplay import Image
 from kaspersmicrobit import KaspersMicrobit
 import platform
-
-
-# example {
 
 with KaspersMicrobit.find_one_microbit() as microbit:
     print(f'Platform: {platform.platform()}')
