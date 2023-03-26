@@ -196,7 +196,10 @@ class KaspersMicrobit:
             KaspersMicrobitNotFound: indien er geen micro:bit werd
         """
         loop = loop if loop else ThreadEventLoop.single_thread()
-        name_filter = lambda d, ad: KaspersMicrobit._name_filter(microbit_name)(ad.local_name)
+
+        def name_filter(d, ad):
+            return KaspersMicrobit._name_filter(microbit_name)(ad.local_name)
+
         device = loop.run_async(BleakScanner.find_device_by_filter(filterfunc=name_filter, timeout=timeout)).result()
         if device:
             return KaspersMicrobit(BluetoothDevice(BleakClient(device), loop))
