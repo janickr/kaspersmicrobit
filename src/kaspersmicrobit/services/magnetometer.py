@@ -38,15 +38,17 @@ class Calibration:
         """
         return self._future.done()
 
-    def wait_for_result(self) -> bool:
+    def wait_for_result(self, timeout=None) -> bool:
         """
         Wacht op het einde van het calibreren
+        Args:
+            timeout: het aantal seconden dat je maximaal wil wachten op een resultaat
 
         Returns:
             True indien de calibratie gelukt is, False indien het mislukt is
         """
         if not self._result:
-            self._result = int.from_bytes(self._future.result()[0:2], "little")
+            self._result = int.from_bytes(self._future.result(timeout=timeout)[0:2], "little")
 
         return self._result
 
@@ -233,8 +235,8 @@ class MagnetometerService:
         if self._calibration and not self._calibration.done():
             return self._calibration
 
-        self._device.write(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_CALIBRATION, int.to_bytes(1, 1, 'little'))
         future = self._device.wait_for(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_CALIBRATION)
+        self._device.write(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_CALIBRATION, int.to_bytes(1, 1, 'little'))
         calibration = Calibration(future)
         self._calibration = calibration
         return calibration
