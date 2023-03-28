@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.INFO)
 # example {
 
 
-class Direction:
+class XY:
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -20,39 +20,24 @@ class Direction:
 
 class Ball:
 
-    def __init__(self, canvas, color):
+    def __init__(self, canvas: Canvas, color):
         self.canvas = canvas
-        self.canvas_width = self.canvas.winfo_width()
-        center = self.canvas_width/2
-        self.id = canvas.create_oval(center-5, center-5, center+5, center+5, fill=color)
-        self.direction = Direction(0, 0)
+        self.position = XY((canvas.winfo_width() / 2) - 5, (canvas.winfo_height() / 2) -5)
+        self.direction = XY(0, 0)
+        self.id = canvas.create_oval(self.position.x, self.position.y , self.position.x + 10, self.position.y + 10, fill=color)
 
     def draw(self):
-        pos = self.canvas.coords(self.id)
-        movement = self.compute_movement(pos[0], pos[2], pos[1], pos[3])
-        self.canvas.move(self.id, movement.x, movement.y)
-
-    def compute_movement(self, left_edge, right_edge, top, bottom):
-        x = self.direction.x
-        y = self.direction.y
-
-        if self.direction.x < 0 and left_edge < 0:
-            x = 5
-        if self.direction.x > 0 and right_edge > self.canvas_width:
-            x = -5
-        if self.direction.y < 0 and top < 0:
-            y = 5
-        if self.direction.y > 0 and bottom > self.canvas_width:
-            y = -5
-
-        return Direction(x, y)
+        new_position = XY(self.position.x+self.direction.x, self.position.y+self.direction.y)
+        self.position.x = max(0, min(new_position.x, canvas.winfo_width()-10))
+        self.position.y = max(0, min(new_position.y, canvas.winfo_height()-10))
+        self.canvas.moveto(self.id, new_position.x, self.position.y)
 
 
 tk = Tk()
 tk.title("Use accelerometer to move ball")
 tk.resizable(False, False)
 tk.wm_attributes("-topmost", 1)
-canvas = Canvas(tk, width=500, height=500)
+canvas = Canvas(tk, width=1280, height=720)
 canvas.pack()
 tk.update()
 ball = Ball(canvas, 'blue')
@@ -67,10 +52,12 @@ tk.after(10, redraw)
 
 
 def accelerometer_data(data: AccelerometerData):
-    ball.direction = Direction(data.x / 250, data.y / 250)
+    ball.direction.x = data.x / 100
+    ball.direction.y = data.y / 100
 
 
 with KaspersMicrobit.find_one_microbit() as microbit:
     microbit.accelerometer.notify(accelerometer_data)
     tk.mainloop()
+
 # }
