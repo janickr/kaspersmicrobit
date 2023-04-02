@@ -82,11 +82,11 @@ If you are not using the "with"-block, but calling .connect() yourself, always m
 call .disconnect() when you don't need the connection anymore (for instance when you exit your application)
 
 #### No pairing required
-If the hex file was created with the setting ["No pairing required"](https://kaspersmicrobit.readthedocs.io/en/stable/create-a-makecode-project-without-pairing/#disable-pairing)
+If the hex file was created with the setting ["No pairing required"](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/create-a-makecode-project-without-pairing/#disable-pairing)
 then the micro:bit should not be paired with the operating system
 
 #### Just works pairing 
-Don't use pairing with a micro:bit v1 on windows, use  ["No pairing required"](https://kaspersmicrobit.readthedocs.io/en/stable/create-a-makecode-project-without-pairing/#disable-pairing)
+Don't use pairing with a micro:bit v1 on windows, use  ["No pairing required"](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/create-a-makecode-project-without-pairing/#disable-pairing)
  instead.  
 
 For other versions: try to remove the micro:bit from the paired Bluetooth devices and pairing it your computer again.

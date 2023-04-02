@@ -82,11 +82,11 @@ dat je in elk geval ook .disconnect() oproept wanneer je de connectie niet meer 
 programma eindigt)
 
 #### No pairing required
-Als het .hex bestand gemaakt werd met de instelling ["No pairing required"](https://kaspersmicrobit.readthedocs.io/en/stable/create-a-makecode-project-without-pairing/#disable-pairing)
+Als het .hex bestand gemaakt werd met de instelling ["No pairing required"](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/create-a-makecode-project-without-pairing/#disable-pairing)
 dan mag de micro:bit niet gepaired zijn met je besturingssysteem
 
 #### Just works pairing 
-Gebruik geen pairing bij een micro:bit v1 en windows, gebruik  ["No pairing required"](https://kaspersmicrobit.readthedocs.io/en/stable/create-a-makecode-project-without-pairing/#disable-pairing)
+Gebruik geen pairing bij een micro:bit v1 en windows, gebruik  ["No pairing required"](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/create-a-makecode-project-without-pairing/#disable-pairing)
 in de plaats.  
 
 Voor andere versies: verwijder de micro:bit van de lijst met gepairde Bluetooth toestellen en pair het opnieuw met je computer.
