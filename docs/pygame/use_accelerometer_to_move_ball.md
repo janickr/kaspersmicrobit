@@ -10,7 +10,7 @@ This happens when the micro:bit offers new accelerometer data:
 
  - the `accelerometer_data` callback is called with the new data as argument
  - the callback registers the data as the player_direction
- - the `while True:` loop updates the player_position and redraws the ball
+ - the `while running:` loop updates the player_position and redraws the ball
 
 
 See also the API documentation: 

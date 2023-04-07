@@ -72,7 +72,9 @@ nav:
       - Tkinter examples:
           - Buttons move a rectangle: tkinter/use_buttons_to_move_rectangle.md
           - Accelerometer moves a ball: tkinter/use_accelerometer_to_move_ball.md
-      - PyGame example: pygame/use_accelerometer_to_move_ball.md
+      - PyGame example:
+          - Buttons move a rectangle: pygame/use_buttons_to_move_rectangle.md
+          - Accelerometer moves a ball: pygame/use_accelerometer_to_move_ball.md
     - Api Reference: reference/
     - License: license.md
 

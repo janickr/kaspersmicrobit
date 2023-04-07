@@ -44,7 +44,9 @@ Bezoek https://kaspersmicrobit.readthedocs.io:
  - [Leer](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/create-a-makecode-project-without-pairing/) je eigen .hex bestanden te maken
  - [Eenvoudige voorbeelden](https://kaspersmicrobit.readthedocs.io/en/stable/buttons/), leer hoe je iedere Bluetooth service van de micro:bit kan gebruiken 
  - [Volledige Api documentatie](https://kaspersmicrobit.readthedocs.io/en/stable/reference/kaspersmicrobit/)
- - Combineer [KaspersMicrobit met tkinter](https://kaspersmicrobit.readthedocs.io/en/stable/tkinter/use_buttons_to_move_rectangle/)
+ - Combineer KaspersMicrobit [met tkinter](https://kaspersmicrobit.readthedocs.io/en/stable/tkinter/use_buttons_to_move_rectangle/)
+   of [met pygame](https://kaspersmicrobit.readthedocs.io/en/stable/pygame/use_buttons_to_move_rectangle/)
+
 
 Of neem een kijkje in de [voorbeelden](https://github.com/janickr/kaspersmicrobit/tree/main/examples).
 
