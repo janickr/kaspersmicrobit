@@ -54,8 +54,8 @@ nav:
               - Download a hex file: makecode-bluetooth/download-a-hex-file-with-pairing.md
               - Your own MakeCode project: makecode-bluetooth/create-a-makecode-project-with-pairing.md
               - Pair your micro:bit:
-                - Pair in windows: bluetooth-pairing/windows/pairing-microbit-windows.md
-                - Pair in linux (gnome): bluetooth-pairing/linux/pairing-microbit-linux-gnome.md
+                - Pairing in windows: bluetooth-pairing/windows/pairing-microbit-windows.md
+                - Pairing in linux (gnome): bluetooth-pairing/linux/pairing-microbit-linux-gnome.md
       - Examples:
           - How to connect: how-to-connect.md
           - Test available services: test-all-services.md

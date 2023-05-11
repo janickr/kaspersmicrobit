@@ -7,7 +7,7 @@ from kaspersmicrobit import KaspersMicrobit
 
 logging.basicConfig(level=logging.INFO)
 
-# example {
+# example-first {
 
 # Look for a micro:bit and connect to it
 # / Zoek een willekeurige micro:bit en verbind ermee
@@ -15,6 +15,8 @@ with KaspersMicrobit.find_one_microbit() as a_microbit:
     print(f'Bluetooth address: {a_microbit.address()}')
     print(f"Device name: {a_microbit.generic_access.read_device_name()}")
 
+# }
+# example-multiple {
 
 # Look for all active micro:bits and connect to them one after another
 # / zoek alle micro:bits en verbind er om de beurt mee
@@ -24,6 +26,8 @@ for microbit in multiple_microbits:
         print(f'Bluetooth address: {microbit.address()}')
         print(f"Device name: {microbit.generic_access.read_device_name()}")
 
+# }
+# example-name {
 
 # Look for the micro:bit with the name 'tupaz' and connect to it
 # (this does not work with pairing)
@@ -33,6 +37,8 @@ with KaspersMicrobit.find_one_microbit(microbit_name='tupaz') as tupaz:
     print(f'Bluetooth address: {tupaz.address()}')
     print(f"Device name: {tupaz.generic_access.read_device_name()}")
 
+# }
+# example-address {
 
 # Connect to the micro:bit with the address 'E3:7E:99:0D:C1:BA'
 # / Maak een verbinding met de micro:bit met het adres 'E3:7E:99:0D:C1:BA'

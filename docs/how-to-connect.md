@@ -7,8 +7,26 @@ The API documentation:
 
 - [kaspersmicrobit](../reference/kaspersmicrobit)
 
-Example:
+## Connect to the first micro:bit found
 
 <!--codeinclude-->
-[](../examples/find-microbits.py) inside_block:example
+[](../examples/find-microbits.py) inside_block:example-first
+<!--/codeinclude-->
+
+## Connect to multiple micro:bits
+
+<!--codeinclude-->
+[](../examples/find-microbits.py) inside_block:example-multiple
+<!--/codeinclude-->
+
+## Find a micro:bit by name
+
+<!--codeinclude-->
+[](../examples/find-microbits.py) inside_block:example-name
+<!--/codeinclude-->
+
+## Connect to a micro:bit by address
+
+<!--codeinclude-->
+[](../examples/find-microbits.py) inside_block:example-address
 <!--/codeinclude-->

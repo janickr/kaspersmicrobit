@@ -3,6 +3,14 @@ title: Pair a micro:bit in Windows
 description: Detailed instructions on how to pair your micro:bit in Windows
 ---
 
+After following the general pairing instructions below, head over to the 
+[Kasper's microbit overview page](../../../#) and start creating your first game!
+
+[![Video of games created with kaspersmicrobit](../../kaspersmicrobit-youtube-small.gif)](../../../#)
+  
+
+## Step-by-step instructions
+
 Click on the Bluetooth icon in your system tray.  
 Click "Show Bluetooth devices"
 
@@ -32,8 +40,14 @@ Click on the micro:bit device in the list, Windows will pair with the micro:bit
 
 ![Pair with micro:bit](bluetooth-5.png)
 
-You can click "Done" your micro:bit is paired with windows
-Now we need the address of the micro:bit. Back on the Bluetooth & other devices screen, select your micro:bit and click
+You can click "Done" your micro:bit is paired in Windows!
+
+## Finding the Bluetooth address 
+If you're not using the [easier connection methods](../../../how-to-connect/), but instead you want to 
+[connect to a micro:bit by address](../../../how-to-connect/#connect-to-a-microbit-by-address), these are
+the instructions to look up the address in Windows.
+ 
+Back on the Bluetooth & other devices screen, select your micro:bit and click
 "More Bluetooth options"
 
 ![Bluetooth & other devices](address-1.png)
@@ -47,3 +61,11 @@ The value of this property is the bluetooth address of your micro:bit.  ***Write
 need it to connect to your micro:bit.
 
 ![Micro:bit properties](address-3.png)
+
+## Create your first game
+
+[Kasper's microbit](../../../#) is a python package to make a connection to a BBC micro:bit by means of the Bluetooth LE GATT services
+exposed by the micro:bit.
+
+[![Video of games created with kaspersmicrobit](../../kaspersmicrobit-youtube.gif)](../../../#)
+  
