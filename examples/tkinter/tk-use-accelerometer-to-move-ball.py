@@ -22,9 +22,9 @@ class Ball:
 
     def __init__(self, canvas: Canvas, color):
         self.canvas = canvas
-        self.position = XY((canvas.winfo_width() / 2) - 5, (canvas.winfo_height() / 2) -5)
+        self.position = XY((canvas.winfo_width() / 2) - 5, (canvas.winfo_height() / 2) - 5)
         self.direction = XY(0, 0)
-        self.id = canvas.create_oval(self.position.x, self.position.y , self.position.x + 10, self.position.y + 10, fill=color)
+        self.id = canvas.create_oval(self.position.x, self.position.y, self.position.x + 10, self.position.y + 10, fill=color)
 
     def draw(self):
         new_position = XY(self.position.x+self.direction.x, self.position.y+self.direction.y)

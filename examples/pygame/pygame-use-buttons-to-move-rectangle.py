@@ -7,7 +7,6 @@ import logging
 import pygame
 
 from kaspersmicrobit import KaspersMicrobit
-from kaspersmicrobit.services.accelerometer import AccelerometerData
 
 logging.basicConfig(level=logging.INFO)
 
