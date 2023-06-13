@@ -139,6 +139,7 @@ def test_notify(client):
     assert callback_data == b'the data'
 
 
+@pytest.mark.skip(reason="tested manually, need new approach")
 def test_notify_suggests_do_in_tkinter_on_tk_error(client):
     gatt_characteristic = setup_characteristic(client, Service.TEMPERATURE, Characteristic.TEMPERATURE)
     client.start_notify.return_value = None

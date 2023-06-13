@@ -5,6 +5,7 @@ import asyncio
 import concurrent.futures
 import logging
 from abc import ABCMeta, abstractmethod
+from concurrent.futures import ThreadPoolExecutor
 from typing import Union, Callable
 from bleak import BleakClient, BleakGATTCharacteristic
 from threading import Thread
@@ -53,6 +54,7 @@ class ThreadEventLoop(BluetoothEventLoop):
 
 
 class BluetoothDevice:
+    _callback_executor = ThreadPoolExecutor()
 
     def __init__(self, client: BleakClient, loop: BluetoothEventLoop = None):
         self._loop = loop if loop else ThreadEventLoop.single_thread()
@@ -102,11 +104,20 @@ class BluetoothDevice:
                             This is probably not what you want. If your really want to do this wrap your callback in
                             kaspersmicrobit.tkinter.do_in_tkinter(tk, your_callback)""") from e
                     raise e
+
             return suggest_do_in_tkinter
+
+        def do_on_callback_executor(fn: Callable[[BleakGATTCharacteristic, bytearray], None]):
+            def submit_to_executor(sender: BleakGATTCharacteristic, data: bytearray):
+                return asyncio.wrap_future(BluetoothDevice._callback_executor.submit(fn, sender, data))
+
+            return submit_to_executor
 
         logger.info("(%s) Enable notify %s %s", self._client.address, service, characteristic)
         gatt_characteristic = self._find_gatt_attribute(service, characteristic)
-        self._loop.run_async(self._client.start_notify(gatt_characteristic, wrap_try_catch(callback))).result()
+        self._loop.run_async(
+            self._client.start_notify(gatt_characteristic, do_on_callback_executor(wrap_try_catch(callback)))
+        ).result()
         logger.info("(%s) Enabled notify %s %s", self._client.address, service, characteristic)
 
     def wait_for(self, service: Service, characteristic: Characteristic) -> concurrent.futures.Future[ByteData]:
