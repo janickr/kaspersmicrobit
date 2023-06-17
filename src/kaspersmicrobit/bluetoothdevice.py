@@ -24,6 +24,10 @@ class BluetoothEventLoop(metaclass=ABCMeta):
         pass
 
     @abstractmethod
+    def wrap_future(self, future: concurrent.futures.Future) -> asyncio.Future:
+        pass
+
+    @abstractmethod
     def create_future(self) -> asyncio.Future:
         pass
 
@@ -41,6 +45,9 @@ class ThreadEventLoop(BluetoothEventLoop):
 
     def run_async(self, coroutine) -> concurrent.futures.Future:
         return asyncio.run_coroutine_threadsafe(coroutine, self.loop)
+
+    def wrap_future(self, future: concurrent.futures.Future) -> asyncio.Future:
+        return asyncio.wrap_future(future, loop=self.loop)
 
     def create_future(self) -> asyncio.Future:
         return self.loop.create_future()
@@ -108,8 +115,8 @@ class BluetoothDevice:
             return suggest_do_in_tkinter
 
         def do_on_callback_executor(fn: Callable[[BleakGATTCharacteristic, bytearray], None]):
-            def submit_to_executor(sender: BleakGATTCharacteristic, data: bytearray):
-                return asyncio.wrap_future(BluetoothDevice._callback_executor.submit(fn, sender, data))
+            async def submit_to_executor(sender: BleakGATTCharacteristic, data: bytearray):
+                await self._loop.wrap_future(BluetoothDevice._callback_executor.submit(fn, sender, data))
 
             return submit_to_executor
 

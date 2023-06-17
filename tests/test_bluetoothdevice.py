@@ -1,10 +1,13 @@
 #  This Source Code Form is subject to the terms of the Mozilla Public
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+import asyncio
+import inspect
 import re
-from typing import List, Union
+from typing import List, Union, Callable, Awaitable
 from unittest.mock import patch
 from uuid import UUID
+from concurrent.futures import TimeoutError
 
 import pytest
 from bleak.backends.descriptor import BleakGATTDescriptor
@@ -129,17 +132,17 @@ def test_notify(client):
         nonlocal callback_data
         callback_data = data
 
-    BluetoothDevice(client).notify(Service.TEMPERATURE, Characteristic.TEMPERATURE, callback)
+    device = BluetoothDevice(client)
+    device.notify(Service.TEMPERATURE, Characteristic.TEMPERATURE, callback)
     characteristic, new_callback = client.start_notify.call_args.args
     client.start_notify.assert_awaited()
 
     assert characteristic == gatt_characteristic
 
-    new_callback(sender=-1, data=b'the data')
+    invoke_callback(device, new_callback, sender=characteristic, data=b'the data').result(1)
     assert callback_data == b'the data'
 
 
-@pytest.mark.skip(reason="tested manually, need new approach")
 def test_notify_suggests_do_in_tkinter_on_tk_error(client):
     gatt_characteristic = setup_characteristic(client, Service.TEMPERATURE, Characteristic.TEMPERATURE)
     client.start_notify.return_value = None
@@ -147,14 +150,61 @@ def test_notify_suggests_do_in_tkinter_on_tk_error(client):
     def callback(sender, data):
         raise RuntimeError("main thread is not in main loop")
 
-    BluetoothDevice(client).notify(Service.TEMPERATURE, Characteristic.TEMPERATURE, callback)
+    device = BluetoothDevice(client)
+    device.notify(Service.TEMPERATURE, Characteristic.TEMPERATURE, callback)
     characteristic, new_callback = client.start_notify.call_args.args
     client.start_notify.assert_awaited()
 
     assert characteristic == gatt_characteristic
 
     with pytest.raises(RuntimeError, match=r"You tried to call tkinter API.*"):
-        new_callback(sender=-1, data=b'this should fail')
+        invoke_callback(device, new_callback, sender=characteristic, data=b'this should fail').result(1)
+
+
+def test_notify_if_call_on_device_in_callback_it_does_not_block(client):
+    gatt_characteristic = setup_characteristic(client, Service.TEMPERATURE, Characteristic.TEMPERATURE)
+    client.start_notify.return_value = None
+
+    device = BluetoothDevice(client)
+
+    def callback(sender, data):
+        device.read(Service.TEMPERATURE, Characteristic.TEMPERATURE)
+
+    device.notify(Service.TEMPERATURE, Characteristic.TEMPERATURE, callback)
+    characteristic, new_callback = client.start_notify.call_args.args
+    client.start_notify.assert_awaited()
+
+    assert characteristic == gatt_characteristic
+
+    future = invoke_callback(device, new_callback, sender=characteristic, data=b'this should not block')
+
+    async def should_be_invoked():
+        pass
+
+    try:
+        device._loop.run_async(should_be_invoked()).result(3)
+    except TimeoutError:
+        ThreadEventLoop._singleton = None  # throw away the broken eventloop + Thread, so other tests run clean
+        pytest.fail('Eventloop was blocked')
+
+    future.result()
+    client.read_gatt_char.assert_awaited()
+    client.read_gatt_char.assert_called_with(characteristic)
+
+
+def invoke_callback(
+        device: BluetoothDevice,
+        fn: Callable[[BleakGATTCharacteristic, bytearray], Union[None, Awaitable[None]]],
+        sender: BleakGATTCharacteristic, data: bytes):
+
+    async def call_the_callback(fn, sender, data):
+        if inspect.iscoroutinefunction(fn):
+            f = asyncio.ensure_future(fn(sender, data), loop=device._loop.loop)
+            await asyncio.wait_for(f, 3)
+        else:
+            fn(sender, data)
+
+    return device._loop.run_async(call_the_callback(fn, sender, bytearray(data)))
 
 
 def test_wait_for_calls_notify_and_blocks_until_first_notification(client):
