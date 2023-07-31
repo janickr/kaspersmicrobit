@@ -8,9 +8,9 @@ You can create a Bluetooth-enabled [MakeCode](https://makecode.microbit.org) pro
 Below are the detailed instructions to create a micro:bit MakeCode project, enable the Bluetooth extension 
 and disable pairing. A project with [pairing disabled ("No pairing required")](#disable-pairing) is the easiest to work with:
 
-- it works on the [widest range of micro:bit versions and operating systems](../../#microbit-versions-operating-systems-bluetooth-pairing)
+- it works on the [widest range of micro:bit versions and operating systems](../index.md#microbit-versions-operating-systems-bluetooth-pairing)
 - it doesn't require the extra steps of pairing the micro:bit with your operating system
-- it makes the microbit advertise its name, so you can [find it by name](../../reference/kaspersmicrobit/#kaspersmicrobit.kaspersmicrobit.KaspersMicrobit.find_one_microbit)
+- it makes the microbit advertise its name, so you can [find it by name](../reference/kaspersmicrobit.md#kaspersmicrobit.kaspersmicrobit.KaspersMicrobit.find_one_microbit)
 
 The disadvantage is that anyone can connect with the micro:bit over Bluetooth, because it is not needed to be paired to it.
 

@@ -5,9 +5,9 @@ description: Learn how to use the bluetooth led service of the micro:bit from py
 
 The API documentation: 
 
-- [kaspersmicrobit.services.led](../reference/services/led/)
-- [kaspersmicrobit.services.leddisplay](../reference/services/leddisplay/)
-- [kaspersmicrobit](../reference/kaspersmicrobit)
+- [kaspersmicrobit.services.led](reference/services/led.md)
+- [kaspersmicrobit.services.leddisplay](reference/services/leddisplay.md)
+- [kaspersmicrobit](reference/kaspersmicrobit.md)
 
 Example:
 

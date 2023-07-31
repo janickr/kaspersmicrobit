@@ -5,7 +5,7 @@ description: Draw a rectangle on a tkinter canvas in python, and move it sideway
 
 In this example callbacks are registered for buttons A and B for their "press" and "release" events. For the sake 
 of the example the `button_pressed` and `button_released` callbacks emit tk events using the event_generate method: this
-means we call TK API in a callback, so we wrap the callback in `do_in_tkinter` (see also [do_in_tkinter](../../reference/tkinter))
+means we call TK API in a callback, so we wrap the callback in `do_in_tkinter` (see also [do_in_tkinter](../reference/tkinter.md))
 
 This happens when the A button is pushed:
 
@@ -18,8 +18,8 @@ This happens when the A button is pushed:
 
 See also the API documentation: 
 
-- [kaspersmicrobit.services.buttons](../../reference/services/buttons/)
-- [kaspersmicrobit](../../reference/kaspersmicrobit)
+- [kaspersmicrobit.services.buttons](../reference/services/buttons.md)
+- [kaspersmicrobit](../reference/kaspersmicrobit.md)
 
 <!--codeinclude-->
 [](../../examples/tkinter/tk-use-buttons-to-move-rectangle.py) inside_block:example

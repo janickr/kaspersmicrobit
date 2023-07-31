@@ -27,7 +27,7 @@ Enabled services: [uart](../uart.md) - [event service](../events_v2.md)
 
 ### The micro:bit v1
 Because of the smaller memory on the micro:bit v1, only subsets of all Bluetooth services can be enabled at the same time.
-We provide a few here, but you could also create your own hex file with [MakeCode](../create-a-makecode-project-without-pairing/)
+We provide a few here, but you could also create your own hex file with [MakeCode](create-a-makecode-project-without-pairing.md)
 
 #### accelerometer + buttons + led + temperature
 The file: [no magnetometer, no uart, no io](../hex/microbit-bluetooth-accel-buttons-led-temp-no-pairing.hex)  

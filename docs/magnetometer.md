@@ -5,8 +5,8 @@ description: Learn how to use the bluetooth magnetometer service of the micro:bi
 
 The API documentation: 
 
-- [kaspersmicrobit.services.magnetometer](../reference/services/magnetometer/)
-- [kaspersmicrobit](../reference/kaspersmicrobit)
+- [kaspersmicrobit.services.magnetometer](reference/services/magnetometer.md)
+- [kaspersmicrobit](reference/kaspersmicrobit.md)
 
 Example:
 

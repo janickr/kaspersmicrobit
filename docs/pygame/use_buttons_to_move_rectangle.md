@@ -15,8 +15,8 @@ This happens when the A button is pushed:
 
 See also the API documentation: 
 
-- [kaspersmicrobit.services.buttons](../../reference/services/buttons/)
-- [kaspersmicrobit](../../reference/kaspersmicrobit)
+- [kaspersmicrobit.services.buttons](../reference/services/buttons.md)
+- [kaspersmicrobit](../reference/kaspersmicrobit.md)
 
 <!--codeinclude-->
 [](../../examples/pygame/pygame-use-buttons-to-move-rectangle.py) inside_block:example

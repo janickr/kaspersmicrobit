@@ -11,8 +11,8 @@ devices/computers that are paired to it can connect to it.
 
 However, it also has a few disadvantages
 
-- it does not work [for a micro:bit v1.x on windows](../../#microbit-versions-operating-systems-bluetooth-pairing)
-- it requires the extra steps of pairing the micro:bit with your [operating](../../bluetooth-pairing/windows/pairing-microbit-windows/) [system](../../bluetooth-pairing/linux/pairing-microbit-linux-gnome/)
+- it does not work [for a micro:bit v1.x on windows](../index.md#microbit-versions-operating-systems-bluetooth-pairing)
+- it requires the extra steps of pairing the micro:bit with your [operating](../bluetooth-pairing/windows/pairing-microbit-windows.md) [system](../bluetooth-pairing/linux/pairing-microbit-linux-gnome.md)
 - A paired micro:bit does not advertise its name, so you cannot find it by name 
 
 

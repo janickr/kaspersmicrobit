@@ -15,8 +15,8 @@ This happens when the micro:bit offers new accelerometer data:
 
 See also the API documentation: 
 
-- [kaspersmicrobit.services.accelerometer](../../reference/services/accelerometer/)
-- [kaspersmicrobit](../../reference/kaspersmicrobit)
+- [kaspersmicrobit.services.accelerometer](../reference/services/accelerometer.md)
+- [kaspersmicrobit](../reference/kaspersmicrobit.md)
 
 
 <!--codeinclude-->

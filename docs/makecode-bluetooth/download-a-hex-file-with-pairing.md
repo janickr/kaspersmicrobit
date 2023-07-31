@@ -5,7 +5,7 @@ description: Hex files with Bluetooth services enabled with JustWorks pairing fo
 # Download hex files (JustWorks pairing)
 To use a .hex file from this page you need to download it and copy it to the micro:bit.
 Before you can connect to the micro:bit using these files, you need to pair it with your computer
-([windows](../../bluetooth-pairing/windows/pairing-microbit-windows/), [linux](../../bluetooth-pairing/linux/pairing-microbit-linux-gnome/))
+([windows](../bluetooth-pairing/windows/pairing-microbit-windows.md), [linux](../bluetooth-pairing/linux/pairing-microbit-linux-gnome.md))
 
 The micro:bit v1 has too little memory to enable all bluetooth services. If you try to enable them all, after 
 copying the hex the micro:bit, the LED display wil show a sad face and then scroll 020, this means the micro:bit is out of memory.
@@ -29,7 +29,7 @@ Enabled services: [uart](../uart.md) - [event service](../events_v2.md)
 
 ### The micro:bit v1
 Because of the smaller memory on the micro:bit v1, only subsets of all Bluetooth services can be enabled at the same time.
-We provide a few here, but you could also create your own hex file with [MakeCode](../create-a-makecode-project-with-pairing/)
+We provide a few here, but you could also create your own hex file with [MakeCode](create-a-makecode-project-with-pairing.md)
 
 #### accelerometer + buttons + led + temperature
 The file: [no magnetometer, no uart, no io](../hex/microbit-bluetooth-accel-buttons-led-temp-pairing.hex)  

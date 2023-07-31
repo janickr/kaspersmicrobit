@@ -5,8 +5,8 @@ description: Learn how to use the bluetooth temperature service of the micro:bit
 
 The API documentation: 
 
-- [kaspersmicrobit.services.temperature](../reference/services/temperature/)
-- [kaspersmicrobit](../reference/kaspersmicrobit)
+- [kaspersmicrobit.services.temperature](reference/services/temperature.md)
+- [kaspersmicrobit](reference/kaspersmicrobit.md)
 
 Example:
 

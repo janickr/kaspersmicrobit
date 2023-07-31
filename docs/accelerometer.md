@@ -5,8 +5,8 @@ description: Learn how to use the bluetooth accelerometer service of the micro:b
 
 The API documentation: 
 
-- [kaspersmicrobit.services.accelerometer](../reference/services/accelerometer/)
-- [kaspersmicrobit](../reference/kaspersmicrobit)
+- [kaspersmicrobit.services.accelerometer](reference/services/accelerometer.md)
+- [kaspersmicrobit](reference/kaspersmicrobit.md)
 
 Example:
 

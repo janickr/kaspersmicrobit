@@ -5,8 +5,8 @@ description: Learn how to use the bluetooth buttons service of the micro:bit fro
 
 The API documentation: 
 
-- [kaspersmicrobit.services.buttons](../reference/services/buttons/)
-- [kaspersmicrobit](../reference/kaspersmicrobit)
+- [kaspersmicrobit.services.buttons](reference/services/buttons.md)
+- [kaspersmicrobit](reference/kaspersmicrobit.md)
 
 Example:
 

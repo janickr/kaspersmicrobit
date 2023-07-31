@@ -5,7 +5,7 @@ description: Learn how to find and connect to the bluetooth services of a micro:
 
 The API documentation: 
 
-- [kaspersmicrobit](../reference/kaspersmicrobit)
+- [kaspersmicrobit](reference/kaspersmicrobit.md)
 
 ## Connect to the first micro:bit found
 

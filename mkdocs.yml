@@ -98,7 +98,7 @@ plugins:
                 - sys.path.append("src")
                 - from unittest.mock import MagicMock as mock
                 - sys.modules["bleak"] = mock()
-              selection:
+              options:
                   docstring_style: "google"
-      watch:
-        - src/kaspersmicrobit
+watch:
+  - src/kaspersmicrobit

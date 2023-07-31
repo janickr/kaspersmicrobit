@@ -5,10 +5,10 @@ description: Learn how to use the bluetooth event service of the micro:bit v1 fr
 
 The API documentation: 
 
-- [kaspersmicrobit.services.events](../reference/services/events/)
-- [kaspersmicrobit.services.event](../reference/services/event/)
-- [kaspersmicrobit.services.v1_events](../reference/services/v1_events/)
-- [kaspersmicrobit](../reference/kaspersmicrobit)
+- [kaspersmicrobit.services.events](reference/services/events.md)
+- [kaspersmicrobit.services.event](reference/services/event.md)
+- [kaspersmicrobit.services.v1_events](reference/services/v1_events.md)
+- [kaspersmicrobit](reference/kaspersmicrobit.md)
 
 Example:
 

@@ -5,8 +5,8 @@ description: How to use the bluetooth IO pin service of the micro:bit from pytho
 
 The API documentation: 
 
-- [kaspersmicrobit.services.io_pin](../reference/services/io_pin/)
-- [kaspersmicrobit](../reference/kaspersmicrobit)
+- [kaspersmicrobit.services.io_pin](reference/services/io_pin.md)
+- [kaspersmicrobit](reference/kaspersmicrobit.md)
 
 Example:
 

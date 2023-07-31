@@ -5,8 +5,8 @@ description: Learn how to use the bluetooth UART service of the micro:bit from p
 
 The API documentation: 
 
-- [kaspersmicrobit.services.uart](../reference/services/uart/)
-- [kaspersmicrobit](../reference/kaspersmicrobit)
+- [kaspersmicrobit.services.uart](reference/services/uart.md)
+- [kaspersmicrobit](reference/kaspersmicrobit.md)
 
 Example:
 
