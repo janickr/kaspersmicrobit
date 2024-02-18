@@ -58,10 +58,11 @@ Below you can find which combinations of operating systems and microbit versions
 |----------------|---------------------|--------------------|
 | Windows        | :heavy_check_mark:  | :heavy_check_mark: |
 | Linux          | :heavy_check_mark:  | :heavy_check_mark: |
-| MacOS          | :grey_question:     | :grey_question:    |
+| MacOS          | :heavy_check_mark:  | :grey_question:    |
 
 I don't have a mac to test kaspersmicrobit on. Let me know [here (#5)](https://github.com/janickr/kaspersmicrobit/issues/5)
-if it works or not!
+if it works or not! 
+Thanks [@RyanNorge](https://github.com/RyanNorge) for testing a micro:bit v2.x on MacOS in "No pairing required" mode
 
 
 | micro:bit v1.x | No pairing required | Just works pairing |

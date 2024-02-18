@@ -58,11 +58,13 @@ In de onderstaande tabellen zie je welke combinatie van besturingssystemen en mi
 |----------------|---------------------|--------------------|
 | Windows        | :heavy_check_mark:  | :heavy_check_mark: |
 | Linux          | :heavy_check_mark:  | :heavy_check_mark: |
-| MacOS          | :grey_question:     | :grey_question:    |
+| MacOS          | :heavy_check_mark:  | :grey_question:    |
 
 
 Ik heb geen mac om kaspersmicrobit op te testen. Laat me [hier (#5)](https://github.com/janickr/kaspersmicrobit/issues/5) weten 
 of het werkt of niet!
+Bedankt [@RyanNorge](https://github.com/RyanNorge) om een micro:bit v2.x op MacOS in "No pairing required" mode te testen.
+
 
 | micro:bit v1.x | No pairing required | Just works pairing |
 |----------------|---------------------|--------------------|
