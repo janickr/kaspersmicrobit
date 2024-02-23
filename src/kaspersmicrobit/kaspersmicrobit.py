@@ -155,8 +155,7 @@ class KaspersMicrobit:
                   uitvoert.
 
         Returns:
-            List[KaspersMicrobit]: Een lijst van gevonden micro:bits, deze kan ook leeg zijn,
-                  als er geen micro:bits gevonden werden
+            Een lijst van gevonden micro:bits, deze kan ook leeg zijn, als er geen micro:bits gevonden werden
 
         """
 

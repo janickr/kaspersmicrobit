@@ -54,7 +54,7 @@ class LedDisplay:
         return LedDisplay(bytearray(value))
 
     @staticmethod
-    def image(string: str, on='#', off='.') -> 'LedDisplay':
+    def image(string: str, on: str = '#', off: str = '.') -> 'LedDisplay':
         """
         Maakt een LedDisplay van een string.
 

@@ -76,8 +76,8 @@ class ButtonService:
             release (ButtonCallback): een functie die wordt opgeroepen wanneer de A knop wordt losgelaten
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de button service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de button service actief is, maar er geen manier was om de
+            errors.BluetoothServiceNotFound: Wanneer de button service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de button service actief is, maar er geen manier was om de
                 notificaties voor button A te activeren (komt normaal gezien niet voor)
         """
         self._device.notify(Service.BUTTON, Characteristic.BUTTON_A,
@@ -99,8 +99,8 @@ class ButtonService:
             release (ButtonCallback): een functie die wordt opgeroepen wanneer de B knop wordt losgelaten
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de button service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de button service actief is, maar er geen manier was om de
+            errors.BluetoothServiceNotFound: Wanneer de button service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de button service actief is, maar er geen manier was om de
                 notificaties voor button B te activeren (komt normaal gezien niet voor)
         """
         self._device.notify(Service.BUTTON, Characteristic.BUTTON_B,
@@ -114,8 +114,8 @@ class ButtonService:
             De toestand van de A knop (RELEASE, PRESS of LONG_PRESS)
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de button service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de button service actief is, maar er geen manier was om
+            errors.BluetoothServiceNotFound: Wanneer de button service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de button service actief is, maar er geen manier was om
                 de staat van button A te lezen (komt normaal gezien niet voor)
         """
         return ButtonState(self._device.read(Service.BUTTON, Characteristic.BUTTON_A)[0])
@@ -128,8 +128,8 @@ class ButtonService:
             De toestand van de B knop (RELEASE, PRESS of LONG_PRESS)
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de button service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de button service actief is, maar er geen manier was om
+            errors.BluetoothServiceNotFound: Wanneer de button service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de button service actief is, maar er geen manier was om
                 de staat van button B te lezen (komt normaal gezien niet voor)
         """
         return ButtonState(self._device.read(Service.BUTTON, Characteristic.BUTTON_B)[0])

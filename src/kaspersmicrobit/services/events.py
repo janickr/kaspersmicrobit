@@ -56,8 +56,8 @@ class EventService:
             callback: een functie die wordt opgeroepen met een Event
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
                 om de notificaties voor de microbit requirements te activeren (komt normaal gezien niet voor)
         """
         self._device.notify(Characteristic.MICROBIT_REQUIREMENTS,
@@ -75,8 +75,8 @@ class EventService:
             List[Event]: Een lijst van events waarvan je de micro:bit moet verwittigen wanneer ze zich voordoen
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
                 om de microbit requirements te lezen (komt normaal gezien niet voor)
         """
         return Event.list_from_bytes(self._device.read(Service.EVENT, Characteristic.MICROBIT_REQUIREMENTS))
@@ -91,8 +91,8 @@ class EventService:
             callback: een functie die wordt opgeroepen met een Event
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
                 om de notificaties voor de microbit events te activeren (komt normaal gezien niet voor)
         """
         self._device.notify(Service.EVENT, Characteristic.MICROBIT_EVENT,
@@ -108,8 +108,8 @@ class EventService:
             List[Event]: Een lijst van events die zich hebben voorgedaan op de micro:bit
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
                 om de microbit events te lezen (komt normaal gezien niet voor)
         """
         return Event.list_from_bytes(self._device.read(Service.EVENT, Characteristic.MICROBIT_EVENT))
@@ -126,8 +126,8 @@ class EventService:
             *events (Event): de events die je wil ontvangen van de micro:bit
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
                 om de client requirements te schrijven (komt normaal gezien niet voor)
         """
         for event in events:
@@ -143,8 +143,8 @@ class EventService:
            *events (Event): de events die je wil verzenden naar de micro:bit
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
                 om de client events te schrijven (komt normaal gezien niet voor)
         """
         for event in events:

@@ -122,8 +122,8 @@ class AccelerometerService:
                 zijn van de accelerometer. De nieuwe AccelerometerData worden meegegeven als argument aan deze functie
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de accelerometer service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de accelerometer service actief is, maar er geen manier was om de
+            errors.BluetoothServiceNotFound: Wanneer de accelerometer service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de accelerometer service actief is, maar er geen manier was om de
                 accelerometer data notificaties te activeren (komt normaal gezien niet voor)
         """
         self._device.notify(Service.ACCELEROMETER, Characteristic.ACCELEROMETER_DATA,
@@ -137,8 +137,8 @@ class AccelerometerService:
             De gegevens van de accelerometer (x, y en z)
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de accelerometer service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de accelerometer service actief is, maar er geen manier was om de
+            errors.BluetoothServiceNotFound: Wanneer de accelerometer service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de accelerometer service actief is, maar er geen manier was om de
                 accelerometer data te lezen (komt normaal gezien niet voor)
         """
         return AccelerometerData.from_bytes(self._device.read(Service.ACCELEROMETER, Characteristic.ACCELEROMETER_DATA))
@@ -152,8 +152,8 @@ class AccelerometerService:
                 geldige waarden zijn: 1, 2, 5, 10, 20, 80, 160, 640
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de accelerometer service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de accelerometer service actief is, maar er geen manier was om de
+            errors.BluetoothServiceNotFound: Wanneer de accelerometer service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de accelerometer service actief is, maar er geen manier was om de
                 accelerometer periode te wijzigen (komt normaal gezien niet voor)
 
         Warning:
@@ -170,8 +170,8 @@ class AccelerometerService:
             Het interval in milliseconden
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de accelerometer service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de accelerometer service actief is, maar er geen manier was om de
+            errors.BluetoothServiceNotFound: Wanneer de accelerometer service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de accelerometer service actief is, maar er geen manier was om de
                 accelerometer periode te lezen (komt normaal gezien niet voor)
         """
         return int.from_bytes(self._device.read(Service.ACCELEROMETER, Characteristic.ACCELEROMETER_PERIOD)[0:2], "little")

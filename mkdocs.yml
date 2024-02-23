@@ -100,6 +100,13 @@ plugins:
                 - sys.modules["bleak"] = mock()
               options:
                   docstring_style: "google"
+                  members_order: "source"
+                  show_symbol_type_toc: true
+                  docstring_section_style: list
+                  separate_signature: true
+                  line_length: 60
+                  show_signature_annotations: True
+
 watch:
   - src/kaspersmicrobit
 

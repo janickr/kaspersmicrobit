@@ -33,8 +33,8 @@ class GenericAccessService:
             de naam van de micro:bit
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de generic access service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de generic acces service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de generic access service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de generic acces service actief is, maar er geen manier was
                 om de device naam te lezen (komt normaal gezien niet voor)
         """
         return str(self._device.read(Service.GENERIC_ACCESS, Characteristic.DEVICE_NAME), "utf-8")

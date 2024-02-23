@@ -221,8 +221,8 @@ class IOPinService:
             callback: een functie die wordt opgeroepen met een lijst van PinValue objecten
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
                 om de notificaties voor de pin data te activeren (komt normaal gezien niet voor)
         """
         self._device.notify(Service.IO_PIN, Characteristic.PIN_DATA,
@@ -236,8 +236,8 @@ class IOPinService:
             Een lijst van input pins en hun bijhorende waarde
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
                 om de pin data te lezen (komt normaal gezien niet voor)
         """
         return PinValue.list_from_bytes(self._pin_ad_config, self._device.read(Service.IO_PIN, Characteristic.PIN_DATA))
@@ -251,8 +251,8 @@ class IOPinService:
             values (List[PinValue]): de output pins en hun bijhorende waarde
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
                 om de pin data te schrijven (komt normaal gezien niet voor)
         """
         if values:
@@ -267,8 +267,8 @@ class IOPinService:
             De analoog-digitaal configuratie voor iedere pin
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
                 om de pin analoog-digitaal configuratie te lezen (komt normaal gezien niet voor)
         """
         return PinADConfiguration.from_bytes(self._device.read(Service.IO_PIN, Characteristic.PIN_AD_CONFIGURATION))
@@ -281,8 +281,8 @@ class IOPinService:
             config (PinADConfiguration): De analoog-digitaal configuratie voor iedere pin
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
                 om de analoog-digitaal configuratie te schrijven (komt normaal gezien niet voor)
         """
         self._device.write(Service.IO_PIN, Characteristic.PIN_AD_CONFIGURATION, config.to_bytes())
@@ -296,8 +296,8 @@ class IOPinService:
             De input-output configuratie voor iedere pin
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
                 om de input-output configuratie te lezen (komt normaal gezien niet voor)
         """
         return PinIOConfiguration.from_bytes(self._device.read(Service.IO_PIN, Characteristic.PIN_IO_CONFIGURATION))
@@ -313,8 +313,8 @@ class IOPinService:
             config (PinIOConfiguration): De input-output configuratie voor iedere pin
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
                 om de input-output configuratie te schrijven (komt normaal gezien niet voor)
         """
         self._device.write(Service.IO_PIN, Characteristic.PIN_IO_CONFIGURATION, config.to_bytes())
@@ -332,8 +332,8 @@ class IOPinService:
             pwm_control2 (PwmControlData): een optionele PWM opdracht
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
                 om de pwm control data te schrijven (komt normaal gezien niet voor)
         """
         data = pwm_control1.to_bytes() + pwm_control2.to_bytes() if pwm_control2 else pwm_control1.to_bytes()

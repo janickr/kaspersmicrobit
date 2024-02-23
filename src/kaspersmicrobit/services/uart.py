@@ -37,8 +37,8 @@ class UartService:
             callback (Callable[[ByteData], None]): een functie wordt opgeroepen met de ontvangen bytes
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de uart service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de uart service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de uart service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de uart service actief is, maar er geen manier was
                 om de notificaties van uart data te activeren (komt normaal gezien niet voor)
         """
         self._device.notify(Service.UART, Characteristic.TX_CHARACTERISTIC, lambda sender, data: callback(data))
@@ -52,8 +52,8 @@ class UartService:
             callback (Callable[[str], None]): een functie wordt opgeroepen met de ontvangen string
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de uart service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de uart service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de uart service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de uart service actief is, maar er geen manier was
                 om de notificaties van uart data te activeren (komt normaal gezien niet voor)
         """
         self.receive(UartService.to_string(callback))
@@ -66,8 +66,8 @@ class UartService:
             data (ByteData): de bytes die verzonden worden
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de uart service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de uart service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de uart service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de uart service actief is, maar er geen manier was
                 om data via de uart service te verzenden (komt normaal gezien niet voor)
         """
         for i in range(0, len(data), PDU_BYTE_LIMIT):
@@ -81,8 +81,8 @@ class UartService:
             string (str): de string die verzonden wordt
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de uart service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de uart service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de uart service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de uart service actief is, maar er geen manier was
                 om data via de uart service te verzenden (komt normaal gezien niet voor)
         """
         self.send(UartService.from_string(string))

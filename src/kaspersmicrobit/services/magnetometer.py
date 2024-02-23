@@ -122,8 +122,8 @@ class MagnetometerService:
                 zijn van de magnetometer. De nieuwe MagnetometerData worden meegegeven als argument aan deze functie
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
                 om de notificaties van magnetometer data te activeren (komt normaal gezien niet voor)
         """
         self._device.notify(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_DATA,
@@ -137,8 +137,8 @@ class MagnetometerService:
             De gegevens van de magnetometer (x, y en z)
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
                 om de magnetometer data te lezen (komt normaal gezien niet voor)
         """
         return MagnetometerData.from_bytes(self._device.read(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_DATA))
@@ -156,8 +156,8 @@ class MagnetometerService:
             TODO te onderzoeken
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
                 om de magnetometer periode te schrijven (komt normaal gezien niet voor)
         """
         self._device.write(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_PERIOD, period.to_bytes(2, "little"))
@@ -170,8 +170,8 @@ class MagnetometerService:
             Het interval in milliseconden
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
                 om de magnetometer periode te lezen (komt normaal gezien niet voor)
         """
         return int.from_bytes(
@@ -190,8 +190,8 @@ class MagnetometerService:
                 opzichte van het noorden
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
                 om de notificaties van magnetometer bearing te activeren (komt normaal gezien niet voor)
         """
         self._device.notify(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_BEARING,
@@ -205,8 +205,8 @@ class MagnetometerService:
             de hoek in graden tov het noorden
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
                 om de magnetometer bearing te lezen (komt normaal gezien niet voor)
         """
         return int.from_bytes(
@@ -228,8 +228,8 @@ class MagnetometerService:
             De calibratie gedaan is.
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
                 om de magnetometer calibratie te activeren of op te volgen (komt normaal gezien niet voor)
         """
         if self._calibration and not self._calibration.done():

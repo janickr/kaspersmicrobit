@@ -39,8 +39,8 @@ class TemperatureService:
             callback: een functie die periodiek wordt opgeroepen met de temperatuur als argument
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de temperatuur service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de temperatuur service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de temperatuur service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de temperatuur service actief is, maar er geen manier was
                 om de notificaties van temperatuur data te activeren (komt normaal gezien niet voor)
         """
         self._device.notify(Service.TEMPERATURE, Characteristic.TEMPERATURE,
@@ -54,8 +54,8 @@ class TemperatureService:
             de temperatuur in graden Celcius
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de temperatuur service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de temperatuur service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de temperatuur service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de temperatuur service actief is, maar er geen manier was
                 om de temperatuur te lezen (komt normaal gezien niet voor)
         """
         return int.from_bytes(
@@ -70,8 +70,8 @@ class TemperatureService:
             period (int): het interval waarmee je temperatuurgegevens ontvangt in milliseconden
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de temperatuur service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de temperatuur service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de temperatuur service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de temperatuur service actief is, maar er geen manier was
                 om de temperatuur periode te schrijven (komt normaal gezien niet voor)
         """
         self._device.write(Service.TEMPERATURE, Characteristic.TEMPERATURE_PERIOD, period.to_bytes(2, "little"))
@@ -84,8 +84,8 @@ class TemperatureService:
             Het interval in milliseconden
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de temperatuur service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de temperatuur service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de temperatuur service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de temperatuur service actief is, maar er geen manier was
                 om de temperatuur periode te lezen (komt normaal gezien niet voor)
         """
         return int.from_bytes(

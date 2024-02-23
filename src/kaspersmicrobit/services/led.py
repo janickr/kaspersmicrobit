@@ -32,8 +32,8 @@ class LedService:
             led_display: de aan/uit staat van de leds
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
                 om de led display te schrijven (komt normaal gezien niet voor)
         """
         self._device.write(Service.LED, Characteristic.LED_MATRIX_STATE, led_display.to_bytes())
@@ -46,8 +46,8 @@ class LedService:
             de aan/uit staat van de leds
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
                 om de led display te lezen (komt normaal gezien niet voor)
         """
         return LedDisplay.from_bytes(self._device.read(Service.LED, Characteristic.LED_MATRIX_STATE))
@@ -62,8 +62,8 @@ class LedService:
 
         Raises:
             ValueError: indien text meer dan 20 tekens bevat
-            BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
                 om de led text te schrijven (komt normaal gezien niet voor)
         """
         octets = text.encode("utf-8")
@@ -80,8 +80,8 @@ class LedService:
             delay_in_millis:  de tijd die 1 letter er over doet om over het scherm voorbij te komen in milliseconden
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
                 om de scrolling delay te schrijven (komt normaal gezien niet voor)
         """
         self._device.write(Service.LED, Characteristic.SCROLLING_DELAY, delay_in_millis.to_bytes(2, 'little'))
@@ -94,8 +94,8 @@ class LedService:
              de tijd die 1 letter er over doet om over het scherm voorbij te komen in milliseconden
 
         Raises:
-            BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
-            BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
+            errors.BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
+            errors.BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
                 om de scrolling delay te lezen (komt normaal gezien niet voor)
         """
         return int.from_bytes(self._device.read(Service.LED, Characteristic.SCROLLING_DELAY)[0:2], 'little')
