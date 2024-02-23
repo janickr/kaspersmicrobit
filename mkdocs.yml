@@ -102,6 +102,7 @@ plugins:
               options:
                   docstring_style: "google"
                   members_order: "source"
+                  show_symbol_type_toc: true
                   docstring_section_style: list
                   separate_signature: true
                   line_length: 60
