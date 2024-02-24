@@ -14,11 +14,11 @@ After following the general pairing instructions below, head over to the
 Click on the Bluetooth icon in your system tray.  
 Click "Show Bluetooth devices"
 
-![click bluetooth icon in system tray](bluetooth-1.png)  
+![click bluetooth icon in system tray](windows-bluetooth-icon-system-tray.png)  
 
 The "Bluetooth & other devices" screen opens, click "Add Bluetooth or other device"
 
-![Bluetooth & other devices screen](bluetooth-2.png)  
+![Bluetooth & other devices screen](windows-bluetooth-devices-screen.png)  
 
 The "Add a device" screen pops up. Now you'll need to put your micro:bit in "pairing mode":
 
@@ -30,15 +30,15 @@ The "Add a device" screen pops up. Now you'll need to put your micro:bit in "pai
 Your micro:bit is in pairing mode and is discoverable by Windows
 Now click on "Bluetooth"
 
-![Add a device](bluetooth-3.png)  
+![Add a device](windows-bluetooth-add-a-device.png)  
 
 Windows will scan for bluetooth devices, your micro:bit should show up in the list
 
-![Discover devices](bluetooth-4.png)
+![Discover devices](windows-bluetooth-discover-devices.png)
 
 Click on the micro:bit device in the list, Windows will pair with the micro:bit
 
-![Pair with micro:bit](bluetooth-5.png)
+![Pair with micro:bit](windows-bluetooth-pair-with-with-microbit.png)
 
 You can click "Done" your micro:bit is paired in Windows!
 
@@ -50,17 +50,17 @@ the instructions to look up the address in Windows.
 Back on the Bluetooth & other devices screen, select your micro:bit and click
 "More Bluetooth options"
 
-![Bluetooth & other devices](address-1.png)
+![Bluetooth & other devices](windows-bluetooth-devices-more-options.png)
 
 The Bluetooth settings window pops up. On the "Hardware" tab, select your micro:bit and click "Properties"  
 
-![Bluetooth settings](address-2.png)
+![Bluetooth settings](windows-bluetooth-devices-hardware-tab.png)
 
 The micro:bit properties window pops up. On the "Details" tab, select the "Association Endpoint address" property. 
 The value of this property is the bluetooth address of your micro:bit.  ***Write this address down somewhere*** you'll
 need it to connect to your micro:bit.
 
-![Micro:bit properties](address-3.png)
+![Micro:bit properties](windows-bluetooth-devices-hardware-address.png)
 
 ## Create your first game
 

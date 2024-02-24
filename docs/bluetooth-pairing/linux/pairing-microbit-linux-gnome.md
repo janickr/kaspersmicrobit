@@ -22,12 +22,12 @@ Your micro:bit is in pairing mode and is discoverable by linux
 Click on the Bluetooth icon in your system status area.  
 Click "Bluetooth setting"
 
-![click bluetooth icon in system status area](bluetooth-1.png)  
+![click bluetooth icon in system status area](linux-bluetooth-system-status-area.png)  
 
 The "Bluetooth settings" screen opens. Linux will scan for bluetooth devices, your micro:bit should show up in the list
 Click on the micro:bit device in the list, linux will pair with the micro:bit
 
-![Bluetooth settings - scanning](bluetooth-2.png)  
+![Bluetooth settings - scanning](linux-bluetooth-settings-scanning.png)  
 
 Good job! Your micro:bit is paired in linux!
 
@@ -38,11 +38,11 @@ the instructions to look up the address in gnome.
 
 When the micro:bit is paired, click again to get the details of the micro:bit
 
-![Bluetooth settings - paired](bluetooth-3.png)  
+![Bluetooth settings - paired](linux-bluetooth-settings-paired.png)  
 
 A details window pops up. ***Write down the Bluetooth address of your micro:bit.***
 
-![Bluetooth settings - details](bluetooth-4.png)
+![Bluetooth settings - details](linux-bluetooth-settings-details.png)
 
 ## Create your first game
 

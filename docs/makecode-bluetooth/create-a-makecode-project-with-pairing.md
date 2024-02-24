@@ -20,49 +20,54 @@ However, it also has a few disadvantages
 ## Create a project
 In MakeCode for micro:bit, select "New Project"  
 
-![New project](makecode-1.png)  
+![Start a new project](makecode-new-project.png)  
   
 Enter a name:
 
-![Name project](makecode-2.png)  
+![Create project: give your project a name](makecode-create-project-give-name.png)  
 
 
 ## Add the Bluetooth extension
 You'll need to add the Bluetooth extension.   
 Select "Advanced"
 
-![Create project](makecode-3.png)  
+![MakeCode project blocks: select advanced](makecode-project-blocks-select-advanced.png)  
 
 Select "Extensions"  
 
-![Create project](makecode-4.png)  
+![MakeCode project blocks: select extension](makecode-project-blocks-select-extensions.png)  
 
 Search for Bluetooth, and select the Bluetooth extension
 
-![Create project](makecode-5.png)  
+![Extensions: search and select Bluetooth](makecode-project-extensions-select-bluetooth.png)  
 
 A popup appears, informing you that the "radio" extension will be removed if you add Bluetooth. 
 Select "Remove extension and add Bluetooth", this will only apply to this project.  
 
+![Remove the radio extensions and add Bluetooth](makecode-remove-radio-and-add-bluetooth.png)  
+
+
 ## Enable pairing
 
-![Select JustWorks pairing in project settings](microbit-just-works-pairing.png)
+In the top-right corner click on the cog icon and select project settings. Enable the "JustWorks pairing (default): 
+Pairing is automatic once the pairing is initiated" option. Save the Settings.
+
+![Select JustWorks pairing in project settings](makecode-project-settings-microbit-just-works-pairing.png)
 
 
 ## Add Bluetooth services
-The micro:bit v1 has too little memory to enable all bluetooth services. If you try to enable them all, after 
-copying the hex the micro:bit, the LED display wil show a sad face and then scroll 020, this means the micro:bit is out of memory.
-See also: [the micro:bit error codes](https://makecode.microbit.org/device/error-codes)
 
-![Create project](makecode-6.png)  
+Now you can select blocks from the bluetooth tab:  
 
-No you can select blocks from the bluetooth tab:  
-
-![Create project](makecode-7.png)  
+![Select Bluetooth blocks](makecode-project-blocks-select-bluetooth.png)  
 
 Drag the services you want to enable in an "On start" block  
 
-![Create project](makecode-8.png)  
+![Drag Bluetooth services in On start](makecode-project-drag-services-in-onstart.png)  
+
+The micro:bit v1 has too little memory to enable all bluetooth services. If you try to enable them all, after 
+copying the hex the micro:bit, the LED display wil show a sad face and then scroll 020, this means the micro:bit is out of memory.
+See also: [the micro:bit error codes](https://makecode.microbit.org/device/error-codes)
 
 ## Download the hex file
 Download the hex file and copy it to your micro:bit!  
