@@ -21,7 +21,7 @@ Install kaspersmicrobit:
 ```bash
 $ pip install kaspersmicrobit
 ```
-Copy [this hex file](https://kaspersmicrobit.readthedocs.io/en/latest/hex/microbit-bluetooth-accel-buttons-led-temp-no-pairing.hex) 
+Copy [this hex file](https://kaspersmicrobit.readthedocs.io/en/latest/assets/hex/microbit-bluetooth-accel-buttons-led-temp-no-pairing.hex) 
 to the micro:bit and run your first program:
 ```python
 import time
