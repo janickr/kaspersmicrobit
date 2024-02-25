@@ -15,8 +15,11 @@ class Characteristic(Enum):
     DEVICE_NAME = '00002a00-0000-1000-8000-00805f9b34fb'
     """
     Read Mandatory
+    
     Write Mandatory
+    
     Fields
+    
     1. Name : utf8s
     """
 
@@ -25,14 +28,18 @@ class Characteristic(Enum):
     The external appearance of this device. The values are composed of a category (10-bits) and sub-categories (6-bits).
     
     Read Mandatory
+    
     Fields
+    
     1. Category : 16bit
     """
 
     PERIPHERAL_PREFERRED_CONNECTION_PARAMETERS = '00002a04-0000-1000-8000-00805f9b34fb'
     """
     Read Mandatory
+    
     Fields
+    
     1. Minimum Connection Interval : uint16
     2. Maximum Connection Interval : uint16
     3. Slave Latency : uint16
@@ -42,10 +49,14 @@ class Characteristic(Enum):
     SERVICE_CHANGED = '2a05'
     """
     Indicate Mandatory
+    
     Fields
+    
     1. Start of Affected Attribute Handle Range : uint16
     2. End of Affected Attribute Handle Range : uint16
+    
     Descriptors
+    
     1. Client Characteristic Configuration : 2902
     """
 
@@ -54,7 +65,9 @@ class Characteristic(Enum):
     The value of this characteristic is a UTF-8 string representing the model number assigned by the device vendor.
     
     Read Mandatory
+    
     Fields
+    
     1. Model Number : utf8s
     """
 
@@ -64,7 +77,9 @@ class Characteristic(Enum):
     instance of the device.
     
     Read Mandatory
+    
     Fields
+    
     1. Serial Number : utf8s
     """
 
@@ -74,7 +89,9 @@ class Characteristic(Enum):
     the device.
     
     Read Mandatory
+    
     Fields
+    
     1. Hardware Revision : utf8s
     """
 
@@ -84,7 +101,9 @@ class Characteristic(Enum):
     the device.
     
     Read Mandatory
+    
     Fields
+    
     1. Firmware Revision : utf8s
     """
 
@@ -93,7 +112,9 @@ class Characteristic(Enum):
     The value of this characteristic is a UTF-8 string representing the name of the manufacturer of the device.  
     
     Read Mandatory
+    
     Fields
+    
     1. Manufacturer Name : utf8s    
     """
 
@@ -103,12 +124,17 @@ class Characteristic(Enum):
     endian format. X, Y and Z values should be divided by 1000.
     
     Read Mandatory
+    
     Notify Mandatory
+    
     Fields
+    
     1. Accelerometer_X  : sint16
     2. Accelerometer_Y : sint16
     3. Accelerometer_Z : sint16
+    
     Descriptors
+    
     1. Client Characteristic Configuration : 2902
     """
 
@@ -118,8 +144,11 @@ class Characteristic(Enum):
     Valid values are 1, 2, 5, 10, 20, 80, 160 and 640.
     
     Read Mandatory
+    
     Write Mandatory
+    
     Fields
+    
     1. Accelerometer_Period : uint16
     """
 
@@ -129,12 +158,17 @@ class Characteristic(Enum):
     format. Data can be read on demand or notified periodically.
     
     Read Mandatory
+    
     Notify Mandatory
+    
     Fields
+    
     1. Magnetometer_X : sint16
     2. Magnetometer_Y : sint16
     3. Magnetometer_Z : sint16
+    
     Descriptors
+    
     1. Client Characteristic Configuration : 2902
     """
 
@@ -144,8 +178,11 @@ class Characteristic(Enum):
     Valid values are 1, 2, 5, 10, 20, 80, 160 and 640.
     
     Read Mandatory
+    
     Write Mandatory
+    
     Fields
+    
     1. Magnetometer_Period : uint16
     """
 
@@ -154,25 +191,36 @@ class Characteristic(Enum):
     Compass bearing in degrees from North.
     
     Read Mandatory
+    
     Notify Mandatory
+    
     Fields
+    
     1. bearing value : uint16
+    
     Descriptors
+    
     1. Client Characteristic Configuration : 2902
     """
 
     MAGNETOMETER_CALIBRATION = 'e95db358-251d-470a-a062-fa1922dfa9a8'
     """
-    0 - state unknown
-    1 - calibration requested
-    2 - calibration completed OK
-    3 - calibration completed with error
-    
     Write Mandatory
+    
     Notify Mandatory
+    
     Fields
+    
     1. calibration field : uint8
+    
+    
+            0 - state unknown
+            1 - calibration requested
+            2 - calibration completed OK
+            3 - calibration completed with error
+    
     Descriptors
+    
     1. Client Characteristic Configuration : 2902
     """
 
@@ -180,13 +228,21 @@ class Characteristic(Enum):
     """
     State of Button A may be read on demand by a connected client or the client may subscribe to notifications of 
     state change. 3 button states are defined and represented by a simple numeric enumeration: 
-    0 = not pressed, 1 = pressed, 2 = long press.
+    
+            0 = not pressed
+            1 = pressed
+            2 = long press.
     
     Read Mandatory
+    
     Notify Mandatory
+    
     Fields
+    
     1. Button_State_Value : uint8
+    
     Descriptors
+    
     1. Client Characteristic Configuration : 2902
     """
 
@@ -194,13 +250,21 @@ class Characteristic(Enum):
     """
     State of Button B may be read on demand by a connected client or the client may subscribe to notifications of 
     state change. 3 button states are defined and represented by a simple numeric enumeration:  
-    0 = not pressed, 1 = pressed, 2 = long press.
+    
+            0 = not pressed
+            1 = pressed
+            2 = long press.
     
     Read Mandatory
+    
     Notify Mandatory
+    
     Fields
+    
     1. Button_State_Value : uint8
+    
     Descriptors
+    
     1. Client Characteristic Configuration : 2902
     """
 
@@ -225,11 +289,17 @@ class Characteristic(Enum):
     input pins by the Pin IO Configuration characteristic.
     
     Read Mandatory
+    
     Write Mandatory
+    
     Notify Mandatory
+    
     Fields
+    
     1. IO_Pin_Data : uint8[]
+    
     Descriptors
+    
     1. Client Characteristic Configuration : 2902
     """
 
@@ -241,8 +311,11 @@ class Characteristic(Enum):
     A value of 0 means digital and 1 means analogue.
     
     Read Mandatory
+    
     Write Mandatory
+    
     Fields
+    
     1. Pin_AD_Config_Value : uint32
     """
 
@@ -260,17 +333,18 @@ class Characteristic(Enum):
     and 1 means configured for input.
     
     Read Mandatory
+    
     Write Mandatory
+    
     Fields
+    
     1. Pin_IO_Config_Value : uint32
     """
 
     PWM_CONTROL = 'e95dd822-251d-470a-a062-fa1922dfa9a8'
     """
     A variable length array 1 to 2 instances of :
-    
-    ::
-    
+     
         struct PwmControlData {
          uint8_t     pin;
          uint16_t    value;
@@ -284,7 +358,9 @@ class Characteristic(Enum):
     
         
     Write Mandatory
+    
     Fields
+    
     1. PWM Control Field : uint8[]
     """
 
@@ -300,16 +376,19 @@ class Characteristic(Enum):
     
     So we have:
     
-    Octet 0, LED Row 1: bit4 bit3 bit2 bit1 bit0
-    Octet 1, LED Row 2: bit4 bit3 bit2 bit1 bit0
-    Octet 2, LED Row 3: bit4 bit3 bit2 bit1 bit0
-    Octet 3, LED Row 4: bit4 bit3 bit2 bit1 bit0
-    Octet 4, LED Row 5: bit4 bit3 bit2 bit1 bit0
+        Octet 0, LED Row 1: bit4 bit3 bit2 bit1 bit0
+        Octet 1, LED Row 2: bit4 bit3 bit2 bit1 bit0
+        Octet 2, LED Row 3: bit4 bit3 bit2 bit1 bit0
+        Octet 3, LED Row 4: bit4 bit3 bit2 bit1 bit0
+        Octet 4, LED Row 5: bit4 bit3 bit2 bit1 bit0
 
     
     Read Mandatory
+    
     Write Mandatory
+    
     Fields
+    
     1. LED_Matrix_State : uint8[]
     """
 
@@ -318,7 +397,9 @@ class Characteristic(Enum):
     A short UTF-8 string to be shown on the LED display. Maximum length 20 octets.
     
     Write Mandatory
+    
     Fields
+    
     1. LED_Text_Value : utf8s
     """
 
@@ -327,8 +408,11 @@ class Characteristic(Enum):
     Specifies a millisecond delay to wait for in between showing each character on the display.
     
     Read Mandatory
+    
     Write Mandatory
+    
     Fields
+    
     1. Scrolling_Delay_Value : uint16
     """
 
@@ -339,8 +423,6 @@ class Characteristic(Enum):
     characteristic when it first connects to the micro:bit. It may also subscribe to notifications
     to that it can be informed if the value of this characteristic is changed by the micro:bit firmware.
     
-    ::
-        
         struct event {
           uint16 event_type;
           uint16 event_value;
@@ -351,10 +433,15 @@ class Characteristic(Enum):
     event_type and event_value are each encoded in little endian format.
     
     Read Mandatory
+    
     Notify Mandatory
+    
     Fields
+    
     1. microbit_reqs_value : uint8[]
+    
     Descriptors
+    
     1. Client Characteristic Configuration : 2902
     """
 
@@ -363,8 +450,6 @@ class Characteristic(Enum):
     Contains one or more event structures which should be notified to the client. It supports notifications and as 
     such the client should subscribe to notifications from this characteristic.
     
-    ::
-        
         struct event {
           uint16 event_type;
           uint16 event_value;
@@ -372,10 +457,15 @@ class Characteristic(Enum):
         
     
     Read Mandatory
+    
     Notify Mandatory
+    
     Fields
+    
     1. Event_Type_And_Value : uint8[]
+    
     Descriptors
+    
     1. Client Characteristic Configuration : 2902
     """
 
@@ -385,8 +475,6 @@ class Characteristic(Enum):
     specific value which the client wishes to be informed of when they occur. The client should write to this 
     characteristic when it first connects to the micro:bit.
     
-    ::
-        
         struct event {
           uint16 event_type;
           uint16 event_value;
@@ -398,9 +486,11 @@ class Characteristic(Enum):
     event_type and event_value are each encoded in little endian format.
 
     Write Mandatory
+    
     Fields
+    
     1. Client_Requirements_Value : uint8[]
-    Descriptors
+    
     """
 
     CLIENT_EVENT = 'e95d5404-251d-470a-a062-fa1922dfa9a8'
@@ -409,18 +499,19 @@ class Characteristic(Enum):
     events which have occurred on the client. These should be of types indicated in the micro:bit Requirements 
     characteristic bit mask.
     
-    ::
-    
         struct event {
           uint16 event_type;
           uint16 event_value;
         };
     
     Write Mandatory
+    
     Write Without Response Mandatory
+    
     Fields
+    
     1. Event_Types_And_Values : uint8[]
-    Descriptors
+    
     """
 
     DFU_CONTROL = 'e95d93b1-251d-470a-a062-fa1922dfa9a8'
@@ -431,8 +522,11 @@ class Characteristic(Enum):
     Writing 0x02 to this characteristic  means "request flash code".
     
     Read Mandatory
+    
     Write Mandatory
+    
     Fields
+    
     1. dfu_control : uint8
     """
 
@@ -441,10 +535,15 @@ class Characteristic(Enum):
     Signed integer 8 bit value in degrees celsius.
     
     Read Mandatory
+    
     Notify Mandatory
+    
     Fields
+    
     1. temperature value : sint8
+    
     Descriptors
+    
     1. Client Characteristic Configuration : 2902
     """
 
@@ -453,10 +552,12 @@ class Characteristic(Enum):
     Determines the frequency with which temperature data is updated in milliseconds.
     
     Read Mandatory
+    
     Write Mandatory
+    
     Fields
+    
     1. temperature period value : uint16
-    Descriptors
     """
 
     TX_CHARACTERISTIC = '6e400002-b5a3-f393-e0a9-e50e24dcca9e'
@@ -468,9 +569,10 @@ class Characteristic(Enum):
     to be precise.
 
     Indicate Mandatory
+    
     Fields
+    
     1. UART TX Field : uint8[]
-    Descriptors
     """
 
     RX_CHARACTERISTIC = '6e400003-b5a3-f393-e0a9-e50e24dcca9e'
@@ -483,10 +585,12 @@ class Characteristic(Enum):
     
     
     Write Mandatory
+    
     Write Without Response Mandatory
+    
     Fields
+    
     1. UART TX Field : uint8[]
-
     """
 
     @staticmethod

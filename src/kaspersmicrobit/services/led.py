@@ -10,61 +10,61 @@ from ..bluetoothdevice import BluetoothDevice
 
 class LedService:
     """
-    Met de functies in deze klasse kan je leds aan of uit zetten, of een korte tekst laten scrollen op het scherm
+    Using the functions in this class you can turn LEDs on or off, or scroll a short text on the screen
     """
     def __init__(self, device: BluetoothDevice):
         self._device = device
 
     def is_available(self) -> bool:
         """
-        Kijkt na of de led bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+        Checks whether the LED Bluetooth service is found on the connected micro:bit.
 
         Returns:
-            true als de led service gevonden werd, false indien niet.
+            true if the LED service was found, false if not.
         """
         return self._device.is_service_available(Service.LED)
 
     def show(self, led_display: LedDisplay):
         """
-        Zet de leds op de micro:bit aan zoals de leds parameter aangeeft
+        Turn on the LEDs on the micro:bit as indicated in the LEDs parameter
 
         Args:
-            led_display: de aan/uit staat van de leds
+            led_display: the on/off state of the LEDs
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
-                om de led display te schrijven (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the LED service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the led service is active but there was no way
+                to write the LED display (normally does not occur)
         """
         self._device.write(Service.LED, Characteristic.LED_MATRIX_STATE, led_display.to_bytes())
 
     def read(self) -> LedDisplay:
         """
-        Lees de aan/uit waarden van de micro:bit led display
+        Read the on/off values from the micro:bit LED display
 
         Returns:
-            de aan/uit staat van de leds
+            the on/off state of the LEDs
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
-                om de led display te lezen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the LED service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the led service is active but there was no way
+                to read the LED display (normally not present)
         """
         return LedDisplay.from_bytes(self._device.read(Service.LED, Characteristic.LED_MATRIX_STATE))
 
     def show_text(self, text: str):
         """
-        Laat de gegeven tekst voorbij scrollen op het led scherm van de micro:bit. De snelheid van het scrollen kan je
-        instellen via de scrolling delay.
+        Let the given text scroll by on the LED screen of the micro:bit. You can control the speed of scrolling
+        through the scrolling delay methods.
 
         Args:
-            text: De te tonen tekst (maximum 20 tekens)
+            text: The text to be displayed (maximum 20 characters)
 
         Raises:
-            ValueError: indien text meer dan 20 tekens bevat
-            errors.BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
-                om de led text te schrijven (komt normaal gezien niet voor)
+            ValueError: if text contains more than 20 characters
+            errors.BluetoothServiceNotFound: When the LED service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the led service is active but there was no way
+                to write the LED text (normally does not occur)
         """
         octets = text.encode("utf-8")
         if len(octets) > 20:
@@ -74,28 +74,28 @@ class LedService:
 
     def set_scrolling_delay(self, delay_in_millis: int):
         """
-        Stel in hoe snel een tekst voorbijrolt op het led scherm.
+        Adjust how quickly text scrolls by on the LED screen.
 
         Args:
-            delay_in_millis:  de tijd die 1 letter er over doet om over het scherm voorbij te komen in milliseconden
+            delay_in_millis: the time it takes for 1 letter to pass across the screen in milliseconds
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
-                om de scrolling delay te schrijven (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the LED service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the led service is active but there was no way
+                to write the scrolling delay (normally does not occur)
         """
         self._device.write(Service.LED, Characteristic.SCROLLING_DELAY, delay_in_millis.to_bytes(2, 'little'))
 
     def get_scrolling_delay(self) -> int:
         """
-        Lees de hoe snel een tekst voorbijscrolt over het scherm
+        Return how quickly a text scrolls past the screen
 
         Returns:
-             de tijd die 1 letter er over doet om over het scherm voorbij te komen in milliseconden
+             the time it takes for 1 letter to pass across the screen in milliseconds
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
-                om de scrolling delay te lezen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the LED service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the led service is active but there was no way
+                to read the scrolling delay (normally does not occur)
         """
         return int.from_bytes(self._device.read(Service.LED, Characteristic.SCROLLING_DELAY)[0:2], 'little')

@@ -12,18 +12,18 @@ MagnetometerPeriod = Union[
     Literal[1], Literal[2], Literal[5], Literal[10], Literal[20], Literal[80], Literal[160], Literal[640]
 ]
 """
-Het interval waarmee de Magnetometer wordt uitgelezen is een integer en drukt het aantal milliseconden uit.
-Er is een beperkt aantal geldige periodes: 1, 2, 5, 10, 20, 80, 160, 640
+The interval at which the Magnetometer is read is an integer and expresses the number of milliseconds.
+There is a limited number of valid periods: 1, 2, 5, 10, 20, 80, 160, 640
 
 Warning:
-    Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet werkt/klopt zoals ik verwacht
-    TODO te onderzoeken
+    These are the valid values according to the specification, but it seems that this does not work as I expect
+    TODO to investigate
 """
 
 
 class Calibration:
     """
-    Een klasse die je toelaat een calibratie op te volgen
+    A class that allows you to follow up on a calibration
     """
     def __init__(self, future: Future[ByteData]):
         self._future = future
@@ -31,21 +31,21 @@ class Calibration:
 
     def done(self) -> bool:
         """
-        Kijk na of de calibratie nog bezig is
+        Check whether the calibration is still in progress
 
         Returns:
-            True indien de calibratie gedaan is, False indien het nog bezig is
+            True if the calibration is done, False if it is still in progress
         """
         return self._future.done()
 
     def wait_for_result(self, timeout=None) -> bool:
         """
-        Wacht op het einde van het calibreren
+        Wait for the end of the calibration process
         Args:
-            timeout: het aantal seconden dat je maximaal wil wachten op een resultaat
+            timeout: the maximum number of seconds you want to wait for a result
 
         Returns:
-            True indien de calibratie gelukt is, False indien het mislukt is
+            True if the calibration was successful, False if it was unsuccessful
         """
         if not self._result:
             self._result = int.from_bytes(self._future.result(timeout=timeout)[0:2], "little")
@@ -56,12 +56,12 @@ class Calibration:
 @dataclass
 class MagnetometerData:
     """
-    De waarden op de 3 assen van een meting van de magnetometer
+    The values on the 3 axes of a magnetometer measurement
 
     Attributes:
-        x (int): horizontaal (van links naar rechts)
-        y (int): horizontaal (van achter naar voor)
-        z (int): verticaal (van onder naar boven)
+        x (int): horizontal (left to right)
+        y (int): horizontal (from back to front)
+        z (int): vertical (from bottom to top)
     """
     x: int
     y: int
@@ -78,19 +78,19 @@ class MagnetometerData:
 
 class MagnetometerService:
     """
-    Deze klasse bevat de functies die je kan aanspreken in verband met de magnetometor van de micro:bit.
-    Er zijn functies om
+    This class contains the functions that you can use related to the magnetometor of the micro:bit.
+    There are functions to
 
-    - het magnetisch veld langs 3 assen te meten
-    - de hoek in graden ten opzichte van het noorden te meten
-    - de magnetometer te calibreren. Het is het best om de magnetometer te calibreren voor je gegevens uitleest,
-      zoniet kunnen de gegevens of de hoek in graden verkeerd zijn.
+    - measure the magnetic field along 3 axes
+    - measure the angle in degrees relative to north
+    - calibrate the magnetometer. It is best to calibrate the magnetometer before reading data,
+      otherwise the data or angle in degrees may be wrong.
 
     Warning:
-        Ik heb gemerkt dat ondanks calibratie, de microbits die ik testte slechte resultaten gaven
-        (verder te onderzoeken)
+        I noticed that despite calibration, the microbits I tested gave poor results
+        (to be further investigated)
 
-    Dit zijn alle mogelijkheden aangeboden door de bluetooth magnetometer service
+    These are all options offered by the Bluetooth magnetometer service
 
     See Also: https://lancaster-university.github.io/microbit-docs/ble/magnetometer-service/
 
@@ -102,135 +102,135 @@ class MagnetometerService:
 
     def is_available(self) -> bool:
         """
-        Kijkt na of de magnetometer bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+        Checks whether the magnetometer Bluetooth service is found on the connected micro:bit.
 
         Returns:
-            true als de magnetometer gevonden werd, false indien niet.
+            true if the magnetometer was found, false if not.
         """
         return self._device.is_service_available(Service.MAGNETOMETER)
 
     def notify_data(self, callback: Callable[[MagnetometerData], None]):
         """
-        Deze methode kan je oproepen wanneer je verwittigd wil worden van nieuwe magnetometer gegevens. Hoe vaak je
-        nieuwe gegevens ontvangt hangt af van de magnetometer periode
+        You can call this method when you want to be notified of new magnetometer data. How often you
+        receive new data depends on the magnetometer period
 
         Warning:
-            De micro:bit geeft geen metingen indien er geen calibratie is geweest
+            The micro:bit will not provide any measurements if there has been no calibration
 
         Args:
-            callback (Callable[[MagnetometerData], None]): een functie die wordt opgeroepen wanneer er nieuwe gegevens
-                zijn van de magnetometer. De nieuwe MagnetometerData worden meegegeven als argument aan deze functie
+            callback (Callable[[MagnetometerData], None]): a function that is called when there is new data
+                are of the magnetometer. The new MagnetometerData is passed as an argument to this function
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
-                om de notificaties van magnetometer data te activeren (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the magnetometer service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the magnetometer service is active but there was no way
+                to activate magnetometer data notifications (normally does not occur)
         """
         self._device.notify(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_DATA,
                             lambda sender, data: callback(MagnetometerData.from_bytes(data)))
 
     def read_data(self) -> MagnetometerData:
         """
-        Geeft de gegevens van de magnetometer.
+        Returns the magnetometer data.
 
         Returns:
-            De gegevens van de magnetometer (x, y en z)
+            The magnetometer data (x, y and z)
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
-                om de magnetometer data te lezen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the magnetometer service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the magnetometer service is active but there was no way
+                to read the magnetometer data (normally does not occur)
         """
         return MagnetometerData.from_bytes(self._device.read(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_DATA))
 
     def set_period(self, period: MagnetometerPeriod):
         """
-        Stelt het interval in waarmee de magnetometer metingen doet (in milliseconden).
+        Sets the interval at which the magnetometer takes measurements (in milliseconds).
 
         Args:
-            period (MagnetometerPeriod): het interval waarop de magnetometer metingen doet,
-                geldige waarden zijn: 1, 2, 5, 10, 20, 80, 160, 640
+            period (MagnetometerPeriod): the interval at which the magnetometer takes measurements,
+                valid values are: 1, 2, 5, 10, 20, 80, 160, 640
 
         Warning:
-            Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet werkt/klopt zoals ik verwacht
-            TODO te onderzoeken
+            These are the valid values according to the specification, but it seems that this does not work as I expect
+            TODO to investigate
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
-                om de magnetometer periode te schrijven (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the magnetometer service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the magnetometer service is active but there was no way
+                to write the magnetometer period (normally does not occur)
         """
         self._device.write(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_PERIOD, period.to_bytes(2, "little"))
 
     def read_period(self) -> int:
         """
-        Geeft het interval terug waarmee de magnetometer metingen doet
+        Returns the interval at which the magnetometer takes measurements
 
         Returns:
-            Het interval in milliseconden
+            The interval in milliseconds
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
-                om de magnetometer periode te lezen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the magnetometer service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the magnetometer service is active but there was no way
+                to read the magnetometer period (normally does not occur)
         """
         return int.from_bytes(
             self._device.read(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_PERIOD)[0:2], "little")
 
     def notify_bearing(self, callback: Callable[[int], None]):
         """
-        Deze methode kan je oproepen wanneer je verwittigd wil worden van de hoek in graden waarin de micro:bit gericht
-        wordt ten opzichte van het noorden.
+        You can call this method if you want to be informed of the angle in degrees at which the micro:bit is oriented
+        is compared to the north.
 
         Warning:
-            De micro:bit geeft geen metingen indien er geen calibratie is geweest
+            The micro:bit will not provide any measurements if there has been no calibration
 
         Args:
-            callback (Callable[[int], None]): een functie die periodiek wordt opgeroepen met de hoek in graden ten
-                opzichte van het noorden
+            callback (Callable[[int], None]): a function that is called periodically with the angle in degrees
+                compared to the north
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
-                om de notificaties van magnetometer bearing te activeren (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the magnetometer service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the magnetometer service is active but there was no way
+                to activate magnetometer bearing notifications (normally does not occur)
         """
         self._device.notify(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_BEARING,
                             lambda sender, data: callback(int.from_bytes(data[0:2], "little")))
 
     def read_bearing(self) -> int:
         """
-        Lees de hoek in graden waarin de micro:bit gericht wordt ten opzichte van het noorden.
+        Read the angle in degrees at which the micro:bit is pointed relative to north.
 
         Returns:
-            de hoek in graden tov het noorden
+            the angle in degrees with respect to north
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
-                om de magnetometer bearing te lezen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the magnetometer service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the magnetometer service is active but there was no way
+                to read the magnetometer bearing (normally does not occur)
         """
         return int.from_bytes(
             self._device.read(Service.MAGNETOMETER, Characteristic.MAGNETOMETER_BEARING)[0:2], 'little')
 
     def calibrate(self) -> Calibration:
         """
-        Calibreer de magnetometer. Deze methode start het calibratieproces op de micro:bit, waarbij je de micro:bit
-        moet kantelen om het LED scherm te vullen. Door het kantelen wordt de magnetometer gecalibreerd
-        Indien er al een calibratie bezig is wordt geen nieuwe calibratie gestart
+        Calibrate the magnetometer. This method starts the calibration process on the micro:bit, you will be asked
+        to tilt the micro:bit until all LEDs on the LED display are on. The magnetometer is calibrated by tilting
+        If a calibration is already in progress, a new calibration will not be started
 
         Warning:
-            De micro:bit geeft geen metingen indien er geen calibratie is geweest
+            The micro:bit will not provide any measurements if there has been no calibration
 
         See Also: https://support.microbit.org/support/solutions/articles/19000008874-calibrating-the-micro-bit-compass
 
         Returns:
-            Het de calibratie die bezig is. Je kan hiermee nakijken of het calibreren nog bezig is, of wachten tot
-            De calibratie gedaan is.
+            It is the calibration in progress. You can use this to check whether the calibration is still in progress, or wait until
+            The calibration is done.
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
-                om de magnetometer calibratie te activeren of op te volgen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the magnetometer service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the magnetometer service is active but there was no way
+                to activate or monitor the magnetometer calibration (normally does not occur)
         """
         if self._calibration and not self._calibration.done():
             return self._calibration

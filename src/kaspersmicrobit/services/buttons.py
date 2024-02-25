@@ -15,11 +15,11 @@ Een functie met 1 argument (de knop "A" of "B")
 
 class ButtonState(IntEnum):
     """
-    Alle mogelijke toestanden van een knop:
+    All possible states of a button:
 
-    - RELEASE: losgelaten
-    - PRESS: ingedrukt
-    - LONG_PRESS: minstens 2 seconden lang ingedrukt
+    - RELEASE: released
+    - PRESS: pressed
+    - LONG_PRESS: pressed for at least 2 seconds
     """
     RELEASE = 0
     PRESS = 1
@@ -28,9 +28,9 @@ class ButtonState(IntEnum):
 
 class ButtonService:
     """
-    Deze klasse bevat de functies die je kan aanspreken in verband met de A en B knoppen van de micro:bit
+    This class contains the functions that you can access related to the A and B buttons of the micro:bit
 
-    Dit zijn alle mogelijkheden aangeboden door de bluetooth button service
+    These are all options offered by the Bluetooth button service
 
     See Also: https://lancaster-university.github.io/microbit-docs/ble/button-service/
     """
@@ -53,32 +53,32 @@ class ButtonService:
 
     def is_available(self) -> bool:
         """
-        Kijkt na of de button bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+        Checks whether the Bluetooth service button is found on the connected micro:bit.
 
         Returns:
-            true als de button service gevonden werd, false indien niet.
+            true if the button service was found, false if not.
         """
         return self._device.is_service_available(Service.BUTTON)
 
     def on_button_a(self, press: ButtonCallback = None, long_press: ButtonCallback = None,
                     release: ButtonCallback = None):
         """
-        Deze functie kan je oproepen wanneer je verwittigd wil worden wanneer de A knop van je micro:bit ingedrukt
-        (press), lang ingedrukt (long_press) of losgelaten (release)
+        You can call this function if you want to be notified when the A button of your micro:bit is pressed
+        (press), long pressed (long_press) or released (release)
 
-        De functies die je kan meegeven als argument zijn functies met 1 string parameter. Deze functies zullen worden
-        opgeroepen met de naam van de knop als argument.
+        A function that you can pass as an argument is a function with 1 string parameter. This function will be
+        called with the button name as argument.
 
         Args:
-            press (ButtonCallback): een functie die wordt opgeroepen wanneer er op de A knop gedrukt wordt
-            long_press (ButtonCallback): een functie die wordt opgeroepen wanneer er lang (minstens 2 seconden) op
-                de A knop gedrukt wordt
-            release (ButtonCallback): een functie die wordt opgeroepen wanneer de A knop wordt losgelaten
+            press (ButtonCallback): a function called when the A button is pressed
+            long_press (ButtonCallback): a function that is called when pressed for a long time (at least 2 seconds).
+                the A button is pressed
+            release (ButtonCallback): a function called when the A button is released
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de button service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de button service actief is, maar er geen manier was om de
-                notificaties voor button A te activeren (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the button service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the button service is running but there was no way to get the
+                activate notifications for button A (normally does not occur)
         """
         self._device.notify(Service.BUTTON, Characteristic.BUTTON_A,
                             ButtonService._create_button_callback('A', press, long_press, release))
@@ -86,50 +86,50 @@ class ButtonService:
     def on_button_b(self, press: ButtonCallback = None, long_press: ButtonCallback = None,
                     release: ButtonCallback = None):
         """
-        Deze functie kan je oproepen wanneer je verwittigd wil worden wanneer de B knop van je micro:bit ingedrukt
-        (press), lang ingedrukt (long_press) of losgelaten (release)
+        You can call this function if you want to be notified when the B button of your micro:bit is pressed
+        (press), long pressed (long_press) or released (release)
 
-        De functies die je kan meegeven als argument zijn functies met 1 string parameter. Deze functies zullen worden
-        opgeroepen met de naam van de knop als argument.
+        A function that you can pass as an argument is a function with 1 string parameter. This function will be
+        called with the button name as argument.
 
         Args:
-            press (ButtonCallback): een functie die wordt opgeroepen wanneer er op de B knop gedrukt wordt
-            long_press (ButtonCallback): een functie die wordt opgeroepen wanneer er lang (minstens 2 seconden) op
-                de B knop gedrukt wordt
-            release (ButtonCallback): een functie die wordt opgeroepen wanneer de B knop wordt losgelaten
+            press (ButtonCallback): a function called when the B button is pressed
+            long_press (ButtonCallback): a function that is called when pressed for a long time (at least 2 seconds).
+                the B button is pressed
+            release (ButtonCallback): a function called when the B button is released
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de button service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de button service actief is, maar er geen manier was om de
-                notificaties voor button B te activeren (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the button service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the button service is running but there was no way to get the
+                activate notifications for button B (normally does not occur)
         """
         self._device.notify(Service.BUTTON, Characteristic.BUTTON_B,
                             ButtonService._create_button_callback('B', press, long_press, release))
 
     def read_button_a(self) -> ButtonState:
         """
-        Geef de toestand van de A knop
+        Returns the state of the A button
 
         Returns:
-            De toestand van de A knop (RELEASE, PRESS of LONG_PRESS)
+            The state of the A button (RELEASE, PRESS or LONG_PRESS)
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de button service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de button service actief is, maar er geen manier was om
-                de staat van button A te lezen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the button service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the button service is running but there was no way to
+                read the state of button A (normally does not occur)
         """
         return ButtonState(self._device.read(Service.BUTTON, Characteristic.BUTTON_A)[0])
 
     def read_button_b(self) -> ButtonState:
         """
-        Geef de toestand van de B knop
+        Returns the state of the B button
 
-        Returns (ButtonState):
-            De toestand van de B knop (RELEASE, PRESS of LONG_PRESS)
+        Returns(ButtonState):
+            The state of the B button (RELEASE, PRESS or LONG_PRESS)
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de button service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de button service actief is, maar er geen manier was om
-                de staat van button B te lezen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the button service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the button service is running but there was no way to
+                read the state of button B (normally does not occur)
         """
         return ButtonState(self._device.read(Service.BUTTON, Characteristic.BUTTON_B)[0])

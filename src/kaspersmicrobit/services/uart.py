@@ -12,7 +12,7 @@ PDU_BYTE_LIMIT = 20
 
 class UartService:
     """
-    Deze klasse bevat methodes om bytes of strings naar de micro:bit te verzenden of te ontvangen
+    This class contains methods to send or receive bytes or strings to the micro:bit
 
     See Also: https://lancaster-university.github.io/microbit-docs/ble/uart-service/
     """
@@ -21,69 +21,69 @@ class UartService:
 
     def is_available(self) -> bool:
         """
-        Kijkt na of de uart bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+        Checks whether the UART Bluetooth service is found on the connected micro:bit.
 
         Returns:
-            true als de uart service gevonden werd, false indien niet.
+            true if the uart service was found, false if not.
         """
         return self._device.is_service_available(Service.UART)
 
     def receive(self, callback: Callable[[ByteData], None]):
         """
-        Deze methode kan je oproepen wanneer je verwittigd wil wanneer er bytes worden verstuurd vanuit de micro:bit
-        via de uart service
+        You can call this method if you want to be notified when bytes are sent from the micro:bit
+        via the uart service
 
         Args:
-            callback (Callable[[ByteData], None]): een functie wordt opgeroepen met de ontvangen bytes
+            callback (Callable[[ByteData], None]): a function that will be called with the received bytes
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de uart service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de uart service actief is, maar er geen manier was
-                om de notificaties van uart data te activeren (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the uart service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the uart service is running but there was no way
+                to activate the notifications of uart data (normally does not occur)
         """
         self._device.notify(Service.UART, Characteristic.TX_CHARACTERISTIC, lambda sender, data: callback(data))
 
     def receive_string(self, callback: Callable[[str], None]):
         """
-        Deze methode kan je oproepen wanneer je verwittigd wil wanneer er een string wordt verstuurd vanuit de micro:bit
-        via de uart service
+        You can call this method if you want to be notified when a string is sent from the micro:bit
+        via the uart service
 
         Args:
-            callback (Callable[[str], None]): een functie wordt opgeroepen met de ontvangen string
+            callback (Callable[[str], None]): a function that will be called with the received string
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de uart service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de uart service actief is, maar er geen manier was
-                om de notificaties van uart data te activeren (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the uart service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the uart service is running but there was no way
+                to activate the notifications of uart data (normally does not occur)
         """
         self.receive(UartService.to_string(callback))
 
     def send(self, data: ByteData):
         """
-        Verzend bytes via de uart service naar de micro:bit
+        Send bytes via the uart service to the micro:bit
 
         Args:
-            data (ByteData): de bytes die verzonden worden
+            data (ByteData): the bytes that are sent
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de uart service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de uart service actief is, maar er geen manier was
-                om data via de uart service te verzenden (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the uart service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the uart service is running but there was no way
+                to send data via the UART service (normally does not occur)
         """
         for i in range(0, len(data), PDU_BYTE_LIMIT):
             self._device.write(Service.UART, Characteristic.RX_CHARACTERISTIC, data[i:i + PDU_BYTE_LIMIT])
 
     def send_string(self, string: str):
         """
-        Verzend een string via de uart service naar de micro:bit
+        Send a string via the uart service to the micro:bit
 
         Args:
-            string (str): de string die verzonden wordt
+            string (str): the string to be sent
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de uart service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de uart service actief is, maar er geen manier was
-                om data via de uart service te verzenden (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the uart service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the uart service is running but there was no way
+                to send data via the UART service (normally does not occur)
         """
         self.send(UartService.from_string(string))
 

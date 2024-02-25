@@ -9,8 +9,8 @@ from ..bluetoothprofile.services import Service
 
 class GenericAccessService:
     """
-    Deze klasse bevat de functies om de informatie aangeboden door de bluetooth generic access service
-    uit te lezen
+    This class contains the functions to access the information provided by the Bluetooth generic access service
+    to read out
     """
 
     def __init__(self, device: BluetoothDevice):
@@ -18,23 +18,23 @@ class GenericAccessService:
 
     def is_available(self) -> bool:
         """
-        Kijkt na of de generic access bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+        Checks whether the generic access Bluetooth service is found on the connected micro:bit.
 
         Returns:
-            true als de generic access service gevonden werd, false indien niet.
+            true if the generic access service was found, false if not.
         """
         return self._device.is_service_available(Service.GENERIC_ACCESS)
 
     def read_device_name(self) -> str:
         """
-        Leest de naam van de micro:bit.
+        Reads the name of the micro:bit.
 
         Returns:
-            de naam van de micro:bit
+            the name of the micro:bit
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de generic access service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de generic acces service actief is, maar er geen manier was
-                om de device naam te lezen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the generic access service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the generic access service is running but there was no way
+                to read the device name (normally not present)
         """
         return str(self._device.read(Service.GENERIC_ACCESS, Characteristic.DEVICE_NAME), "utf-8")

@@ -90,10 +90,11 @@ class Service(Enum):
     value. Event Type and Event Value are both defined as uint16 and therefore the length of this array will always be 
     a multiple of 4.
     
-    struct event {
-     uint16 event_type;
-     uint16 event_value;
-    };
+        struct event {
+         uint16 event_type;
+         uint16 event_value;
+        };
+
     """
 
     DFU_CONTROL = 'e95d93b0-251d-470a-a062-fa1922dfa9a8'

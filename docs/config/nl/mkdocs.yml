@@ -1,0 +1,141 @@
+site_name: Kasper's microbit
+site_url: "https://kaspersmicrobit.readthedocs.io/nl/stable"
+repo_url: "https://github.com/janickr/kaspersmicrobit"
+repo_name: "kaspersmicrobit op github"
+docs_dir: '../../pages/nl'
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.emoji
+  - pymdownx.magiclink
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist
+  - toc:
+      permalink: "#"
+  - meta
+
+theme:
+  language: nl
+  name: material
+  custom_dir: ../../overrides
+  icon:
+    logo: material/memory
+  features:
+  - navigation.tabs
+  - navigation.top
+  - navigation.tabs.sticky
+  palette:
+  - media: "(prefers-color-scheme: light)"
+    scheme: default
+    primary: blue grey
+    accent: orange
+    toggle:
+      icon: material/toggle-switch-off-outline
+      name: Naar donkere modus
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    primary: grey
+    accent: indigo
+    toggle:
+      icon: material/toggle-switch
+      name: Naar lichte modus
+
+
+nav:
+    - Home:
+      - Overzicht: index.md
+      - Zet Bluetooth aan op je micro:bit:
+          - Bluetooth: makecode-bluetooth/enable-bluetooth.md
+          - Zonder koppeling:
+              - Download een hex bestand: makecode-bluetooth/download-a-hex-file-without-pairing.md
+              - Je eigen MakeCode project: makecode-bluetooth/create-a-makecode-project-without-pairing.md
+          - Met koppeling:
+              - Download een hex bestand: makecode-bluetooth/download-a-hex-file-with-pairing.md
+              - Je eigen MakeCode project: makecode-bluetooth/create-a-makecode-project-with-pairing.md
+              - Koppel je micro:bit:
+                - Koppelen in windows: bluetooth-pairing/windows/pairing-microbit-windows.md
+                - Koppelen in linux (gnome): bluetooth-pairing/linux/pairing-microbit-linux-gnome.md
+      - Voorbeelden:
+          - Hoe verbinden: how-to-connect.md
+          - Test beschikbare services: test-all-services.md
+          - Knoppen: buttons.md
+          - Accelerometer: accelerometer.md
+          - Led scherm: led.md
+          - Temperatuur: temperature.md
+          - Magnetometer: magnetometer.md
+          - Uart: uart.md
+          - I/O Pin: io_pin.md
+          - Events:
+              - De micro:bit v1: events_v1.md
+              - De micro:bit v2: events_v2.md
+      - Tkinter voorbeelden:
+          - Met knoppen een rechthoek besturen: tkinter/use_buttons_to_move_rectangle.md
+          - Met de accelerometer een bal besturen: tkinter/use_accelerometer_to_move_ball.md
+      - PyGame voorbeelden:
+          - Met knoppen een rechthoek besturen: pygame/use_buttons_to_move_rectangle.md
+          - Met de accelerometer een bal besturen: pygame/use_accelerometer_to_move_ball.md
+    - Api Referentie: reference/
+    - Licentie: license.md
+
+
+plugins:
+  - search
+  - gen-files:
+      scripts:
+        - ../../scripts/generate_apiref_nav.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - autorefs
+  - section-index
+  - codeinclude
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+          python:
+              paths: [../../../src]
+              setup_commands:
+                - import sys
+                - sys.path.append("src")
+                - from unittest.mock import MagicMock as mock
+                - sys.modules["bleak"] = mock()
+              options:
+                  docstring_style: "google"
+                  members_order: "source"
+                  show_symbol_type_toc: true
+                  docstring_section_style: list
+                  separate_signature: true
+                  line_length: 60
+                  show_signature_annotations: True
+                  extensions:
+                    - ../../scripts/docstring_translation_plugin.py:TranslateDocstrings:
+                        path: "docs/scripts/docstrings_nl.txt"
+
+watch:
+  - ../../../src/kaspersmicrobit
+
+copyright: >
+  Copyright &copy; 2022 - 2024 Janick Reynders –
+  <a href="#__consent">Wijzig cookie-instellingen</a>
+
+extra:
+  analytics:
+    provider: google
+    property: G-RY9J7H8VBN
+  consent:
+    title: Cookie consent
+    description: >-
+      We gebruiken cookies om je bezoeken en voorkeuren te herkennen,
+      om de effectiviteit van onze documentatie te meten, en te meten of gebruikers
+      vinden wat ze zoeken. Met je toestemming help je ons onze documentatie beter maken.
+  alternate:
+    - name: English
+      link: /en/
+      lang: en
+    - name: Nederlands
+      link: /nl/
+      lang: nl

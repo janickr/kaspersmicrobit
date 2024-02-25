@@ -17,17 +17,17 @@ def _for_each(events: List[Event], callback: Callable[[Event], None]):
 
 class EventService:
     """
-    Met behulp van deze klasse kan je luisteren naar gebeurtenissen (events) die plaatsvinden op de micro:bit.
-    De micro:bit meldt deze gebeurtenissen op zijn interne messagebus.
+    Using this class you can listen to events that take place on the micro:bit.
+    The micro:bit reports these events on its internal message bus.
 
-    De device ids en event ids verschillen tussen de verschillende micro:bit versies.
-    Zie `kaspersmicrobit.services.v1_events` voor de ids van de micro:bit v1, en
-    `kaspersmicrobit.services.v2_events` voor de ids van de micro:bit v2
+    The device IDs and event IDs differ between the different micro:bit versions.
+    See `kaspersmicrobit.services.v1_events` for the ids of the micro:bit v1, and
+    `kaspersmicrobit.services.v2_events` for the ids of the micro:bit v2
 
-    Ook de micro:bit zelf kan via deze service aangeven dat hij geïnteresseerd is om bepaalde events te onvangen.
-    Je kan dus ook zelfgemaakte events naar de micro:bit doorsturen.
+    The micro:bit itself can also indicate through this service that it is interested in receiving certain events.
+    So you can also forward self-made events to the micro:bit.
 
-    Dit zijn alle mogelijkheden aangeboden door de bluetooth event service
+    These are all options offered by the Bluetooth event service
 
     See Also: https://lancaster-university.github.io/microbit-docs/ble/event-service/
     """
@@ -37,115 +37,115 @@ class EventService:
 
     def is_available(self) -> bool:
         """
-        Kijkt na of de event bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+        Checks whether the event Bluetooth service is found on the connected micro:bit.
 
         Returns:
-            true als de event service gevonden werd, false indien niet.
+            true if the event service was found, false if not.
         """
         return self._device.is_service_available(Service.EVENT)
 
     def notify_microbit_requirements(self, callback: Callable[[Event], None]):
         """
-        Deze methode kan je oproepen wanneer je verwittigd wil worden welke events de micro:bit zou willen ontvangen
-        Wanneer een event een event_waarde van 0 bevat betekent dit dat de micro:bit geinformeerd wil worden van elke
-        event van het gegeven device_id
+        You can call this method when you want to be notified which events the micro:bit would like to receive
+        When an event contains an event_value of 0, this means that the micro:bit wants to be informed of each
+        event of the given device_id
 
-        Je kan dan met `write_client_event` de micro:bit op de hoogte houden van deze gebeurtenissen
+        You can then use `write_client_event` to keep the micro:bit informed of these events
 
         Args:
-            callback: een functie die wordt opgeroepen met een Event
+            callback: a function that is called with an Event
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
-                om de notificaties voor de microbit requirements te activeren (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the events service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the events service is running but there was no way
+                to activate the notifications for the microbit requirements (normally does not occur)
         """
         self._device.notify(Characteristic.MICROBIT_REQUIREMENTS,
                             lambda sender, data: _for_each(Event.list_from_bytes(data), callback))
 
     def read_microbit_requirements(self) -> List[Event]:
         """
-        Leest de lijst van events die de micro:bit zou willen ontvangen van jou wanneer ze zich voordoen
-        Wanneer een event een event_waarde van 0 bevat betekent dit dat de micro:bit geinformeerd wil worden van elke
-        event van het gegeven device_id
+        Reads the list of events that the micro:bit would like to receive from you as they occur
+        When an event contains an event_value of 0, this means that the micro:bit wants to be informed of each
+        event of the given device_id
 
-        Je kan dan met `write_client_event` de micro:bit op de hoogte houden van deze gebeurtenissen
+        You can then use `write_client_event` to keep the micro:bit informed of these events
 
         Returns:
-            List[Event]: Een lijst van events waarvan je de micro:bit moet verwittigen wanneer ze zich voordoen
+            List[Event]: A list of events that you need to notify the micro:bit when they occur
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
-                om de microbit requirements te lezen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the events service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the events service is running but there was no way
+                to read the microbit requirements (normally does not occur)
         """
         return Event.list_from_bytes(self._device.read(Service.EVENT, Characteristic.MICROBIT_REQUIREMENTS))
 
     def notify_microbit_event(self, callback: Callable[[Event], None]):
         """
-        Deze methode kan je oproepen wanneer je verwittigd wil worden van events die zich voordoen op de micro:bit
-        Je zal enkel verwittigd worden van events waarvan je met `write_client_requirements` hebt aangegeven dat
-        je ze wil ontvangen
+        You can call this method when you want to be notified of events that occur on the micro:bit
+        You will only be notified of events that you have indicated with `write_client_requirements`
+        you want to receive them
 
         Args:
-            callback: een functie die wordt opgeroepen met een Event
+            callback: a function that is called with an Event
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
-                om de notificaties voor de microbit events te activeren (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the events service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the events service is running but there was no way
+                to activate the notifications for the microbit events (normally does not occur)
         """
         self._device.notify(Service.EVENT, Characteristic.MICROBIT_EVENT,
                             lambda sender, data: _for_each(Event.list_from_bytes(data), callback))
 
     def read_microbit_event(self) -> List[Event]:
         """
-        Leest de lijst van events die zich hebben voorgedaan op de micro:bit
-        Je zal enkel events kunnen uitlezen waarvan je met `write_client_requirements` hebt aangegeven dat
-        je ze wil ontvangen
+        Reads the list of events that occurred on the micro:bit
+        You will only be able to read events for which you have specified with `write_client_requirements`
+        you want to receive them
 
         Returns:
-            List[Event]: Een lijst van events die zich hebben voorgedaan op de micro:bit
+            List[Event]: A list of events that occurred on the micro:bit
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
-                om de microbit events te lezen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the events service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the events service is running but there was no way
+                to read the microbit events (normally does not occur)
         """
         return Event.list_from_bytes(self._device.read(Service.EVENT, Characteristic.MICROBIT_EVENT))
 
     def write_client_requirements(self, *events: Event):
         """
-        Met deze methode geeft je aan in welke events van de micro:bit je geïnteresseerd bent. Deze events kan je dan
-        ontvangen met `notify_microbit_event` of uitlezen met `read_microbit_event` als ze zich voordoen.
+        Using this method you indicate which micro:bit events you are interested in. Then, you'll be able to receive these events
+        with `notify_microbit_event` or read out with `read_microbit_event` when they occur.
 
-        Wanneer je een event met een event_waarde van 0 schrijft betekent dit dat je geinformeerd wil worden van elke
-        event van het gegeven device_id
+        When you write an event with an event_value of 0, this means that you want to be informed of each
+        event of the given device_id
 
         Args:
-            *events (Event): de events die je wil ontvangen van de micro:bit
+            *events (Event): the events you want to receive from the micro:bit
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
-                om de client requirements te schrijven (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the events service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the events service is running but there was no way
+                to write the client requirements (normally does not occur)
         """
         for event in events:
             self._device.write(Service.EVENT, Characteristic.CLIENT_REQUIREMENTS, event.to_bytes())
 
     def write_client_event(self, *events: Event):
         """
-        Met deze methode zend je events naar de micro:bit. Hiermee kan je de micro:bit op de hoogte houden van events die
-        zich voordoen in je applicatie. Zend enkel events waarvan de micro:bit heeft aangegeven ze te willen ontvangen
-        door `notify_microbit_requirements` of `read_microbit_requirements`
+        With this method you send events to the micro:bit. This allows you to keep the micro:bit informed of events that
+        occur in your application. Only send events that the micro:bit has indicated it wants to receive
+        by `notify_microbit_requirements` or `read_microbit_requirements`
 
         Args:
-           *events (Event): de events die je wil verzenden naar de micro:bit
+           *events (Event): the events you want to send to the micro:bit
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
-                om de client events te schrijven (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the events service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the events service is running but there was no way
+                to write the client events (normally does not occur)
         """
         for event in events:
             self._device.write(Service.EVENT, Characteristic.CLIENT_EVENT, event.to_bytes())

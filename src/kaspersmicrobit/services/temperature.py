@@ -10,10 +10,10 @@ from ..bluetoothdevice import BluetoothDevice
 
 class TemperatureService:
     """
-    Deze klasse bevat de functies die je kan aanspreken in verband met de temperatuur sensor van de micro:bit
-    Deze sensor meet de temperatuur van de micro:bit in graden Celcius.
+    This class contains the functions that you can use in connection with the temperature sensor of the micro:bit
+    This sensor measures the temperature of the micro:bit in degrees Celsius.
 
-    Dit zijn alle mogelijkheden aangeboden door de bluetooth temperature service
+    These are all options offered by the Bluetooth temperature service
 
     See Also: https://lancaster-university.github.io/microbit-docs/ble/temperature-service/
     """
@@ -23,70 +23,70 @@ class TemperatureService:
 
     def is_available(self) -> bool:
         """
-        Kijkt na of de temperatuur bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+        Checks whether the temperature Bluetooth service is found on the connected micro:bit.
 
         Returns:
-            true als de temperatuur service gevonden werd, false indien niet.
+            true if the temperature service was found, false if not.
         """
         return self._device.is_service_available(Service.TEMPERATURE)
 
     def notify(self, callback: Callable[[int], None]):
         """
-        Deze methode kan je oproepen wanneer je verwittigd wil worden van de temperatuur. Hoe vaak je gegevens ontvangt
-        hangt af van de periode. Standaard is de periode 1 seconde.
+        You can call this method whenever you want to be notified of the temperature. How often you receive data
+        depends on the period. By default the period is 1 second.
 
         Args:
-            callback: een functie die periodiek wordt opgeroepen met de temperatuur als argument
+            callback: a function that is called periodically with the temperature as an argument
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de temperatuur service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de temperatuur service actief is, maar er geen manier was
-                om de notificaties van temperatuur data te activeren (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the temperature service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the temperature service is active but there was no way
+                to activate temperature data notifications (normally does not occur)
         """
         self._device.notify(Service.TEMPERATURE, Characteristic.TEMPERATURE,
                             lambda sender, data: callback(int.from_bytes(data[0:1], 'little', signed=True)))
 
     def read(self) -> int:
         """
-        Leest de teperatuur van de micro:bit.
+        Reads the temperature of the micro:bit.
 
         Returns:
-            de temperatuur in graden Celcius
+            the temperature in degrees Celsius
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de temperatuur service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de temperatuur service actief is, maar er geen manier was
-                om de temperatuur te lezen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the temperature service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the temperature service is active but there was no way
+                to read the temperature (normally does not occur)
         """
         return int.from_bytes(
             self._device.read(Service.TEMPERATURE, Characteristic.TEMPERATURE)[0:1], 'little', signed=True)
 
     def set_period(self, period: int):
         """
-        Stelt het interval in waarmee je de temperatuur ontvangt indien je dat gevraagd hebt via de notify methode
-        Standaard is de periode 1 seconde.
+        Sets the interval at which you receive the temperature if you requested it via the notify method
+        By default the period is 1 second.
 
         Args:
-            period (int): het interval waarmee je temperatuurgegevens ontvangt in milliseconden
+            period (int): the interval at which you receive temperature data in milliseconds
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de temperatuur service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de temperatuur service actief is, maar er geen manier was
-                om de temperatuur periode te schrijven (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the temperature service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the temperature service is active but there was no way
+                to write the temperature period (normally does not occur)
         """
         self._device.write(Service.TEMPERATURE, Characteristic.TEMPERATURE_PERIOD, period.to_bytes(2, "little"))
 
     def read_period(self) -> int:
         """
-        Geeft het interval terug waarmee je via notify de temperatuur ontvangt
+        Returns the interval at which you receive the temperature via notify
 
         Returns:
-            Het interval in milliseconden
+            The interval in milliseconds
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de temperatuur service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de temperatuur service actief is, maar er geen manier was
-                om de temperatuur periode te lezen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the temperature service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the temperature service is active but there was no way
+                to read the temperature period (normally does not occur)
         """
         return int.from_bytes(
             self._device.read(Service.TEMPERATURE, Characteristic.TEMPERATURE_PERIOD)[0:2], "little")

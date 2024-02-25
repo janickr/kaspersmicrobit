@@ -10,15 +10,15 @@ from ..bluetoothdevice import ByteData
 @dataclass
 class Event:
     """
-    Een Event is een gebeurtenis die plaatsvindt voor een bepaald toestel of component (device) op de micro:bit.
-    Bijvoorbeeld een data update (event) van de accellerometer (toestel) of een druk (event) op een knop (toestel)
+    An Event takes place for a specific device or component (device) on the micro:bit.
+    For example, a data update (event) from the accelerometer (device) or a press (event) on a button (device)
 
-    Zie `kaspersmicrobit.services.v1_events` voor de device ids en de event values voor de micro:bit v1, en
-    `kaspersmicrobit.services.v2_events` voor de ids en valuesvan de micro:bit v2
+    See `kaspersmicrobit.services.v1_events` for the device ids and event values for the micro:bit v1, and
+    `kaspersmicrobit.services.v2_events` for the ids and values of the micro:bit v2
 
     Attributes:
-        device_id (int): Het id van van het toestel of de component dat de gebeurtenis meldt
-        event_value (int): De waarde van de gebeurtenis voor het gegeven toestel
+        device_id (int): The ID of the device or component reporting the event
+        event_value (int): The value of the event for the given device
     """
     device_id: int
     event_value: int = 0

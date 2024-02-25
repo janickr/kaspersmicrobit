@@ -12,13 +12,13 @@ from kaspersmicrobit.bluetoothprofile.services import Service
 
 class KaspersMicrobitNotFound(Exception):
     """
-    Wordt gegooid wanneer geen micro:bit gevonden werd, terwijl dit wel verwacht werd.
+    Raised when no micro:bit was found, even though this was expected.
 
     Attributes:
         name (str):
-            De naam van de micro:bit waar naar gezocht werd
+            The name of the micro:bit being searched for
         devices (List[BLEDevice]):
-            De lijst van toestellen die wel gevonden werden
+            The list of devices that were found
     """
 
     def __init__(self, name: str, devices: List[BLEDevice]):
@@ -35,14 +35,14 @@ class KaspersMicrobitNotFound(Exception):
 
 class BluetoothCharacteristicNotFound(Exception):
     """
-        Wordt gegooid wanneer een Bluetooth GATT characteristic niet gevonden werd, terwijl dit wel verwacht werd.
+    Raised when a Bluetooth GATT characteristic was not found, even though it was expected.
 
-        Attributes:
-            service (Service):
-                De micro:bit bluetooth service waarin de characteristic gezocht werd
-            characteristic (Characteristic):
-                De characteristic die niet gevonden werd
-        """
+    Attributes:
+        service (Service):
+            The micro:bit Bluetooth service in which the characteristic was sought
+        characteristic (Characteristic):
+            The characteristic that was not found
+    """
     def __init__(self, client: BleakClient, service: Service, characteristic: Characteristic):
         available_characteristics = '\n'.join(
             [
@@ -61,12 +61,12 @@ class BluetoothCharacteristicNotFound(Exception):
 
 class BluetoothServiceNotFound(Exception):
     """
-        Wordt gegooid wanneer een Bluetooth service niet gevonden werd, terwijl dit wel verwacht werd.
+    Raised when a Bluetooth service was not found even though it was expected to be.
 
-        Attributes:
-            service (Service):
-                De micro:bit bluetooth service die niet gevonden werd
-        """
+    Attributes:
+        service (Service):
+            The micro:bit bluetooth service that was not found
+    """
     def __init__(self, client: BleakClient, service: Service):
         available_services = '\n'.join(
             [

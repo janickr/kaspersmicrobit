@@ -9,37 +9,37 @@ from ..bluetoothdevice import ByteData
 
 class LedDisplay:
     """
-    Een klasse die het LED scherm van de micro:bit voorstelt.
-    De LED linksboven op de micro:bit is de LED op rij 1, kolom 1
-    De LED rechtsbeneden op de micro:bit is de LED op rij 5, kolom 5
+    A class representing the LED screen of the micro:bit.
+    The LED on the top left of the micro:bit is the LED on row 1, column 1
+    The bottom right LED on the micro:bit is the LED in row 5, column 5
     """
     def __init__(self, _bytes: bytearray = None):
         """
-        Maakt display met alle leds uit
+        Create a display with all LEDs off
         """
         self._display = _bytes if _bytes else bytearray(5)
 
     def led(self, row: int, column: int) -> bool:
         """
-        Geeft aan of dat een LED op de gegeven rij en kolom aan of uit is
+        Indicates whether an LED on the given row and column is on or off
 
         Args:
-            row int: de rij van de LED (geldige waarden zijn 1 tot en met 5)
-            column int: de kolom van de LED (geldige waarden zijn 1 tot en met 5)
+            row int: the row of the LED (valid values are 1 to 5)
+            column int: the column of the LED (valid values are 1 to 5)
 
         Returns:
-            True wanneer de LED aan staat, False als de LED uit staat
+            True when the LED is on, False when the LED is off
         """
         return ((self._display[row-1] >> (5 - column)) & 1) == 1
 
     def set_led(self, row: int, column: int, on: bool = True):
         """
-        Zet een LED op de gegeven rij en kolom aan of uit
+        Turn an LED on or off on the given row and column
 
         Args:
-            row int: de rij van de LED (geldige waarden zijn 1 tot en met 5)
-            column int: de kolom van de LED (geldige waarden zijn 1 tot en met 5)
-            on bool: indien True word de LED aan gezet, indien False uit
+            row int: the row of the LED (valid values are 1 to 5)
+            column int: the column of the LED (valid values are 1 to 5)
+            on bool: if True the LED is turned on, if False it is turned off
         """
         if on:
             self._display[row-1] |= 1 << (5 - column)
@@ -56,7 +56,7 @@ class LedDisplay:
     @staticmethod
     def image(string: str, on: str = '#', off: str = '.') -> 'LedDisplay':
         """
-        Maakt een LedDisplay van een string.
+        Creates an LedDisplay given a string.
 
         Example:
 
@@ -70,19 +70,19 @@ class LedDisplay:
         ''')
         ```
 
-        Welke tekens gebruikt worden voor een LED die 'aan' of 'uit' is kan je zelf kiezen met de 'on' en 'of'
-        parameters. De gegeven string moet exact 25 'on' en 'off' waarden bevatten, voor elke LED 1.
+        You can choose which characters are used for an LED that is 'on' or 'off' with the 'on' and 'off'
+        parameters. The given string must contain exactly 25 'on' and 'off' values, 1 for each LED.
 
         Args:
-            string: de string die het LED scherm voorstelt
-            on: de letter die een LED voorstelt die 'aan' is ('#' indien niet ingevuld)
-            off: de letter die een LED voorstelt die 'uit' is ('.' indien niet ingevuld)
+            string: the string representing the LED screen
+            on: the letter representing an LED that is 'on' ('#' if left blank)
+            off: the letter representing an LED that is 'off' ('.' if left blank)
 
         Returns:
-            Een LedDisplay die de gegeven string image voorstelt
+            An LedDisplay representing the given string image
 
         Raises:
-            ValueError: Indien de gegeven string niet exact 25 on/off waarden bevat
+            ValueError: If the given string does not contain exactly 25 on/off values
         """
         image: List[bool] = []
         for s in string:

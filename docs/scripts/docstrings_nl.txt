@@ -1,0 +1,2384 @@
+CLASS kaspersmicrobit.errors.KaspersMicrobitNotFound
+"""
+Raised when no micro:bit was found, even though this was expected.
+
+Attributes:
+    name (str):
+        The name of the micro:bit being searched for
+    devices (List[BLEDevice]):
+        The list of devices that were found
+"""
+Wordt gegooid wanneer geen micro:bit gevonden werd, terwijl dit wel verwacht werd.
+
+Attributes:
+    name (str):
+        De naam van de micro:bit waar naar gezocht werd
+    devices (List[BLEDevice]):
+        De lijst van toestellen die wel gevonden werden
+"""
+
+CLASS kaspersmicrobit.errors.BluetoothCharacteristicNotFound
+"""
+Raised when a Bluetooth GATT characteristic was not found, even though it was expected.
+
+Attributes:
+    service (Service):
+        The micro:bit Bluetooth service in which the characteristic was sought
+    characteristic (Characteristic):
+        The characteristic that was not found
+"""
+Wordt gegooid wanneer een Bluetooth GATT characteristic niet gevonden werd, terwijl dit wel verwacht werd.
+
+Attributes:
+    service (Service):
+        De micro:bit bluetooth service waarin de characteristic gezocht werd
+    characteristic (Characteristic):
+        De characteristic die niet gevonden werd
+"""
+
+CLASS kaspersmicrobit.errors.BluetoothServiceNotFound
+"""
+Raised when a Bluetooth service was not found even though it was expected to be.
+
+Attributes:
+    service (Service):
+        The micro:bit bluetooth service that was not found
+"""
+Wordt gegooid wanneer een Bluetooth service niet gevonden werd, terwijl dit wel verwacht werd.
+
+Attributes:
+    service (Service):
+        De micro:bit bluetooth service die niet gevonden werd
+"""
+
+CLASS kaspersmicrobit.kaspersmicrobit.KaspersMicrobit
+"""
+This is the class you can use to connect to a micro:bit.
+You can do this:
+
+- read data about the micro:bit
+- read data from the sensors of the micro:bit or be notified of data from sensors
+- control components on the micro:bit, for example the LEDs
+
+Example:
+```python
+with KaspersMicrobit.find_one_microbit() as microbit:
+    microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, up=released)
+    microbit.temperature.notify(lambda temp: print(f'{temp}°C'))
+    time.sleep(25)
+```
+
+```python
+microbit = KaspersMicrobit.find_one_microbit()
+try:
+    microbit.connect()
+    microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, up=released)
+    microbit.temperature.notify(lambda temp: print(f'{temp}°C'))
+    time.sleep(25)
+finally:
+    microbit.disconnect()
+```
+
+Attributes:
+    device_information (DeviceInformationService):
+        To request information about the maker of your micro:bit
+    generic_access (GenericAccessService):
+        To request information about your micro:bit
+    buttons (ButtonService):
+        To notify you when one of the two buttons on the micro:bit is pressed (or released)
+    temperature (TemperatureService):
+        To request the temperature of the environment of the micro:bit (or to be notified)
+    accelerometer (AccelerometerService):
+        To notify you of acceleration (movement, collision,...) of the micro:bit
+    events (EventService):
+        To subscribe to receive events from various components of the micro:bit
+    uart (UartService):
+        To send or receive text to the micro:bit
+    io_pin (IOPinService):
+        Control, read, configure the I/O contacts (pins) on the micro:bit
+    led (LedService):
+        Control the LEDs of the micro:bit
+    magnetometer (MagnetometerService):
+        To read the data from the magnetometer, or to be notified. The magnetometer measures
+        the magnetic field in the vicinity of the micro:bit (e.g. the magnetic field of the earth)
+
+
+See Also: https://makecode.microbit.org/reference/bluetooth
+
+See Also: https://makecode.microbit.org/device
+"""
+Dit is de klasse die je kan gebruiken om met een micro:bit te verbinden.
+Je kan hiermee:
+
+- gegevens over de micro:bit uitlezen
+- gegevens van de sensoren van de micro:bit uitlezen of je laten verwittigen van gegevens van sensoren
+- componenten op de micro:bit aansturen, bvb de LEDs
+
+Example:
+```python
+with KaspersMicrobit.find_one_microbit() as microbit:
+    microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, up=released)
+    microbit.temperature.notify(lambda temp: print(f'{temp}°C'))
+    time.sleep(25)
+```
+
+```python
+microbit = KaspersMicrobit.find_one_microbit()
+try:
+    microbit.connect()
+    microbit.buttons.on_button_a(press=pressed, long_press=pressed_long, up=released)
+    microbit.temperature.notify(lambda temp: print(f'{temp}°C'))
+    time.sleep(25)
+finally:
+    microbit.disconnect()
+```
+
+Attributes:
+    device_information (DeviceInformationService):
+        Om informatie te vragen over de maker van je micro:bit
+    generic_access (GenericAccessService):
+        Om informatie te vragen over je micro:bit
+    buttons (ButtonService):
+        Om je te laten verwittigen wanneer een van de twee knoppen van de micro:bit worden ingedrukt (of losgelaten)
+    temperature (TemperatureService):
+        Om de temperatuur van de omgeving van de micro:bit op te vragen (of je te laten verwittigen)
+    accelerometer (AccelerometerService):
+        Om je te laten verwittigen van versnelling (beweging, botsing,...) van de micro:bit
+    events (EventService):
+        Om je in te schrijven op het ontvangen van gebeurtenissen van verschillende componenten van de micro:bit
+    uart (UartService):
+        Om tekst te sturen naar of te ontvangen van de micro:bit
+    io_pin (IOPinService):
+        Bestuur, lees, configureer de I/O contacten (pins) op de micro:bit
+    led (LedService):
+        Bestuur de LEDs van de micro:bit
+    magnetometer (MagnetometerService):
+        Om de gegevens van de magnetometer uit te lezen, of je ervan te laten verwittigen. De magnetometer meet
+        het magnetisch veld in de omgeving van de micro:bit (bvb het magnetisch veld van de aarde)
+
+
+Zie ook: https://makecode.microbit.org/reference/bluetooth
+
+Zie ook: https://makecode.microbit.org/device
+"""
+
+FUNCTION kaspersmicrobit.kaspersmicrobit.KaspersMicrobit.__init__
+"""
+Create a KaspersMicrobit object with a given Bluetooth address.
+
+Args:
+    address_or_bluetoothdevice: the bluetooth address of the micro:bit
+"""
+Maak een KaspersMicrobit object met een gegeven bluetooth address.
+
+Args:
+    address_or_bluetoothdevice: het bluetooth adres van de micro:bit
+"""
+
+FUNCTION kaspersmicrobit.kaspersmicrobit.KaspersMicrobit.connect
+"""
+Connect to the micro:bit. This establishes a connection. Your micro:bit may not already have (another)
+connection.
+
+Troubleshooting:
+    First try turning the micro:bit off and on again.
+
+    If you are not using the "with"-block, but calling .connect() yourself, always make sure that in any case
+    you call .disconnect() when you don't need the connection anymore
+    (for instance when you exit your application)
+
+    - In case you are using "No pairing required":
+      Make sure the micro:bit is not paired to your computer, if it was, remove it from the paired bluetooth
+      devices
+    - In case you are using "Just works pairing":
+      Try to remove the micro:bit from the paired bluetooth devices and pairing it your computer again.
+
+See Also: https://support.microbit.org/helpdesk/attachments/19075694226
+"""
+Connecteer met de micro:bit. Dit brengt een verbinding tot stand. Je micro:bit mag nog geen (andere)
+verbinding hebben.
+
+Probleemoplossing:
+    Probeer eerst de micro:bit uit en weer aan te zetten.
+
+    Als je het "with"-blok niet gebruikt, maar zelf .connect() aanroept, zorg er dan altijd voor dat
+    je .disconnect() oproept wanneer je de verbinding niet meer nodig hebt
+    (bijvoorbeeld wanneer je je programma beeindigd)
+
+    - Als je "No pairing required" gebruikt:
+      Zorg ervoor dat de micro:bit niet aan uw computer is gekoppeld. Als dit wel het geval is, verwijdert u deze uit de gekoppelde Bluetooth
+      apparaten
+    - Als je "Just works pairing" gebruikt:
+      Probeer de micro:bit van de gekoppelde Bluetooth-apparaten te verwijderen en deze opnieuw met uw computer te koppelen.
+
+Zie ook: https://support.microbit.org/helpdesk/attachments/19075694226
+"""
+
+FUNCTION kaspersmicrobit.kaspersmicrobit.KaspersMicrobit.disconnect
+"""
+Disconnect the micro:bit.
+You must be connected to this micro:bit to successfully invoke this method.
+"""
+Verbreek de verbinding met de micro:bit.
+Je moet verbonden zijn met deze micro:bit om deze methode succesvol te kunnen oproepen.
+"""
+
+FUNCTION kaspersmicrobit.kaspersmicrobit.KaspersMicrobit.address
+"""
+Returns the Bluetooth address of this micro:bit
+
+Returns:
+    The address of the micro:bit
+"""
+Geeft het Bluetooth adres van deze micro:bit
+
+Returns:
+    Het adres van de micro:bit
+"""
+
+FUNCTION kaspersmicrobit.kaspersmicrobit.KaspersMicrobit.find_microbits
+"""
+Scans for Bluetooth devices. Returns a list of micro:bits found within the timeout
+
+Args:
+     timeout: maximum scanning time (in seconds)
+     loop (BluetoothEventLoop): you can leave this empty, this determines which thread communicates with the micro:bit
+          performs.
+
+Returns:
+    A list of micro:bits found, this can also be empty if no micro:bits were found
+"""
+Scant naar bluetooth toestellen. Geeft een lijst van micro:bits die gevonden werd binnen de timeout
+
+Args:
+     timeout: hoe lang er maximaal gescand wordt (in seconden)
+     loop (BluetoothEventLoop): dit mag je leeg laten, dit bepaalt welke thread de communicatie met de micro:bit
+          uitvoert.
+
+Returns:
+    Een lijst van gevonden micro:bits, deze kan ook leeg zijn, als er geen micro:bits gevonden werden
+"""
+
+FUNCTION kaspersmicrobit.kaspersmicrobit.KaspersMicrobit.find_one_microbit
+"""
+Scans for Bluetooth devices. Returns exactly 1 micro:bit if one is found. You can optionally
+Specify a name to search for. If no name is given, and there are multiple micro:bits
+active then a found micro:bit will be chosen at random and returned.
+
+Warning:
+    Only when the micro:bit works with "No pairing required" will the micro:bit advertise a name. So only in
+    in case you use hex files with "No pairing required" it is useful to set the 'microbit_name' parameter.
+    This does not work with a micro:bit that is paired.
+
+Args:
+     microbit_name: the name of the micro:bit. This is a name of 5 letters such as 'tupaz' or 'gatug' or something like that
+          This is optional.
+     timeout: maximum scanning time (in seconds)
+     loop (BluetoothEventLoop): you can leave this empty, this determines which thread communicates with the micro:bit
+          performs.
+
+Returns:
+    KaspersMicrobit: The micro:bit found
+
+Raises:
+    KaspersMicrobitNotFound: if no micro:bit was found
+"""
+Scant naar bluetooth toestellen. Geeft exact 1 micro:bit terug als er een gevonden wordt. Je kan optioneel
+een naam opgeven waarop er moet gezocht worden. Als er geen naam gegeven wordt, en er zijn meerdere micro:bits
+actief dan wordt er willekeurig een micro:bit gevonden.
+
+Warning:
+    Enkel wanneer de micro:bit werkt met "No pairing required" adverteert de micro:bit een naam. Dus enkel in
+    het geval je hex bestanden gebruikt met "No pairing required" is het nuttig om de 'microbit_name' parameter
+    te gebruiken.
+    Bij een micro:bit die gepaird is werkt dit niet.
+
+Args:
+     microbit_name: de naam van de micro:bit. Dit is een naam van 5 letters zoals bvb 'tupaz' of 'gatug' ofzo
+          Dit is optioneel.
+     timeout: hoe lang er maximaal gescand wordt (in seconden)
+     loop (BluetoothEventLoop): dit mag je leeg laten, dit bepaalt welke thread de communicatie met de micro:bit
+          uitvoert.
+
+Returns:
+    KaspersMicrobit: De gevonden micro:bit
+
+Raises:
+    KaspersMicrobitNotFound: indien er geen micro:bit werd
+"""
+
+FUNCTION kaspersmicrobit.tkinter.do_in_tkinter
+"""
+Use this function to convert a callback to a callback that runs in the thread in which Tk
+is executing. This is to avoid the "main thread is not in main loop" errors that Tk can raise. This will be
+done by having Tk periodically check whether new data has been received (using Tk.after(...))
+
+Example:
+```python
+microbit.buttons.on_button_a(press=do_in_tkinter(tk, pressed_callback_that_calls_tk))
+microbit.accelerometer.notify(do_in_tkinter(tk, accelerometer_data_callback_that_calls_tk))
+```
+
+Args:
+    tk (Tk): your tk root object
+    callback (Callable[[Any], None]): the callback function you want to execute on the tk thread
+    delay_in_ms (int): the interval at which Tk checks for new data
+
+Returns (Callable[[Any], None]):
+    a new callback function that causes the given callback function to be executed on the Tk thread
+"""
+Gebruik deze function om een callback om te vormen naar een callback die uitgevoerd wordt in de thread waarin Tk
+uitgevoerd wordt. Dit om de "main thread is not in main loop" fouten die Tk kan geven te vermijden. Dit wordt
+gedaan door Tk periodiek te laten nakijken of er nieuwe data ontvangen is (door middel van Tk.after(...))
+
+Example:
+```python
+microbit.buttons.on_button_a(press=do_in_tkinter(tk, pressed_callback_that_calls_tk))
+microbit.accelerometer.notify(do_in_tkinter(tk, accelerometer_data_callback_that_calls_tk))
+```
+
+Args:
+    tk (Tk): je tk root object
+    callback (Callable[[Any], None]): de callback functie die je wil laten uitvoeren op de tk thread
+    delay_in_ms (int): het interval waarop Tk nakijkt of er nieuwe data is
+
+Returns (Callable[[Any], None]):
+    een nieuwe callback functie die ervoor zorgt dat de gegeven callback functie laat uitvoeren op de Tk thread
+"""
+
+CLASS kaspersmicrobit.bluetoothprofile.characteristics.Characteristic
+"""
+Lists all characteristics in the micro:bit GATT profile
+
+See Also: https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html
+"""
+Lists all characteristics in the micro:bit GATT profile
+
+Zie ook: https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html
+"""
+
+FUNCTION kaspersmicrobit.bluetoothprofile.characteristics.Characteristic.lookup
+"""
+Looks up the enum corresponding the given uuid
+
+Returns (Characteristic):
+    The enum with the given uuid, None if not found.
+"""
+Looks up the enum corresponding the given uuid
+
+Returns (Characteristic):
+    The enum with the given uuid, None if not found.
+"""
+
+CLASS kaspersmicrobit.bluetoothprofile.services.Service
+"""
+Lists all services that could be offered by the micro:bit
+
+See Also: https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html
+"""
+Lists all services that could be offered by the micro:bit
+
+Zie ook: https://lancaster-university.github.io/microbit-docs/resources/bluetooth/bluetooth_profile.html
+"""
+
+FUNCTION kaspersmicrobit.bluetoothprofile.services.Service.lookup
+"""
+Looks up the enum corresponding the given uuid
+
+Returns (Service):
+    The enum with the given uuid, None if not found.
+"""
+Looks up the enum corresponding the given uuid
+
+Returns (Service):
+    The enum with the given uuid, None if not found.
+"""
+
+CLASS kaspersmicrobit.services.accelerometer.AccelerometerData
+"""
+The values of the 3 axes of an accelerometer measurement, in milli-g. (with g the gravitational acceleration on Earth)
+
+Attributes:
+    x (int): horizontal (left to right)
+    y (int): horizontal (from back to front)
+    z (int): vertical (from bottom to top)
+"""
+De waarden van de 3 assen van een meting van de accelerometer, in milli-g. (met g de valversnelling op aarde)
+
+Attributes:
+    x (int): horizontaal (van links naar rechts)
+    y (int): horizontaal (van achter naar voor)
+    z (int): verticaal (van onder naar boven)
+"""
+
+CLASS kaspersmicrobit.services.accelerometer.AccelerometerService
+"""
+This class contains the functions that can be used related to the accelerometer of the micro:bit
+
+The accelerometer measures force/acceleration along 3 axes:
+
+- x: horizontal (from left to right)
+- y: horizontal (from back to front)
+- z: vertical (from bottom to top)
+
+The values of x, y and z are integers and are values in milli-g, where 1 g, so 1000 milli-g, is equal to the
+gravitational acceleration on earth. In free fall the values along the axes will be approximately 0:
+
+    AccelerometerData(x=0, y=0, z=0)
+
+When the micro:bit is directly in front of you with the buttons visible and the pins facing you,
+then a reading from the accelerometer will give (approximately) the following:
+
+    AccelerometerData(x=-50, y=-50, z=-1024)
+
+That z is approximately -1000 (instead of 1000 as you might have expected) can be explained by measuring the force
+that stops the micro:bit (e.g. when you hold the micro:bit: the force that your arm exerts, and that
+prevents the micro:bit from falling)
+
+If you tilt the micro:bit towards you from this starting position,
+then y and z increase in value and x remains approximately the same:
+
+    AccelerometerData(x=-28, y=972, z=-56)
+
+If you tilt the micro:bit away from you from the starting position,
+then y decreases, z increases in value and x remains approximately the same:
+
+    AccelerometerData(x=-104, y=-960, z=124)
+
+Tilt the micro:bit from the starting position to the left
+then x decreases, z increases in value and y remains approximately the same:
+
+    AccelerometerData(x=-1108, y=72, z=-160)
+
+Tilt the micro:bit from the starting position to the right
+then x and z increase in value and y remains approximately the same:
+
+    AccelerometerData(x=960, y=60, z=0)
+
+Turn the micro:bit completely upside down
+then z increases approximately to 1000 and x and y remain approximately the same:
+
+    AccelerometerData(x=-56, y=-36, z=1024)
+
+These are all options offered by the accelerometer Bluetooth service
+
+See Also: https://lancaster-university.github.io/microbit-docs/ble/accelerometer-service/
+
+See Also: https://lancaster-university.github.io/microbit-docs/ubit/accelerometer/
+"""
+Deze klasse bevat de functies die je kan aanspreken in verband met de accelerometer van de micro:bit
+
+De accelerometer meet kracht/versnelling langs 3 assen:
+
+- x: horizontaal (van links naar rechts)
+- y: horizontaal (van achter naar voor)
+- z: verticaal (van onder naar boven)
+
+De waarden van x, y en z zijn integers en zijn waarden in milli-g, waarbij 1 g, dus 1000 milli-g gelijk is aan de
+valversnelling op aarde. In vrije val zullen de waarden langs de assen ongeveer 0 zijn:
+
+    AccelerometerData(x=0, y=0, z=0)
+
+Wanneer de micro:bit recht voor je met de knoppen zichtbaar en de pins naar je toe ligt,
+dan zal een meting van de accelerometer (ongeveer) het volgende geven:
+
+    AccelerometerData(x=-50, y=-50, z=-1024)
+
+dat z ongeveer -1000 (ipv 1000 zoals je misschien verwacht zou hebben) valt te verklaren door dat je de kracht meet
+die de micro:bit tegenhoudt (bvb wanneer je de micro:bit vasthoudt: de kracht die je arm uitoefent, en die
+de micro:bit weerhoudt van te vallen)
+
+Kantel je de micro:bit vanuit deze startpositie naar je toe,
+dan stijgen y en z in waarde en blijft x ongeveer gelijk:
+
+    AccelerometerData(x=-28, y=972, z=-56)
+
+Kantel je de micro:bit vanuit de startpositie van je weg,
+dan daalt y, en stijgt z in waarde en blijft x ongeveer gelijk:
+
+    AccelerometerData(x=-104, y=-960, z=124)
+
+Kantel je de micro:bit vanuit de startpositie naar links
+dan daalt x, en stijgt z in waarde en blijft y ongeveer gelijk:
+
+    AccelerometerData(x=-1108, y=72, z=-160)
+
+Kantel je de micro:bit vanuit de startpositie naar rechts
+dan stijgen x en z in waarde en blijft y ongeveer gelijk:
+
+    AccelerometerData(x=960, y=60, z=0)
+
+Draai je de micro:bit helemaal ondersteboven
+dan stijgt z ongeveer tot 1000 en blijven x en y ongeveer gelijk:
+
+    AccelerometerData(x=-56, y=-36, z=1024)
+
+Dit zijn alle mogelijkheden aangeboden door de accelerometer bluetooth service
+
+Zie ook: https://lancaster-university.github.io/microbit-docs/ble/accelerometer-service/
+
+Zie ook: https://lancaster-university.github.io/microbit-docs/ubit/accelerometer/
+"""
+
+FUNCTION kaspersmicrobit.services.accelerometer.AccelerometerService.is_available
+"""
+Checks whether the accelerometer Bluetooth service is found on the connected micro:bit.
+
+Returns:
+    true if the accelerometer was found, false if not.
+"""
+Kijkt na of de accelerometer bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+Returns:
+    true als de accelerometer gevonden werd, false indien niet.
+"""
+
+FUNCTION kaspersmicrobit.services.accelerometer.AccelerometerService.notify
+"""
+You can call this method when you want to be notified of new accelerometer data. How often you
+receive new data depends on the accelerometer period
+
+Args:
+    callback (Callable[[AccelerometerData], None]): a function that is called when there is new data
+        from the accelerometer. The new AccelerometerData is passed as an argument to this function
+
+Raises:
+    errors.BluetoothServiceNotFound: When the accelerometer service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the accelerometer service is running but there was no way to
+        activate accelerometer data notifications (normally does not occur)
+"""
+Deze methode kan je oproepen wanneer je verwittigd wil worden van nieuwe accelerometer gegevens. Hoe vaak je
+nieuwe gegevens ontvangt hangt af van de accelerometer periode
+
+Args:
+    callback (Callable[[AccelerometerData], None]): een functie die wordt opgeroepen wanneer er nieuwe gegevens
+        zijn van de accelerometer. De nieuwe AccelerometerData worden meegegeven als argument aan deze functie
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de accelerometer service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de accelerometer service actief is, maar er geen manier was om de
+        accelerometer data notificaties te activeren (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.accelerometer.AccelerometerService.read
+"""
+Reads the accelerometer data.
+
+Returns:
+    The accelerometer data (x, y and z)
+
+Raises:
+    errors.BluetoothServiceNotFound: When the accelerometer service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the accelerometer service is running but there was no way to
+        read accelerometer data (normally does not occur)
+"""
+Geeft de gegevens van de accelerometer.
+
+Returns:
+    De gegevens van de accelerometer (x, y en z)
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de accelerometer service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de accelerometer service actief is, maar er geen manier was om de
+        accelerometer data te lezen (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.accelerometer.AccelerometerService.set_period
+"""
+Sets the interval at which the accelerometer takes measurements (in milliseconds).
+
+Args:
+    period (AccelerometerPeriod): the interval at which the accelerometer takes measurements,
+        valid values are: 1, 2, 5, 10, 20, 80, 160, 640
+
+Raises:
+    errors.BluetoothServiceNotFound: When the accelerometer service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the accelerometer service is running but there was no way to
+        change accelerometer period (normally does not occur)
+
+Warning:
+    These are the valid values according to the specification, but it seems that this does not work as I expect
+    TODO to investigate
+"""
+Stelt het interval in waarmee de accelerometer metingen doet (in milliseconden).
+
+Args:
+    period (AccelerometerPeriod): het interval waarop de accelerometer metingen doet,
+        geldige waarden zijn: 1, 2, 5, 10, 20, 80, 160, 640
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de accelerometer service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de accelerometer service actief is, maar er geen manier was om de
+        accelerometer periode te wijzigen (komt normaal gezien niet voor)
+
+Warning:
+    Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet werkt/klopt zoals ik verwacht
+    TODO te onderzoeken
+"""
+
+FUNCTION kaspersmicrobit.services.accelerometer.AccelerometerService.read_period
+"""
+Returns the interval at which the accelerometer takes measurements
+
+Returns:
+    The interval in milliseconds
+
+Raises:
+    errors.BluetoothServiceNotFound: When the accelerometer service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the accelerometer service is running but there was no way to
+        accelerometer period to be read (normally does not occur)
+"""
+Geeft het interval terug waarmee de accelerometer metingen doet
+
+Returns:
+    Het interval in milliseconden
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de accelerometer service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de accelerometer service actief is, maar er geen manier was om de
+        accelerometer periode te lezen (komt normaal gezien niet voor)
+"""
+
+CLASS kaspersmicrobit.services.buttons.ButtonState
+"""
+All possible states of a button:
+
+- RELEASE: released
+- PRESS: pressed
+- LONG_PRESS: pressed for at least 2 seconds
+"""
+Alle mogelijke toestanden van een knop:
+
+- RELEASE: losgelaten
+- PRESS: ingedrukt
+- LONG_PRESS: minstens 2 seconden lang ingedrukt
+"""
+
+CLASS kaspersmicrobit.services.buttons.ButtonService
+"""
+This class contains the functions that you can access related to the A and B buttons of the micro:bit
+
+These are all options offered by the Bluetooth button service
+
+See Also: https://lancaster-university.github.io/microbit-docs/ble/button-service/
+"""
+Deze klasse bevat de functies die je kan aanspreken in verband met de A en B knoppen van de micro:bit
+
+Dit zijn alle mogelijkheden aangeboden door de bluetooth button service
+
+Zie ook: https://lancaster-university.github.io/microbit-docs/ble/button-service/
+"""
+
+FUNCTION kaspersmicrobit.services.buttons.ButtonService.is_available
+"""
+Checks whether the Bluetooth service button is found on the connected micro:bit.
+
+Returns:
+    true if the button service was found, false if not.
+"""
+Kijkt na of de button bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+Returns:
+    true als de button service gevonden werd, false indien niet.
+"""
+
+FUNCTION kaspersmicrobit.services.buttons.ButtonService.on_button_a
+"""
+You can call this function if you want to be notified when the A button of your micro:bit is pressed
+(press), long pressed (long_press) or released (release)
+
+A function that you can pass as an argument is a function with 1 string parameter. This function will be
+called with the button name as argument.
+
+Args:
+    press (ButtonCallback): a function called when the A button is pressed
+    long_press (ButtonCallback): a function that is called when pressed for a long time (at least 2 seconds).
+        the A button is pressed
+    release (ButtonCallback): a function called when the A button is released
+
+Raises:
+    errors.BluetoothServiceNotFound: When the button service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the button service is running but there was no way to get the
+        activate notifications for button A (normally does not occur)
+"""
+Deze functie kan je oproepen wanneer je verwittigd wil worden wanneer de A knop van je micro:bit ingedrukt
+(press), lang ingedrukt (long_press) of losgelaten (release)
+
+De functies die je kan meegeven als argument zijn functies met 1 string parameter. Deze functies zullen worden
+opgeroepen met de naam van de knop als argument.
+
+Args:
+    press (ButtonCallback): een functie die wordt opgeroepen wanneer er op de A knop gedrukt wordt
+    long_press (ButtonCallback): een functie die wordt opgeroepen wanneer er lang (minstens 2 seconden) op
+        de A knop gedrukt wordt
+    release (ButtonCallback): een functie die wordt opgeroepen wanneer de A knop wordt losgelaten
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de button service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de button service actief is, maar er geen manier was om de
+        notificaties voor button A te activeren (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.buttons.ButtonService.on_button_b
+"""
+You can call this function if you want to be notified when the B button of your micro:bit is pressed
+(press), long pressed (long_press) or released (release)
+
+A function that you can pass as an argument is a function with 1 string parameter. This function will be
+called with the button name as argument.
+
+Args:
+    press (ButtonCallback): a function called when the B button is pressed
+    long_press (ButtonCallback): a function that is called when pressed for a long time (at least 2 seconds).
+        the B button is pressed
+    release (ButtonCallback): a function called when the B button is released
+
+Raises:
+    errors.BluetoothServiceNotFound: When the button service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the button service is running but there was no way to get the
+        activate notifications for button B (normally does not occur)
+"""
+Deze functie kan je oproepen wanneer je verwittigd wil worden wanneer de B knop van je micro:bit ingedrukt
+(press), lang ingedrukt (long_press) of losgelaten (release)
+
+De functies die je kan meegeven als argument zijn functies met 1 string parameter. Deze functies zullen worden
+opgeroepen met de naam van de knop als argument.
+
+Args:
+    press (ButtonCallback): een functie die wordt opgeroepen wanneer er op de B knop gedrukt wordt
+    long_press (ButtonCallback): een functie die wordt opgeroepen wanneer er lang (minstens 2 seconden) op
+        de B knop gedrukt wordt
+    release (ButtonCallback): een functie die wordt opgeroepen wanneer de B knop wordt losgelaten
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de button service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de button service actief is, maar er geen manier was om de
+        notificaties voor button B te activeren (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.buttons.ButtonService.read_button_a
+"""
+Returns the state of the A button
+
+Returns:
+    The state of the A button (RELEASE, PRESS or LONG_PRESS)
+
+Raises:
+    errors.BluetoothServiceNotFound: When the button service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the button service is running but there was no way to
+        read the state of button A (normally does not occur)
+"""
+Geef de toestand van de A knop
+
+Returns:
+    De toestand van de A knop (RELEASE, PRESS of LONG_PRESS)
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de button service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de button service actief is, maar er geen manier was om
+        de staat van button A te lezen (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.buttons.ButtonService.read_button_b
+"""
+Returns the state of the B button
+
+Returns(ButtonState):
+    The state of the B button (RELEASE, PRESS or LONG_PRESS)
+
+Raises:
+    errors.BluetoothServiceNotFound: When the button service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the button service is running but there was no way to
+        read the state of button B (normally does not occur)
+"""
+Geef de toestand van de B knop
+
+Returns (ButtonState):
+    De toestand van de B knop (RELEASE, PRESS of LONG_PRESS)
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de button service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de button service actief is, maar er geen manier was om
+        de staat van button B te lezen (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.device_information.DeviceInformationService.is_available
+"""
+Checks whether the device information Bluetooth service is found on the connected micro:bit.
+
+Returns:
+    true if the device information service was found, false if not.
+"""
+Kijkt na of de device information bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+Returns:
+    true als de device information service gevonden werd, false indien niet.
+"""
+
+FUNCTION kaspersmicrobit.services.device_information.DeviceInformationService.read_model_number
+"""
+Reads the model number of the micro:bit.
+
+Returns:
+    the model number of the micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: When the device information service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the device information button is active, but there was no way
+        to read the model number (normally not present)
+"""
+Leest het modelnummer van de micro:bit.
+
+Returns:
+    het modelnummer van de micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de device information service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de button device information actief is, maar er geen manier was
+        om het modelnummer te lezen (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.device_information.DeviceInformationService.read_serial_number
+"""
+Reads the serial number of the micro:bit.
+
+Returns:
+    the serial number of the micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: When the device information service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the device information button is active, but there was no way
+        to read the serial number (normally does not occur)
+"""
+Leest het serienummer van de micro:bit.
+
+Returns:
+    het serienummer van de micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de device information service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de button device information actief is, maar er geen manier was
+        om het serienummer te lezen (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.device_information.DeviceInformationService.read_firmware_revision
+"""
+Reads the firmware version string from the micro:bit.
+
+Returns:
+    the firmware version string of the micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: When the device information service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the device information button is active, but there was no way
+        to read the firmware version (normally not present)
+"""
+Leest de firmware versie string van de micro:bit.
+
+Returns:
+    de firmware versie string van de micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de device information service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de button device information actief is, maar er geen manier was
+        om de firmware versie te lezen (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.device_information.DeviceInformationService.read_hardware_revision
+"""
+Reads the hardware version string from the micro:bit.
+
+Attention:
+    Although reading the hardware revision is mentioned in the bluetooth profile of the micro:bit, I was not
+    successful in doing this on the micro:bits I had available for testing
+
+Returns:
+    the hardware version string of the micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: When the device information service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the device information button is active, but there was no way
+        to read the hardware version (normally not present)
+"""
+Leest de hardware versie string van de micro:bit.
+
+Opgelet:
+    Hoewel het lezen van de harware revisie vermeld wordt in het bluetooth profiel van de micro:bit, kon ik deze
+    niet opvragen op de microbits die ik heb kunnen testen.
+
+Returns:
+    de hardware versie string van de micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de device information service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de button device information actief is, maar er geen manier was
+        om de hardware versie te lezen (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.device_information.DeviceInformationService.read_manufacturer_name
+"""
+Reads the name of the manufacturer of the micro:bit.
+
+Attention:
+    Although reading the manufacturer's name is listed in the micro:bit's Bluetooth profile,I was not
+    successful in doing this on the micro:bits I had available for testing
+
+Returns:
+    the name of the manufacturer of the micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: When the device information service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the device information button is active, but there was no way
+        to read the manufacturer's name (normally not found)
+"""
+Leest de naam van de fabrikant van de micro:bit.
+
+Opgelet:
+    Hoewel het lezen van de naam van de fabrikant vermeld wordt in het bluetooth profiel van de micro:bit, kon
+    ik deze niet opvragen op de microbits die ik heb kunnen testen.
+
+Returns:
+    de naam van de fabrikant van de micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de device information service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de button device information actief is, maar er geen manier was
+        om de naam van de fabrikant te lezen (komt normaal gezien niet voor)
+"""
+
+CLASS kaspersmicrobit.services.event.Event
+"""
+An Event takes place for a specific device or component (device) on the micro:bit.
+For example, a data update (event) from the accelerometer (device) or a press (event) on a button (device)
+
+See `kaspersmicrobit.services.v1_events` for the device ids and event values for the micro:bit v1, and
+`kaspersmicrobit.services.v2_events` for the ids and values of the micro:bit v2
+
+Attributes:
+    device_id (int): The ID of the device or component reporting the event
+    event_value (int): The value of the event for the given device
+"""
+Een Event is een gebeurtenis die plaatsvindt voor een bepaald toestel of component (device) op de micro:bit.
+Bijvoorbeeld een data update (event) van de accellerometer (toestel) of een druk (event) op een knop (toestel)
+
+Zie `kaspersmicrobit.services.v1_events` voor de device ids en de event values voor de micro:bit v1, en
+`kaspersmicrobit.services.v2_events` voor de ids en valuesvan de micro:bit v2
+
+Attributes:
+    device_id (int): Het id van van het toestel of de component dat de gebeurtenis meldt
+    event_value (int): De waarde van de gebeurtenis voor het gegeven toestel
+"""
+
+CLASS kaspersmicrobit.services.events.EventService
+"""
+Using this class you can listen to events that take place on the micro:bit.
+The micro:bit reports these events on its internal message bus.
+
+The device IDs and event IDs differ between the different micro:bit versions.
+See `kaspersmicrobit.services.v1_events` for the ids of the micro:bit v1, and
+`kaspersmicrobit.services.v2_events` for the ids of the micro:bit v2
+
+The micro:bit itself can also indicate through this service that it is interested in receiving certain events.
+So you can also forward self-made events to the micro:bit.
+
+These are all options offered by the Bluetooth event service
+
+See Also: https://lancaster-university.github.io/microbit-docs/ble/event-service/
+"""
+Met behulp van deze klasse kan je luisteren naar gebeurtenissen (events) die plaatsvinden op de micro:bit.
+De micro:bit meldt deze gebeurtenissen op zijn interne messagebus.
+
+De device ids en event ids verschillen tussen de verschillende micro:bit versies.
+Zie `kaspersmicrobit.services.v1_events` voor de ids van de micro:bit v1, en
+`kaspersmicrobit.services.v2_events` voor de ids van de micro:bit v2
+
+Ook de micro:bit zelf kan via deze service aangeven dat hij geïnteresseerd is om bepaalde events te onvangen.
+Je kan dus ook zelfgemaakte events naar de micro:bit doorsturen.
+
+Dit zijn alle mogelijkheden aangeboden door de bluetooth event service
+
+Zie ook: https://lancaster-university.github.io/microbit-docs/ble/event-service/
+"""
+
+FUNCTION kaspersmicrobit.services.events.EventService.is_available
+"""
+Checks whether the event Bluetooth service is found on the connected micro:bit.
+
+Returns:
+    true if the event service was found, false if not.
+"""
+Kijkt na of de event bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+Returns:
+    true als de event service gevonden werd, false indien niet.
+"""
+
+FUNCTION kaspersmicrobit.services.events.EventService.notify_microbit_requirements
+"""
+You can call this method when you want to be notified which events the micro:bit would like to receive
+When an event contains an event_value of 0, this means that the micro:bit wants to be informed of each
+event of the given device_id
+
+You can then use `write_client_event` to keep the micro:bit informed of these events
+
+Args:
+    callback: a function that is called with an Event
+
+Raises:
+    errors.BluetoothServiceNotFound: When the events service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the events service is running but there was no way
+        to activate the notifications for the microbit requirements (normally does not occur)
+"""
+Deze methode kan je oproepen wanneer je verwittigd wil worden welke events de micro:bit zou willen ontvangen
+Wanneer een event een event_waarde van 0 bevat betekent dit dat de micro:bit geinformeerd wil worden van elke
+event van het gegeven device_id
+
+Je kan dan met `write_client_event` de micro:bit op de hoogte houden van deze gebeurtenissen
+
+Args:
+    callback: een functie die wordt opgeroepen met een Event
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+        om de notificaties voor de microbit requirements te activeren (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.events.EventService.read_microbit_requirements
+"""
+Reads the list of events that the micro:bit would like to receive from you as they occur
+When an event contains an event_value of 0, this means that the micro:bit wants to be informed of each
+event of the given device_id
+
+You can then use `write_client_event` to keep the micro:bit informed of these events
+
+Returns:
+    List[Event]: A list of events that you need to notify the micro:bit when they occur
+
+Raises:
+    errors.BluetoothServiceNotFound: When the events service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the events service is running but there was no way
+        to read the microbit requirements (normally does not occur)
+"""
+Leest de lijst van events die de micro:bit zou willen ontvangen van jou wanneer ze zich voordoen
+Wanneer een event een event_waarde van 0 bevat betekent dit dat de micro:bit geinformeerd wil worden van elke
+event van het gegeven device_id
+
+Je kan dan met `write_client_event` de micro:bit op de hoogte houden van deze gebeurtenissen
+
+Returns:
+    List[Event]: Een lijst van events waarvan je de micro:bit moet verwittigen wanneer ze zich voordoen
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+        om de microbit requirements te lezen (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.events.EventService.notify_microbit_event
+"""
+You can call this method when you want to be notified of events that occur on the micro:bit
+You will only be notified of events that you have indicated with `write_client_requirements`
+you want to receive them
+
+Args:
+    callback: a function that is called with an Event
+
+Raises:
+    errors.BluetoothServiceNotFound: When the events service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the events service is running but there was no way
+        to activate the notifications for the microbit events (normally does not occur)
+"""
+Deze methode kan je oproepen wanneer je verwittigd wil worden van events die zich voordoen op de micro:bit
+Je zal enkel verwittigd worden van events waarvan je met `write_client_requirements` hebt aangegeven dat
+je ze wil ontvangen
+
+Args:
+    callback: een functie die wordt opgeroepen met een Event
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+        om de notificaties voor de microbit events te activeren (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.events.EventService.read_microbit_event
+"""
+Reads the list of events that occurred on the micro:bit
+You will only be able to read events for which you have specified with `write_client_requirements`
+you want to receive them
+
+Returns:
+    List[Event]: A list of events that occurred on the micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: When the events service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the events service is running but there was no way
+        to read the microbit events (normally does not occur)
+"""
+Leest de lijst van events die zich hebben voorgedaan op de micro:bit
+Je zal enkel events kunnen uitlezen waarvan je met `write_client_requirements` hebt aangegeven dat
+je ze wil ontvangen
+
+Returns:
+    List[Event]: Een lijst van events die zich hebben voorgedaan op de micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+        om de microbit events te lezen (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.events.EventService.write_client_requirements
+"""
+Using this method you indicate which micro:bit events you are interested in. Then, you'll be able to receive these events
+with `notify_microbit_event` or read out with `read_microbit_event` when they occur.
+
+When you write an event with an event_value of 0, this means that you want to be informed of each
+event of the given device_id
+
+Args:
+    *events (Event): the events you want to receive from the micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: When the events service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the events service is running but there was no way
+        to write the client requirements (normally does not occur)
+"""
+Met deze methode geeft je aan in welke events van de micro:bit je geïnteresseerd bent. Deze events kan je dan
+ontvangen met `notify_microbit_event` of uitlezen met `read_microbit_event` als ze zich voordoen.
+
+Wanneer je een event met een event_waarde van 0 schrijft betekent dit dat je geinformeerd wil worden van elke
+event van het gegeven device_id
+
+Args:
+    *events (Event): de events die je wil ontvangen van de micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+        om de client requirements te schrijven (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.events.EventService.write_client_event
+"""
+With this method you send events to the micro:bit. This allows you to keep the micro:bit informed of events that
+occur in your application. Only send events that the micro:bit has indicated it wants to receive
+by `notify_microbit_requirements` or `read_microbit_requirements`
+
+Args:
+   *events (Event): the events you want to send to the micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: When the events service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the events service is running but there was no way
+        to write the client events (normally does not occur)
+"""
+Met deze methode zend je events naar de micro:bit. Hiermee kan je de micro:bit op de hoogte houden van events die
+zich voordoen in je applicatie. Zend enkel events waarvan de micro:bit heeft aangegeven ze te willen ontvangen
+door `notify_microbit_requirements` of `read_microbit_requirements`
+
+Args:
+   *events (Event): de events die je wil verzenden naar de micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de events service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de events service actief is, maar er geen manier was
+        om de client events te schrijven (komt normaal gezien niet voor)
+"""
+
+CLASS kaspersmicrobit.services.generic_access.GenericAccessService
+"""
+This class contains the functions to access the information provided by the Bluetooth generic access service
+to read out
+"""
+Deze klasse bevat de functies om de informatie aangeboden door de bluetooth generic access service
+uit te lezen
+"""
+
+FUNCTION kaspersmicrobit.services.generic_access.GenericAccessService.is_available
+"""
+Checks whether the generic access Bluetooth service is found on the connected micro:bit.
+
+Returns:
+    true if the generic access service was found, false if not.
+"""
+Kijkt na of de generic access bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+Returns:
+    true als de generic access service gevonden werd, false indien niet.
+"""
+
+FUNCTION kaspersmicrobit.services.generic_access.GenericAccessService.read_device_name
+"""
+Reads the name of the micro:bit.
+
+Returns:
+    the name of the micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: When the generic access service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the generic access service is running but there was no way
+        to read the device name (normally not present)
+"""
+Leest de naam van de micro:bit.
+
+Returns:
+    de naam van de micro:bit
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de generic access service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de generic acces service actief is, maar er geen manier was
+        om de device naam te lezen (komt normaal gezien niet voor)
+"""
+
+CLASS kaspersmicrobit.services.io_pin.Pin
+"""
+The pins available for configuration and reading via the io pin service.
+
+Pins 17 and 18 are not available
+"""
+De pins beschikbaar voor configuratie en uitlezen via de io pin service.
+
+Pins 17 en 18 zijn niet beschikbaar
+"""
+
+CLASS kaspersmicrobit.services.io_pin.PinAD
+"""
+The analog-digital configuration of a pin
+"""
+De analoog-digitaal configuratie van een pin
+"""
+
+CLASS kaspersmicrobit.services.io_pin.PinIO
+"""
+The input-output configuration of a pin
+"""
+De input-output configuratie van een pin
+"""
+
+CLASS kaspersmicrobit.services.io_pin.PinIOConfiguration
+"""
+The IO pin configuration. Contains for each pin whether it is used for INPUT or OUTPUT
+"""
+De pin IO configuratie. Bevat voor iedere pin of die voor INPUT of OUTPUT gebruikt wordt
+"""
+
+CLASS kaspersmicrobit.services.io_pin.PinADConfiguration
+"""
+The AD pin configuration. Contains for each pin whether it is for ANALOG or DIGITAL use
+"""
+De pin AD configuratie. Bevat voor iedere pin of die voor ANALOG of DIGITAL gebruik is
+"""
+
+CLASS kaspersmicrobit.services.io_pin.PinValue
+"""
+The pin and its value
+
+Attributes:
+    pin (Pin): the pin
+    value (int): the value of the pin (given how this value is sent over Bluetooth)
+        the value loses precision (the least significant 2 bits are not sent)
+        This means, for example, that a value 1-3 is sent as 0 and 255 as 252.
+"""
+De pin en zijn waarde
+
+Attributes:
+    pin (Pin): de pin
+    value (int): de waarde van de pin (door hoe deze waarde verzonden wordt over bluetooth)
+        verliest de waarde precisie (de minst significante 2 bits worden niet verzonden)
+        dit betekent bvb dat een waarde 1-3 als 0 en 255 als 252 wordt verzonden.
+"""
+
+CLASS kaspersmicrobit.services.io_pin.PwmControlData
+"""
+A class to give PWM commands to the micro:bit
+
+Attributes:
+    pin (Pin): the pin for which the command is intended
+    value (int): a value in the range (0-1024) (0 means disabled)
+    period (int): the period in microseconds
+"""
+Een klasse om PWM opdrachten te geven aan de micro:bit
+
+Attributes:
+    pin (Pin): de pin waar de opdracht voor dient
+    value (int): een waarde in het bereik (0-1024) (0 betekent uitgeschakeld)
+    period (int): de periode in microseconden
+"""
+
+CLASS kaspersmicrobit.services.io_pin.IOPinService
+"""
+This class contains the functions that you can access in connection with the io pins on the edge of the micro:bit
+
+These are all options offered by the Bluetooth IO PIN service
+
+See Also: https://tech.microbit.org/hardware/edgeconnector/
+
+See Also: https://www.micro-bit.nl/kennisbank-pinnen
+
+See Also: https://lancaster-university.github.io/microbit-docs/ble/iopin-service/
+"""
+Deze klasse bevat de functies die je kan aanspreken in verband met de io pins op de rand van de micro:bit
+
+Dit zijn alle mogelijkheden aangeboden door de bluetooth io pin service
+
+Zie ook: https://tech.microbit.org/hardware/edgeconnector/
+
+Zie ook: https://www.micro-bit.nl/kennisbank-pinnen
+
+Zie ook: https://lancaster-university.github.io/microbit-docs/ble/iopin-service/
+"""
+
+FUNCTION kaspersmicrobit.services.io_pin.IOPinService.is_available
+"""
+Checks whether the I/O pin Bluetooth service is found on the connected micro:bit.
+
+Returns:
+    true if the I/O pin service was found, false if not.
+"""
+Kijkt na of de I/O pin bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+Returns:
+    true als de I/O pin service gevonden werd, false indien niet.
+"""
+
+FUNCTION kaspersmicrobit.services.io_pin.IOPinService.notify_data
+"""
+You can call this method when you want to be notified of the value of pins. You need these pins
+previously configured as PinIO.INPUT pins via write_io_configuration. You will be notified when
+the value changes.
+
+Args:
+    callback: a function called with a list of PinValue objects
+
+Raises:
+    errors.BluetoothServiceNotFound: When the I/O pin service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the I/O pin service is active but there was no way
+        to activate the notifications for the PIN data (normally does not occur)
+"""
+Deze methode kan je oproepen wanneer je verwittigd wil worden van de waarde van pins. Deze pins moet je
+voorafgaand geconfigureerd hebben als PinIO.INPUT pins vie write_io_configuration. Je wordt verwittigd wanneer
+de waarde wijzigt.
+
+Args:
+    callback: een functie die wordt opgeroepen met een lijst van PinValue objecten
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+        om de notificaties voor de pin data te activeren (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.io_pin.IOPinService.read_data
+"""
+Returns the values for each pin configured as PinIO.INPUT via write_io_configuration.
+
+Returns:
+    A list of input pins and their associated values
+
+Raises:
+    errors.BluetoothServiceNotFound: When the I/O pin service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the I/O pin service is active but there was no way
+        to read the pin data (normally does not occur)
+"""
+Geeft de waarden voor iedere pin die geconfigureerd is als PinIO.INPUT via write_io_configuration.
+
+Returns:
+    Een lijst van input pins en hun bijhorende waarde
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+        om de pin data te lezen (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.io_pin.IOPinService.write_data
+"""
+Writes values to 1 or more pins. You must have previously configured these pins as PinIO.OUTPUT pins
+via write_io_configuration. When you write to an input pin it will be ignored
+
+Args:
+    values (List[PinValue]): the output pins and their associated values
+
+Raises:
+    errors.BluetoothServiceNotFound: When the I/O pin service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the I/O pin service is active but there was no way
+        to write the pin data (normally does not occur)
+"""
+Schrijft waarden naar 1 of meer pins. Deze pins moet je voorafgaand geconfigureerd hebben als PinIO.OUTPUT pins
+via write_io_configuration. Wanneer jes chrijft naar een input pin zal dit genegeerd worden
+
+Args:
+    values (List[PinValue]): de output pins en hun bijhorende waarde
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+        om de pin data te schrijven (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.io_pin.IOPinService.read_ad_configuration
+"""
+Returns for each pin whether it is configured as a PinAD.DIGITAL or PinAD.ANALOG pin.
+
+Returns:
+    The analog-digital configuration for each pin
+
+Raises:
+    errors.BluetoothServiceNotFound: When the I/O pin service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the I/O pin service is active but there was no way
+        to read the pin analog-digital configuration (normally does not occur)
+"""
+Geeft voor iedere pin of die geconfigureerd is als een PinAD.DIGITAL of PinAD.ANALOG pin.
+
+Returns:
+    De analoog-digitaal configuratie voor iedere pin
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+        om de pin analoog-digitaal configuratie te lezen (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.io_pin.IOPinService.write_ad_configuration
+"""
+Configure each pin for analog or digital use.
+
+Args:
+    config (PinADConfiguration): The analog-digital configuration for each pin
+
+Raises:
+    errors.BluetoothServiceNotFound: When the I/O pin service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the I/O pin service is active but there was no way
+        to write the analog-digital configuration (normally not present)
+"""
+Configureer iedere pin voor analoog of digitaal gebruik.
+
+Args:
+    config (PinADConfiguration): De analoog-digitaal configuratie voor iedere pin
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+        om de analoog-digitaal configuratie te schrijven (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.io_pin.IOPinService.read_io_configuration
+"""
+Returns for each pin whether it is configured as a PinIO.INPUT or PinIO.OUTPUT pin.
+
+Returns:
+    The input-output configuration for each pin
+
+Raises:
+    errors.BluetoothServiceNotFound: When the I/O pin service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the I/O pin service is active but there was no way
+        to read the input-output configuration (normally does not occur)
+"""
+Geeft voor iedere pin of die geconfigureerd is als een PinIO.INPUT of PinIO.OUTPUT pin.
+
+Returns:
+    De input-output configuratie voor iedere pin
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+        om de input-output configuratie te lezen (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.io_pin.IOPinService.write_io_configuration
+"""
+Configure each pin for input or output.
+Only values of pins configured as PinIO.INPUT can be read with read_data,
+and for these pins only you can get updates with notify_data.
+You can write values only to pins configured as PinIO.OUTPUT.
+
+Args:
+    config (PinIOConfiguration): The input-output configuration for each pin
+
+Raises:
+    errors.BluetoothServiceNotFound: When the I/O pin service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the I/O pin service is active but there was no way
+        to write the input-output configuration (normally not present)
+"""
+Configureer iedere pin voor input of output.
+Enkel waarden van pins die als PinIO.INPUT geconfigureerd worden kunnen uitgelezen worden
+met read_data, en enkel voor deze pins kan je updates krijgen met notify_data.
+Enkel naar pins die geconfigureerd zijn als PinIO.OUTPUT kan je waarden schrijven.
+
+Args:
+    config (PinIOConfiguration): De input-output configuratie voor iedere pin
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+        om de input-output configuratie te schrijven (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.io_pin.IOPinService.write_pwm_control_data
+"""
+Writes Pulse Width Modulation commands to the micro:bit. 1 or 2 assignments can be given at the same time
+
+See Also: https://microbit-micropython.readthedocs.io/en/latest/pin.html
+
+See Also: https://www.micro-bit.nl/kennisbank-pinnen
+
+Args:
+    pwm_control1 (PwmControlData): a PWM command
+    pwm_control2 (PwmControlData): an optional PWM command
+
+Raises:
+    errors.BluetoothServiceNotFound: When the I/O pin service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the I/O pin service is active but there was no way
+        to write the pwm control data (normally does not occur)
+"""
+Schrijft Pulse Width Modulation opdrachten naar de micro:bit. 1 of 2 opdrachten kunnen tegelijk gegeven worden
+
+Zie ook: https://microbit-micropython.readthedocs.io/en/latest/pin.html
+
+Zie ook: https://www.micro-bit.nl/kennisbank-pinnen
+
+Args:
+    pwm_control1 (PwmControlData): een PWM opdracht
+    pwm_control2 (PwmControlData): een optionele PWM opdracht
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de I/O pin service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de I/O pin service actief is, maar er geen manier was
+        om de pwm control data te schrijven (komt normaal gezien niet voor)
+"""
+
+CLASS kaspersmicrobit.services.led.LedService
+"""
+Using the functions in this class you can turn LEDs on or off, or scroll a short text on the screen
+"""
+Met de functies in deze klasse kan je leds aan of uit zetten, of een korte tekst laten scrollen op het scherm
+"""
+
+FUNCTION kaspersmicrobit.services.led.LedService.is_available
+"""
+Checks whether the LED Bluetooth service is found on the connected micro:bit.
+
+Returns:
+    true if the LED service was found, false if not.
+"""
+Kijkt na of de led bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+Returns:
+    true als de led service gevonden werd, false indien niet.
+"""
+
+FUNCTION kaspersmicrobit.services.led.LedService.show
+"""
+Turn on the LEDs on the micro:bit as indicated in the LEDs parameter
+
+Args:
+    led_display: the on/off state of the LEDs
+
+Raises:
+    errors.BluetoothServiceNotFound: When the LED service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the led service is active but there was no way
+        to write the LED display (normally does not occur)
+"""
+Zet de leds op de micro:bit aan zoals de leds parameter aangeeft
+
+Args:
+    led_display: de aan/uit staat van de leds
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
+        om de led display te schrijven (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.led.LedService.read
+"""
+Read the on/off values from the micro:bit LED display
+
+Returns:
+    the on/off state of the LEDs
+
+Raises:
+    errors.BluetoothServiceNotFound: When the LED service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the led service is active but there was no way
+        to read the LED display (normally not present)
+"""
+Lees de aan/uit waarden van de micro:bit led display
+
+Returns:
+    de aan/uit staat van de leds
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
+        om de led display te lezen (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.led.LedService.show_text
+"""
+Let the given text scroll by on the LED screen of the micro:bit. You can control the speed of scrolling
+through the scrolling delay methods.
+
+Args:
+    text: The text to be displayed (maximum 20 characters)
+
+Raises:
+    ValueError: if text contains more than 20 characters
+    errors.BluetoothServiceNotFound: When the LED service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the led service is active but there was no way
+        to write the LED text (normally does not occur)
+"""
+Laat de gegeven tekst voorbij scrollen op het led scherm van de micro:bit. De snelheid van het scrollen kan je
+instellen via de scrolling delay.
+
+Args:
+    text: De te tonen tekst (maximum 20 tekens)
+
+Raises:
+    ValueError: indien text meer dan 20 tekens bevat
+    errors.BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
+        om de led text te schrijven (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.led.LedService.set_scrolling_delay
+"""
+Adjust how quickly text scrolls by on the LED screen.
+
+Args:
+    delay_in_millis: the time it takes for 1 letter to pass across the screen in milliseconds
+
+Raises:
+    errors.BluetoothServiceNotFound: When the LED service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the led service is active but there was no way
+        to write the scrolling delay (normally does not occur)
+"""
+Stel in hoe snel een tekst voorbijrolt op het led scherm.
+
+Args:
+    delay_in_millis:  de tijd die 1 letter er over doet om over het scherm voorbij te komen in milliseconden
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
+        om de scrolling delay te schrijven (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.led.LedService.get_scrolling_delay
+"""
+Return how quickly a text scrolls past the screen
+
+Returns:
+     the time it takes for 1 letter to pass across the screen in milliseconds
+
+Raises:
+    errors.BluetoothServiceNotFound: When the LED service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the led service is active but there was no way
+        to read the scrolling delay (normally does not occur)
+"""
+Lees de hoe snel een tekst voorbijscrolt over het scherm
+
+Returns:
+     de tijd die 1 letter er over doet om over het scherm voorbij te komen in milliseconden
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de led service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de led service actief is, maar er geen manier was
+        om de scrolling delay te lezen (komt normaal gezien niet voor)
+"""
+
+CLASS kaspersmicrobit.services.leddisplay.LedDisplay
+"""
+A class representing the LED screen of the micro:bit.
+The LED on the top left of the micro:bit is the LED on row 1, column 1
+The bottom right LED on the micro:bit is the LED in row 5, column 5
+"""
+Een klasse die het LED scherm van de micro:bit voorstelt.
+De LED linksboven op de micro:bit is de LED op rij 1, kolom 1
+De LED rechtsbeneden op de micro:bit is de LED op rij 5, kolom 5
+"""
+
+FUNCTION kaspersmicrobit.services.leddisplay.LedDisplay.__init__
+"""
+Create a display with all LEDs off
+"""
+Maakt display met alle leds uit
+"""
+
+FUNCTION kaspersmicrobit.services.leddisplay.LedDisplay.led
+"""
+Indicates whether an LED on the given row and column is on or off
+
+Args:
+    row int: the row of the LED (valid values are 1 to 5)
+    column int: the column of the LED (valid values are 1 to 5)
+
+Returns:
+    True when the LED is on, False when the LED is off
+"""
+Geeft aan of dat een LED op de gegeven rij en kolom aan of uit is
+
+Args:
+    row int: de rij van de LED (geldige waarden zijn 1 tot en met 5)
+    column int: de kolom van de LED (geldige waarden zijn 1 tot en met 5)
+
+Returns:
+    True wanneer de LED aan staat, False als de LED uit staat
+"""
+
+FUNCTION kaspersmicrobit.services.leddisplay.LedDisplay.set_led
+"""
+Turn an LED on or off on the given row and column
+
+Args:
+    row int: the row of the LED (valid values are 1 to 5)
+    column int: the column of the LED (valid values are 1 to 5)
+    on bool: if True the LED is turned on, if False it is turned off
+"""
+Zet een LED op de gegeven rij en kolom aan of uit
+
+Args:
+    row int: de rij van de LED (geldige waarden zijn 1 tot en met 5)
+    column int: de kolom van de LED (geldige waarden zijn 1 tot en met 5)
+    on bool: indien True word de LED aan gezet, indien False uit
+"""
+
+FUNCTION kaspersmicrobit.services.leddisplay.LedDisplay.image
+"""
+Creates an LedDisplay given a string.
+
+Example:
+
+```python
+HEART: LedDisplay = LedDisplay.image('''
+    . # . # .
+    # # # # #
+    # # # # #
+    . # # # .
+    . . # . .
+''')
+```
+
+You can choose which characters are used for an LED that is 'on' or 'off' with the 'on' and 'off'
+parameters. The given string must contain exactly 25 'on' and 'off' values, 1 for each LED.
+
+Args:
+    string: the string representing the LED screen
+    on: the letter representing an LED that is 'on' ('#' if left blank)
+    off: the letter representing an LED that is 'off' ('.' if left blank)
+
+Returns:
+    An LedDisplay representing the given string image
+
+Raises:
+    ValueError: If the given string does not contain exactly 25 on/off values
+"""
+Maakt een LedDisplay van een string.
+
+Example:
+
+```python
+HEART: LedDisplay = LedDisplay.image('''
+    . # . # .
+    # # # # #
+    # # # # #
+    . # # # .
+    . . # . .
+''')
+```
+
+Welke tekens gebruikt worden voor een LED die 'aan' of 'uit' is kan je zelf kiezen met de 'on' en 'of'
+parameters. De gegeven string moet exact 25 'on' en 'off' waarden bevatten, voor elke LED 1.
+
+Args:
+    string: de string die het LED scherm voorstelt
+    on: de letter die een LED voorstelt die 'aan' is ('#' indien niet ingevuld)
+    off: de letter die een LED voorstelt die 'uit' is ('.' indien niet ingevuld)
+
+Returns:
+    Een LedDisplay die de gegeven string image voorstelt
+
+Raises:
+    ValueError: Indien de gegeven string niet exact 25 on/off waarden bevat
+"""
+
+CLASS kaspersmicrobit.services.magnetometer.Calibration
+"""
+A class that allows you to follow up on a calibration
+"""
+Een klasse die je toelaat een calibratie op te volgen
+"""
+
+FUNCTION kaspersmicrobit.services.magnetometer.Calibration.done
+"""
+Check whether the calibration is still in progress
+
+Returns:
+    True if the calibration is done, False if it is still in progress
+"""
+Kijk na of de calibratie nog bezig is
+
+Returns:
+    True indien de calibratie gedaan is, False indien het nog bezig is
+"""
+
+FUNCTION kaspersmicrobit.services.magnetometer.Calibration.wait_for_result
+"""
+Wait for the end of the calibration process
+Args:
+    timeout: the maximum number of seconds you want to wait for a result
+
+Returns:
+    True if the calibration was successful, False if it was unsuccessful
+"""
+Wacht op het einde van het calibreren
+Args:
+    timeout: het aantal seconden dat je maximaal wil wachten op een resultaat
+
+Returns:
+    True indien de calibratie gelukt is, False indien het mislukt is
+"""
+
+CLASS kaspersmicrobit.services.magnetometer.MagnetometerData
+"""
+The values on the 3 axes of a magnetometer measurement
+
+Attributes:
+    x (int): horizontal (left to right)
+    y (int): horizontal (from back to front)
+    z (int): vertical (from bottom to top)
+"""
+De waarden op de 3 assen van een meting van de magnetometer
+
+Attributes:
+    x (int): horizontaal (van links naar rechts)
+    y (int): horizontaal (van achter naar voor)
+    z (int): verticaal (van onder naar boven)
+"""
+
+CLASS kaspersmicrobit.services.magnetometer.MagnetometerService
+"""
+This class contains the functions that you can use related to the magnetometor of the micro:bit.
+There are functions to
+
+- measure the magnetic field along 3 axes
+- measure the angle in degrees relative to north
+- calibrate the magnetometer. It is best to calibrate the magnetometer before reading data,
+  otherwise the data or angle in degrees may be wrong.
+
+Warning:
+    I noticed that despite calibration, the microbits I tested gave poor results
+    (to be further investigated)
+
+These are all options offered by the Bluetooth magnetometer service
+
+See Also: https://lancaster-university.github.io/microbit-docs/ble/magnetometer-service/
+
+See Also: https://lancaster-university.github.io/microbit-docs/ubit/compass/
+"""
+Deze klasse bevat de functies die je kan aanspreken in verband met de magnetometor van de micro:bit.
+Er zijn functies om
+
+- het magnetisch veld langs 3 assen te meten
+- de hoek in graden ten opzichte van het noorden te meten
+- de magnetometer te calibreren. Het is het best om de magnetometer te calibreren voor je gegevens uitleest,
+  zoniet kunnen de gegevens of de hoek in graden verkeerd zijn.
+
+Warning:
+    Ik heb gemerkt dat ondanks calibratie, de microbits die ik testte slechte resultaten gaven
+    (verder te onderzoeken)
+
+Dit zijn alle mogelijkheden aangeboden door de bluetooth magnetometer service
+
+Zie ook: https://lancaster-university.github.io/microbit-docs/ble/magnetometer-service/
+
+Zie ook: https://lancaster-university.github.io/microbit-docs/ubit/compass/
+"""
+
+FUNCTION kaspersmicrobit.services.magnetometer.MagnetometerService.is_available
+"""
+Checks whether the magnetometer Bluetooth service is found on the connected micro:bit.
+
+Returns:
+    true if the magnetometer was found, false if not.
+"""
+Kijkt na of de magnetometer bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+Returns:
+    true als de magnetometer gevonden werd, false indien niet.
+"""
+
+FUNCTION kaspersmicrobit.services.magnetometer.MagnetometerService.notify_data
+"""
+You can call this method when you want to be notified of new magnetometer data. How often you
+receive new data depends on the magnetometer period
+
+Warning:
+    The micro:bit will not provide any measurements if there has been no calibration
+
+Args:
+    callback (Callable[[MagnetometerData], None]): a function that is called when there is new data
+        are of the magnetometer. The new MagnetometerData is passed as an argument to this function
+
+Raises:
+    errors.BluetoothServiceNotFound: When the magnetometer service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the magnetometer service is active but there was no way
+        to activate magnetometer data notifications (normally does not occur)
+"""
+Deze methode kan je oproepen wanneer je verwittigd wil worden van nieuwe magnetometer gegevens. Hoe vaak je
+nieuwe gegevens ontvangt hangt af van de magnetometer periode
+
+Warning:
+    De micro:bit geeft geen metingen indien er geen calibratie is geweest
+
+Args:
+    callback (Callable[[MagnetometerData], None]): een functie die wordt opgeroepen wanneer er nieuwe gegevens
+        zijn van de magnetometer. De nieuwe MagnetometerData worden meegegeven als argument aan deze functie
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
+        om de notificaties van magnetometer data te activeren (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.magnetometer.MagnetometerService.read_data
+"""
+Returns the magnetometer data.
+
+Returns:
+    The magnetometer data (x, y and z)
+
+Raises:
+    errors.BluetoothServiceNotFound: When the magnetometer service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the magnetometer service is active but there was no way
+        to read the magnetometer data (normally does not occur)
+"""
+Geeft de gegevens van de magnetometer.
+
+Returns:
+    De gegevens van de magnetometer (x, y en z)
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
+        om de magnetometer data te lezen (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.magnetometer.MagnetometerService.set_period
+"""
+Sets the interval at which the magnetometer takes measurements (in milliseconds).
+
+Args:
+    period (MagnetometerPeriod): the interval at which the magnetometer takes measurements,
+        valid values are: 1, 2, 5, 10, 20, 80, 160, 640
+
+Warning:
+    These are the valid values according to the specification, but it seems that this does not work as I expect
+    TODO to investigate
+
+Raises:
+    errors.BluetoothServiceNotFound: When the magnetometer service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the magnetometer service is active but there was no way
+        to write the magnetometer period (normally does not occur)
+"""
+Stelt het interval in waarmee de magnetometer metingen doet (in milliseconden).
+
+Args:
+    period (MagnetometerPeriod): het interval waarop de magnetometer metingen doet,
+        geldige waarden zijn: 1, 2, 5, 10, 20, 80, 160, 640
+
+Warning:
+    Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet werkt/klopt zoals ik verwacht
+    TODO te onderzoeken
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
+        om de magnetometer periode te schrijven (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.magnetometer.MagnetometerService.read_period
+"""
+Returns the interval at which the magnetometer takes measurements
+
+Returns:
+    The interval in milliseconds
+
+Raises:
+    errors.BluetoothServiceNotFound: When the magnetometer service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the magnetometer service is active but there was no way
+        to read the magnetometer period (normally does not occur)
+"""
+Geeft het interval terug waarmee de magnetometer metingen doet
+
+Returns:
+    Het interval in milliseconden
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
+        om de magnetometer periode te lezen (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.magnetometer.MagnetometerService.notify_bearing
+"""
+You can call this method if you want to be informed of the angle in degrees at which the micro:bit is oriented
+is compared to the north.
+
+Warning:
+    The micro:bit will not provide any measurements if there has been no calibration
+
+Args:
+    callback (Callable[[int], None]): a function that is called periodically with the angle in degrees
+        compared to the north
+
+Raises:
+    errors.BluetoothServiceNotFound: When the magnetometer service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the magnetometer service is active but there was no way
+        to activate magnetometer bearing notifications (normally does not occur)
+"""
+Deze methode kan je oproepen wanneer je verwittigd wil worden van de hoek in graden waarin de micro:bit gericht
+wordt ten opzichte van het noorden.
+
+Warning:
+    De micro:bit geeft geen metingen indien er geen calibratie is geweest
+
+Args:
+    callback (Callable[[int], None]): een functie die periodiek wordt opgeroepen met de hoek in graden ten
+        opzichte van het noorden
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
+        om de notificaties van magnetometer bearing te activeren (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.magnetometer.MagnetometerService.read_bearing
+"""
+Read the angle in degrees at which the micro:bit is pointed relative to north.
+
+Returns:
+    the angle in degrees with respect to north
+
+Raises:
+    errors.BluetoothServiceNotFound: When the magnetometer service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the magnetometer service is active but there was no way
+        to read the magnetometer bearing (normally does not occur)
+"""
+Lees de hoek in graden waarin de micro:bit gericht wordt ten opzichte van het noorden.
+
+Returns:
+    de hoek in graden tov het noorden
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
+        om de magnetometer bearing te lezen (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.magnetometer.MagnetometerService.calibrate
+"""
+Calibrate the magnetometer. This method starts the calibration process on the micro:bit, you will be asked
+to tilt the micro:bit until all LEDs on the LED display are on. The magnetometer is calibrated by tilting
+If a calibration is already in progress, a new calibration will not be started
+
+Warning:
+    The micro:bit will not provide any measurements if there has been no calibration
+
+See Also: https://support.microbit.org/support/solutions/articles/19000008874-calibrating-the-micro-bit-compass
+
+Returns:
+    It is the calibration in progress. You can use this to check whether the calibration is still in progress, or wait until
+    The calibration is done.
+
+Raises:
+    errors.BluetoothServiceNotFound: When the magnetometer service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the magnetometer service is active but there was no way
+        to activate or monitor the magnetometer calibration (normally does not occur)
+"""
+Calibreer de magnetometer. Deze methode start het calibratieproces op de micro:bit, waarbij je de micro:bit
+moet kantelen om het LED scherm te vullen. Door het kantelen wordt de magnetometer gecalibreerd
+Indien er al een calibratie bezig is wordt geen nieuwe calibratie gestart
+
+Warning:
+    De micro:bit geeft geen metingen indien er geen calibratie is geweest
+
+Zie ook: https://support.microbit.org/support/solutions/articles/19000008874-calibrating-the-micro-bit-compass
+
+Returns:
+    Het de calibratie die bezig is. Je kan hiermee nakijken of het calibreren nog bezig is, of wachten tot
+    De calibratie gedaan is.
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de magnetometer service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de magnetometer service actief is, maar er geen manier was
+        om de magnetometer calibratie te activeren of op te volgen (komt normaal gezien niet voor)
+"""
+
+CLASS kaspersmicrobit.services.temperature.TemperatureService
+"""
+This class contains the functions that you can use in connection with the temperature sensor of the micro:bit
+This sensor measures the temperature of the micro:bit in degrees Celsius.
+
+These are all options offered by the Bluetooth temperature service
+
+See Also: https://lancaster-university.github.io/microbit-docs/ble/temperature-service/
+"""
+Deze klasse bevat de functies die je kan aanspreken in verband met de temperatuur sensor van de micro:bit
+Deze sensor meet de temperatuur van de micro:bit in graden Celcius.
+
+Dit zijn alle mogelijkheden aangeboden door de bluetooth temperature service
+
+Zie ook: https://lancaster-university.github.io/microbit-docs/ble/temperature-service/
+"""
+
+FUNCTION kaspersmicrobit.services.temperature.TemperatureService.is_available
+"""
+Checks whether the temperature Bluetooth service is found on the connected micro:bit.
+
+Returns:
+    true if the temperature service was found, false if not.
+"""
+Kijkt na of de temperatuur bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+Returns:
+    true als de temperatuur service gevonden werd, false indien niet.
+"""
+
+FUNCTION kaspersmicrobit.services.temperature.TemperatureService.notify
+"""
+You can call this method whenever you want to be notified of the temperature. How often you receive data
+depends on the period. By default the period is 1 second.
+
+Args:
+    callback: a function that is called periodically with the temperature as an argument
+
+Raises:
+    errors.BluetoothServiceNotFound: When the temperature service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the temperature service is active but there was no way
+        to activate temperature data notifications (normally does not occur)
+"""
+Deze methode kan je oproepen wanneer je verwittigd wil worden van de temperatuur. Hoe vaak je gegevens ontvangt
+hangt af van de periode. Standaard is de periode 1 seconde.
+
+Args:
+    callback: een functie die periodiek wordt opgeroepen met de temperatuur als argument
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de temperatuur service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de temperatuur service actief is, maar er geen manier was
+        om de notificaties van temperatuur data te activeren (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.temperature.TemperatureService.read
+"""
+Reads the temperature of the micro:bit.
+
+Returns:
+    the temperature in degrees Celsius
+
+Raises:
+    errors.BluetoothServiceNotFound: When the temperature service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the temperature service is active but there was no way
+        to read the temperature (normally does not occur)
+"""
+Leest de teperatuur van de micro:bit.
+
+Returns:
+    de temperatuur in graden Celcius
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de temperatuur service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de temperatuur service actief is, maar er geen manier was
+        om de temperatuur te lezen (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.temperature.TemperatureService.set_period
+"""
+Sets the interval at which you receive the temperature if you requested it via the notify method
+By default the period is 1 second.
+
+Args:
+    period (int): the interval at which you receive temperature data in milliseconds
+
+Raises:
+    errors.BluetoothServiceNotFound: When the temperature service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the temperature service is active but there was no way
+        to write the temperature period (normally does not occur)
+"""
+Stelt het interval in waarmee je de temperatuur ontvangt indien je dat gevraagd hebt via de notify methode
+Standaard is de periode 1 seconde.
+
+Args:
+    period (int): het interval waarmee je temperatuurgegevens ontvangt in milliseconden
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de temperatuur service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de temperatuur service actief is, maar er geen manier was
+        om de temperatuur periode te schrijven (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.temperature.TemperatureService.read_period
+"""
+Returns the interval at which you receive the temperature via notify
+
+Returns:
+    The interval in milliseconds
+
+Raises:
+    errors.BluetoothServiceNotFound: When the temperature service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the temperature service is active but there was no way
+        to read the temperature period (normally does not occur)
+"""
+Geeft het interval terug waarmee je via notify de temperatuur ontvangt
+
+Returns:
+    Het interval in milliseconden
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de temperatuur service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de temperatuur service actief is, maar er geen manier was
+        om de temperatuur periode te lezen (komt normaal gezien niet voor)
+"""
+
+CLASS kaspersmicrobit.services.uart.UartService
+"""
+This class contains methods to send or receive bytes or strings to the micro:bit
+
+See Also: https://lancaster-university.github.io/microbit-docs/ble/uart-service/
+"""
+Deze klasse bevat methodes om bytes of strings naar de micro:bit te verzenden of te ontvangen
+
+Zie ook: https://lancaster-university.github.io/microbit-docs/ble/uart-service/
+"""
+
+FUNCTION kaspersmicrobit.services.uart.UartService.is_available
+"""
+Checks whether the UART Bluetooth service is found on the connected micro:bit.
+
+Returns:
+    true if the uart service was found, false if not.
+"""
+Kijkt na of de uart bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+
+Returns:
+    true als de uart service gevonden werd, false indien niet.
+"""
+
+FUNCTION kaspersmicrobit.services.uart.UartService.receive
+"""
+You can call this method if you want to be notified when bytes are sent from the micro:bit
+via the uart service
+
+Args:
+    callback (Callable[[ByteData], None]): a function that will be called with the received bytes
+
+Raises:
+    errors.BluetoothServiceNotFound: When the uart service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the uart service is running but there was no way
+        to activate the notifications of uart data (normally does not occur)
+"""
+Deze methode kan je oproepen wanneer je verwittigd wil wanneer er bytes worden verstuurd vanuit de micro:bit
+via de uart service
+
+Args:
+    callback (Callable[[ByteData], None]): een functie wordt opgeroepen met de ontvangen bytes
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de uart service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de uart service actief is, maar er geen manier was
+        om de notificaties van uart data te activeren (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.uart.UartService.receive_string
+"""
+You can call this method if you want to be notified when a string is sent from the micro:bit
+via the uart service
+
+Args:
+    callback (Callable[[str], None]): a function that will be called with the received string
+
+Raises:
+    errors.BluetoothServiceNotFound: When the uart service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the uart service is running but there was no way
+        to activate the notifications of uart data (normally does not occur)
+"""
+Deze methode kan je oproepen wanneer je verwittigd wil wanneer er een string wordt verstuurd vanuit de micro:bit
+via de uart service
+
+Args:
+    callback (Callable[[str], None]): een functie wordt opgeroepen met de ontvangen string
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de uart service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de uart service actief is, maar er geen manier was
+        om de notificaties van uart data te activeren (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.uart.UartService.send
+"""
+Send bytes via the uart service to the micro:bit
+
+Args:
+    data (ByteData): the bytes that are sent
+
+Raises:
+    errors.BluetoothServiceNotFound: When the uart service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the uart service is running but there was no way
+        to send data via the UART service (normally does not occur)
+"""
+Verzend bytes via de uart service naar de micro:bit
+
+Args:
+    data (ByteData): de bytes die verzonden worden
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de uart service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de uart service actief is, maar er geen manier was
+        om data via de uart service te verzenden (komt normaal gezien niet voor)
+"""
+
+FUNCTION kaspersmicrobit.services.uart.UartService.send_string
+"""
+Send a string via the uart service to the micro:bit
+
+Args:
+    string (str): the string to be sent
+
+Raises:
+    errors.BluetoothServiceNotFound: When the uart service is not active on the micro:bit
+    errors.BluetoothCharacteristicNotFound: When the uart service is running but there was no way
+        to send data via the UART service (normally does not occur)
+"""
+Verzend een string via de uart service naar de micro:bit
+
+Args:
+    string (str): de string die verzonden wordt
+
+Raises:
+    errors.BluetoothServiceNotFound: Wanneer de uart service niet actief is op de micro:bit
+    errors.BluetoothCharacteristicNotFound: Wanneer de uart service actief is, maar er geen manier was
+        om data via de uart service te verzenden (komt normaal gezien niet voor)
+"""
+
+MODULE kaspersmicrobit.services.v1_events
+"""
+Device IDs and events ids for firmware version 0249 (micro:bit v1.x)
+"""
+Device IDs en event ids voor firmware versie 0249 (micro:bit v1.x)
+"""
+
+MODULE kaspersmicrobit.services.v1_legacy_events
+"""
+Device IDs and events ids for outdated firmware versions (micro:bit v1)
+"""
+Device IDs en event ids voor verouderde firmware versies (micro:bit v1)
+"""
+
+MODULE kaspersmicrobit.services.v2_events
+"""
+Device IDs and events ids for micro:bit v2.x
+"""
+Device IDs en event ids voor de micro:bit v2.x
+"""

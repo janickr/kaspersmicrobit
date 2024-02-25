@@ -1,0 +1,138 @@
+site_name: Kasper's microbit
+site_url: "https://kaspersmicrobit.readthedocs.io/en/stable"
+repo_url: "https://github.com/janickr/kaspersmicrobit"
+repo_name: "kaspersmicrobit on github"
+docs_dir: '../../pages/en'
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.emoji
+  - pymdownx.magiclink
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist
+  - toc:
+      permalink: "#"
+  - meta
+
+theme:
+  language: en
+  name: material
+  custom_dir: ../../overrides
+  icon:
+    logo: material/memory
+  features:
+  - navigation.tabs
+  - navigation.top
+  - navigation.tabs.sticky
+  palette:
+  - media: "(prefers-color-scheme: light)"
+    scheme: default
+    primary: blue grey
+    accent: orange
+    toggle:
+      icon: material/toggle-switch-off-outline
+      name: Switch to dark mode
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    primary: grey
+    accent: indigo
+    toggle:
+      icon: material/toggle-switch
+      name: Switch to light mode
+
+nav:
+    - Home:
+      - Overview: index.md
+      - Enable Bluetooth on your micro:bit:
+          - Bluetooth: makecode-bluetooth/enable-bluetooth.md
+          - Without pairing:
+              - Download a hex file: makecode-bluetooth/download-a-hex-file-without-pairing.md
+              - Your own MakeCode project: makecode-bluetooth/create-a-makecode-project-without-pairing.md
+          - With pairing:
+              - Download a hex file: makecode-bluetooth/download-a-hex-file-with-pairing.md
+              - Your own MakeCode project: makecode-bluetooth/create-a-makecode-project-with-pairing.md
+              - Pair your micro:bit:
+                - Pairing in windows: bluetooth-pairing/windows/pairing-microbit-windows.md
+                - Pairing in linux (gnome): bluetooth-pairing/linux/pairing-microbit-linux-gnome.md
+      - Examples:
+          - How to connect: how-to-connect.md
+          - Test available services: test-all-services.md
+          - Buttons: buttons.md
+          - Accelerometer: accelerometer.md
+          - Led display: led.md
+          - Temperature: temperature.md
+          - Magnetometer: magnetometer.md
+          - Uart: uart.md
+          - I/O Pin: io_pin.md
+          - Events:
+              - The micro:bit v1: events_v1.md
+              - The micro:bit v2: events_v2.md
+      - Tkinter examples:
+          - Buttons move a rectangle: tkinter/use_buttons_to_move_rectangle.md
+          - Accelerometer moves a ball: tkinter/use_accelerometer_to_move_ball.md
+      - PyGame example:
+          - Buttons move a rectangle: pygame/use_buttons_to_move_rectangle.md
+          - Accelerometer moves a ball: pygame/use_accelerometer_to_move_ball.md
+    - Api Reference: reference/
+    - License: license.md
+
+
+plugins:
+  - search
+  - gen-files:
+      scripts:
+        - ../../scripts/generate_apiref_nav.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - autorefs
+  - section-index
+  - codeinclude
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+          python:
+              paths: [../../../src]
+              setup_commands:
+                - import sys
+                - sys.path.append("src")
+                - from unittest.mock import MagicMock as mock
+                - sys.modules["bleak"] = mock()
+              options:
+                  docstring_style: "google"
+                  members_order: "source"
+                  show_symbol_type_toc: true
+                  docstring_section_style: list
+                  separate_signature: true
+                  line_length: 60
+                  show_signature_annotations: True
+
+watch:
+  - ../../../src/kaspersmicrobit
+
+copyright: >
+  Copyright &copy; 2022 - 2024 Janick Reynders –
+  <a href="#__consent">Change cookie settings</a>
+
+extra:
+  analytics:
+    provider: google
+    property: G-RY9J7H8VBN
+  consent:
+    title: Cookie consent
+    description: >-
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
+  alternate:
+    - name: English
+      link: /en/
+      lang: en
+    - name: Nederlands
+      link: /nl/
+      lang: nl

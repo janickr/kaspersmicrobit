@@ -21,12 +21,12 @@ from .services.led import LedService
 
 class KaspersMicrobit:
     """
-    Dit is de klasse die je kan gebruiken om met een micro:bit te verbinden.
-    Je kan hiermee:
+    This is the class you can use to connect to a micro:bit.
+    You can do this:
 
-    - gegevens over de micro:bit uitlezen
-    - gegevens van de sensoren van de micro:bit uitlezen of je laten verwittigen van gegevens van sensoren
-    - componenten op de micro:bit aansturen, bvb de LEDs
+    - read data about the micro:bit
+    - read data from the sensors of the micro:bit or be notified of data from sensors
+    - control components on the micro:bit, for example the LEDs
 
     Example:
     ```python
@@ -49,26 +49,26 @@ class KaspersMicrobit:
 
     Attributes:
         device_information (DeviceInformationService):
-            Om informatie te vragen over de maker van je micro:bit
+            To request information about the maker of your micro:bit
         generic_access (GenericAccessService):
-            Om informatie te vragen over je micro:bit
+            To request information about your micro:bit
         buttons (ButtonService):
-            Om je te laten verwittigen wanneer een van de twee knoppen van de micro:bit worden ingedrukt (of losgelaten)
+            To notify you when one of the two buttons on the micro:bit is pressed (or released)
         temperature (TemperatureService):
-            Om de temperatuur van de omgeving van de micro:bit op te vragen (of je te laten verwittigen)
+            To request the temperature of the environment of the micro:bit (or to be notified)
         accelerometer (AccelerometerService):
-            Om je te laten verwittigen van versnelling (beweging, botsing,...) van de micro:bit
+            To notify you of acceleration (movement, collision,...) of the micro:bit
         events (EventService):
-            Om je in te schrijven op het ontvangen van gebeurtenissen van verschillende componenten van de micro:bit
+            To subscribe to receive events from various components of the micro:bit
         uart (UartService):
-            Om tekst te sturen naar of te ontvangen van de micro:bit
+            To send or receive text to the micro:bit
         io_pin (IOPinService):
-            Bestuur, lees, configureer de I/O contacten (pins) op de micro:bit
+            Control, read, configure the I/O contacts (pins) on the micro:bit
         led (LedService):
-            Bestuur de LEDs van de micro:bit
+            Control the LEDs of the micro:bit
         magnetometer (MagnetometerService):
-            Om de gegevens van de magnetometer uit te lezen, of je ervan te laten verwittigen. De magnetometer meet
-            het magnetisch veld in de omgeving van de micro:bit (bvb het magnetisch veld van de aarde)
+            To read the data from the magnetometer, or to be notified. The magnetometer measures
+            the magnetic field in the vicinity of the micro:bit (e.g. the magnetic field of the earth)
 
 
     See Also: https://makecode.microbit.org/reference/bluetooth
@@ -78,10 +78,10 @@ class KaspersMicrobit:
 
     def __init__(self, address_or_bluetoothdevice: Union[str, BluetoothDevice]):
         """
-        Maak een KaspersMicrobit object met een gegeven bluetooth address.
+        Create a KaspersMicrobit object with a given Bluetooth address.
 
         Args:
-            address_or_bluetoothdevice: het bluetooth adres van de micro:bit
+            address_or_bluetoothdevice: the bluetooth address of the micro:bit
         """
         if isinstance(address_or_bluetoothdevice, BluetoothDevice):
             self._device = address_or_bluetoothdevice
@@ -108,8 +108,8 @@ class KaspersMicrobit:
 
     def connect(self) -> None:
         """
-        Connecteer met de micro:bit. Dit brengt een verbinding tot stand. Je micro:bit mag nog geen (andere)
-        verbinding hebben.
+        Connect to the micro:bit. This establishes a connection. Your micro:bit may not already have (another)
+        connection.
 
         Troubleshooting:
             First try turning the micro:bit off and on again.
@@ -130,32 +130,32 @@ class KaspersMicrobit:
 
     def disconnect(self) -> None:
         """
-        Verbreek de verbinding met de micro:bit.
-        Je moet verbonden zijn met deze micro:bit om deze methode succesvol te kunnen oproepen.
+        Disconnect the micro:bit.
+        You must be connected to this micro:bit to successfully invoke this method.
         """
         self._device.disconnect()
 
     def address(self) -> str:
         """
-        Geeft het Bluetooth adres van deze micro:bit
+        Returns the Bluetooth address of this micro:bit
 
         Returns:
-            Het adres van de micro:bit
+            The address of the micro:bit
         """
         return self._device.address()
 
     @staticmethod
     def find_microbits(timeout: int = 3, loop: BluetoothEventLoop = None) -> List['KaspersMicrobit']:
         """
-        Scant naar bluetooth toestellen. Geeft een lijst van micro:bits die gevonden werd binnen de timeout
+        Scans for Bluetooth devices. Returns a list of micro:bits found within the timeout
 
         Args:
-             timeout: hoe lang er maximaal gescand wordt (in seconden)
-             loop (BluetoothEventLoop): dit mag je leeg laten, dit bepaalt welke thread de communicatie met de micro:bit
-                  uitvoert.
+             timeout: maximum scanning time (in seconds)
+             loop (BluetoothEventLoop): you can leave this empty, this determines which thread communicates with the micro:bit
+                  performs.
 
         Returns:
-            Een lijst van gevonden micro:bits, deze kan ook leeg zijn, als er geen micro:bits gevonden werden
+            A list of micro:bits found, this can also be empty if no micro:bits were found
 
         """
 
@@ -171,28 +171,27 @@ class KaspersMicrobit:
     @staticmethod
     def find_one_microbit(microbit_name: str = None, timeout: int = 3, loop: BluetoothEventLoop = None) -> 'KaspersMicrobit':
         """
-        Scant naar bluetooth toestellen. Geeft exact 1 micro:bit terug als er een gevonden wordt. Je kan optioneel
-        een naam opgeven waarop er moet gezocht worden. Als er geen naam gegeven wordt, en er zijn meerdere micro:bits
-        actief dan wordt er willekeurig een micro:bit gevonden.
+        Scans for Bluetooth devices. Returns exactly 1 micro:bit if one is found. You can optionally
+        Specify a name to search for. If no name is given, and there are multiple micro:bits
+        active then a found micro:bit will be chosen at random and returned.
 
         Warning:
-            Enkel wanneer de micro:bit werkt met "No pairing required" adverteert de micro:bit een naam. Dus enkel in
-            het geval je hex bestanden gebruikt met "No pairing required" is het nuttig om de 'microbit_name' parameter
-            te gebruiken.
-            Bij een micro:bit die gepaird is werkt dit niet.
+            Only when the micro:bit works with "No pairing required" will the micro:bit advertise a name. So only in
+            in case you use hex files with "No pairing required" it is useful to set the 'microbit_name' parameter.
+            This does not work with a micro:bit that is paired.
 
         Args:
-             microbit_name: de naam van de micro:bit. Dit is een naam van 5 letters zoals bvb 'tupaz' of 'gatug' ofzo
-                  Dit is optioneel.
-             timeout: hoe lang er maximaal gescand wordt (in seconden)
-             loop (BluetoothEventLoop): dit mag je leeg laten, dit bepaalt welke thread de communicatie met de micro:bit
-                  uitvoert.
+             microbit_name: the name of the micro:bit. This is a name of 5 letters such as 'tupaz' or 'gatug' or something like that
+                  This is optional.
+             timeout: maximum scanning time (in seconds)
+             loop (BluetoothEventLoop): you can leave this empty, this determines which thread communicates with the micro:bit
+                  performs.
 
         Returns:
-            KaspersMicrobit: De gevonden micro:bit
+            KaspersMicrobit: The micro:bit found
 
         Raises:
-            KaspersMicrobitNotFound: indien er geen micro:bit werd
+            KaspersMicrobitNotFound: if no micro:bit was found
         """
         loop = loop if loop else ThreadEventLoop.single_thread()
 

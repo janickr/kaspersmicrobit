@@ -13,87 +13,87 @@ class DeviceInformationService:
 
     def is_available(self) -> bool:
         """
-        Kijkt na of de device information bluetooth service gevonden wordt op de geconnecteerde micro:bit.
+        Checks whether the device information Bluetooth service is found on the connected micro:bit.
 
         Returns:
-            true als de device information service gevonden werd, false indien niet.
+            true if the device information service was found, false if not.
         """
         return self._device.is_service_available(Service.DEVICE_INFORMATION)
 
     def read_model_number(self) -> str:
         """
-        Leest het modelnummer van de micro:bit.
+        Reads the model number of the micro:bit.
 
         Returns:
-            het modelnummer van de micro:bit
+            the model number of the micro:bit
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de device information service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de button device information actief is, maar er geen manier was
-                om het modelnummer te lezen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the device information service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the device information button is active, but there was no way
+                to read the model number (normally not present)
         """
         return str(self._device.read(Service.DEVICE_INFORMATION, Characteristic.MODEL_NUMBER_STRING), "utf-8")
 
     def read_serial_number(self) -> str:
         """
-        Leest het serienummer van de micro:bit.
+        Reads the serial number of the micro:bit.
 
         Returns:
-            het serienummer van de micro:bit
+            the serial number of the micro:bit
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de device information service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de button device information actief is, maar er geen manier was
-                om het serienummer te lezen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the device information service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the device information button is active, but there was no way
+                to read the serial number (normally does not occur)
         """
         return str(self._device.read(Service.DEVICE_INFORMATION, Characteristic.SERIAL_NUMBER_STRING), "utf-8")
 
     def read_firmware_revision(self) -> str:
         """
-        Leest de firmware versie string van de micro:bit.
+        Reads the firmware version string from the micro:bit.
 
         Returns:
-            de firmware versie string van de micro:bit
+            the firmware version string of the micro:bit
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de device information service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de button device information actief is, maar er geen manier was
-                om de firmware versie te lezen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the device information service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the device information button is active, but there was no way
+                to read the firmware version (normally not present)
         """
         return str(self._device.read(Service.DEVICE_INFORMATION, Characteristic.FIRMWARE_REVISION_STRING), "utf-8")
 
     def read_hardware_revision(self) -> str:
         """
-        Leest de hardware versie string van de micro:bit.
+        Reads the hardware version string from the micro:bit.
 
-        Opgelet:
-            Hoewel het lezen van de harware revisie vermeld wordt in het bluetooth profiel van de micro:bit, kon ik deze
-            niet opvragen op de microbits die ik heb kunnen testen.
+        Attention:
+            Although reading the hardware revision is mentioned in the bluetooth profile of the micro:bit, I was not
+            successful in doing this on the micro:bits I had available for testing
 
         Returns:
-            de hardware versie string van de micro:bit
+            the hardware version string of the micro:bit
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de device information service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de button device information actief is, maar er geen manier was
-                om de hardware versie te lezen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the device information service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the device information button is active, but there was no way
+                to read the hardware version (normally not present)
         """
         return str(self._device.read(Service.DEVICE_INFORMATION, Characteristic.HARDWARE_REVISION_STRING), "utf-8")
 
     def read_manufacturer_name(self) -> str:
         """
-        Leest de naam van de fabrikant van de micro:bit.
+        Reads the name of the manufacturer of the micro:bit.
 
-        Opgelet:
-            Hoewel het lezen van de naam van de fabrikant vermeld wordt in het bluetooth profiel van de micro:bit, kon
-            ik deze niet opvragen op de microbits die ik heb kunnen testen.
+        Attention:
+            Although reading the manufacturer's name is listed in the micro:bit's Bluetooth profile,I was not
+            successful in doing this on the micro:bits I had available for testing
 
         Returns:
-            de naam van de fabrikant van de micro:bit
+            the name of the manufacturer of the micro:bit
 
         Raises:
-            errors.BluetoothServiceNotFound: Wanneer de device information service niet actief is op de micro:bit
-            errors.BluetoothCharacteristicNotFound: Wanneer de button device information actief is, maar er geen manier was
-                om de naam van de fabrikant te lezen (komt normaal gezien niet voor)
+            errors.BluetoothServiceNotFound: When the device information service is not active on the micro:bit
+            errors.BluetoothCharacteristicNotFound: When the device information button is active, but there was no way
+                to read the manufacturer's name (normally not found)
         """
         return str(self._device.read(Service.DEVICE_INFORMATION, Characteristic.MANUFACTURER_NAME_STRING), "utf-8")
