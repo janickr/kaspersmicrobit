@@ -27,7 +27,7 @@ class TranslateDocstrings(Extension):
 
 
 def add_members(m: Object, all_members: List):
-    if not m.is_alias and not m.is_attribute:
+    if not m.is_alias:
         all_members.append(m)
         for c in m.members.values():
             add_members(c, all_members)

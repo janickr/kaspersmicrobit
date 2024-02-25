@@ -9,7 +9,7 @@ from ..bluetoothdevice import BluetoothDevice
 
 ButtonCallback = Callable[[str], None]
 """
-Een functie met 1 argument (de knop "A" of "B")
+A function with 1 argument (te button "A" or "B")
 """
 
 
