@@ -12,7 +12,7 @@ Dat kan je doen met dit python package! Pair je [micro:bit](https://microbit.org
 Kasper's microbit is een python package om een verbinding te kunnen maken met een BBC micro:bit met behulp van de Bluetooth LE GATT services 
 die de micro:bit aanbiedt.
 
-[![Video of games created with kaspersmicrobit](https://kaspersmicrobit.readthedocs.io/en/latest/kaspersmicrobit-youtube.gif)](https://www.youtube.com/watch?v=t3JARVPQE9Q)
+[![Video of games created with kaspersmicrobit](https://kaspersmicrobit.readthedocs.io/en/latest/assets/images/kaspersmicrobit-youtube.gif)](https://www.youtube.com/watch?v=t3JARVPQE9Q)
   
 Bekijk de volledige video [op youtube](https://www.youtube.com/watch?v=t3JARVPQE9Q)
 
