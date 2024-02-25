@@ -38,7 +38,7 @@ with KaspersMicrobit.find_one_microbit() as microbit:
 ```
 
 ## Leer meer
-Bezoek https://kaspersmicrobit.readthedocs.io:
+Bezoek https://kaspersmicrobit.readthedocs.io/nl/:
 
  - Probeer de [accelerometer](https://kaspersmicrobit.readthedocs.io/nl/stable/accelerometer/), of de [led display](https://kaspersmicrobit.readthedocs.io/nl/stable/led/)
  - [Leer](https://kaspersmicrobit.readthedocs.io/nl/stable/makecode-bluetooth/create-a-makecode-project-without-pairing/) je eigen .hex bestanden te maken
