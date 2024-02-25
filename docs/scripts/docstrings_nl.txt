@@ -1175,9 +1175,9 @@ Warning:
 Het interval waarmee de accelerometer wordt uitgelezen is een geheel getal en drukt het aantal milliseconden uit.
 Er is een beperkt aantal geldige periodes: 1, 2, 5, 10, 20, 80, 160, 640
 
-Waarschuwing:
-    Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet werkt zoals ik verwacht
-    TODO om te onderzoeken
+Warning:
+    Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet klopt/werkt zoals ik verwacht
+    TODO te onderzoeken
 """
 
 CLASS kaspersmicrobit.services.accelerometer.AccelerometerData
@@ -1398,7 +1398,7 @@ Raises:
         accelerometer periode te wijzigen (komt normaal gezien niet voor)
 
 Warning:
-    Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet werkt/klopt zoals ik verwacht
+    Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet klopt/werkt zoals ik verwacht
     TODO te onderzoeken
 """
 
@@ -2636,9 +2636,9 @@ Warning:
 Het interval waarmee de magnetometer wordt uitgelezen, dit is een geheel getal en drukt het aantal milliseconden uit.
 Er is een beperkt aantal geldige periodes: 1, 2, 5, 10, 20, 80, 160, 640
 
-Waarschuwing:
-    Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet werkt zoals ik verwacht
-    TODO om te onderzoeken
+Warning:
+    Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet klopt/werkt zoals ik verwacht
+    TODO te onderzoeken
 """
 
 CLASS kaspersmicrobit.services.magnetometer.Calibration
@@ -2827,7 +2827,7 @@ Args:
         geldige waarden zijn: 1, 2, 5, 10, 20, 80, 160, 640
 
 Warning:
-    Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet werkt/klopt zoals ik verwacht
+    Dit zijn de geldige waarden volgens de specificatie, maar het lijkt erop dat dit niet klopt/werkt zoals ik verwacht
     TODO te onderzoeken
 
 Raises:
