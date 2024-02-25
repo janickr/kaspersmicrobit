@@ -106,9 +106,6 @@ plugins:
                   separate_signature: true
                   line_length: 60
                   show_signature_annotations: True
-                  extensions:
-                    - ../../scripts/docstring_translation_plugin.py:TranslateDocstrings:
-                        path: "docs/scripts/docstrings_nl.txt"
 
 watch:
   - ../../../src/kaspersmicrobit
