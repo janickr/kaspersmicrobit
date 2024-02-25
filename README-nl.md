@@ -5,7 +5,7 @@ Dat kan je doen met dit python package! Pair je [micro:bit](https://microbit.org
 **gebruik de A en B knoppen of de accelerometer om je spel te besturen**. Like it? Geef ons een ster op github
 
 [![Lint and Test](https://github.com/janickr/kaspersmicrobit/actions/workflows/lint_and_test.yml/badge.svg)](https://github.com/janickr/kaspersmicrobit/actions/workflows/lint_and_test.yml)
-[![Documentation Status](https://readthedocs.org/projects/kaspersmicrobit/badge/?version=stable)](https://kaspersmicrobit.readthedocs.io/en/stable/?badge=stable) 
+[![Documentation Status](https://readthedocs.org/projects/kaspersmicrobit/badge/?version=stable)](https://kaspersmicrobit.readthedocs.io/nl/stable/?badge=stable) 
 [![PyPi](https://img.shields.io/pypi/v/kaspersmicrobit)](https://pypi.org/project/kaspersmicrobit/) 
 [![Nederlands](https://img.shields.io/badge/translation-English-blue)](https://github.com/janickr/kaspersmicrobit/blob/main/README.md)
 
@@ -21,7 +21,7 @@ Installeer kaspersmicrobit:
 ```bash
 $ pip install kaspersmicrobit
 ```
-Kopieer [dit hex bestand](https://kaspersmicrobit.readthedocs.io/en/latest/hex/microbit-bluetooth-accel-buttons-led-temp-no-pairing.hex)
+Kopieer [dit hex bestand](https://kaspersmicrobit.readthedocs.io/nl/latest/hex/microbit-bluetooth-accel-buttons-led-temp-no-pairing.hex)
 naar de micro:bit en start je eerste programma:
 ```python
 import time
@@ -40,12 +40,12 @@ with KaspersMicrobit.find_one_microbit() as microbit:
 ## Leer meer
 Bezoek https://kaspersmicrobit.readthedocs.io:
 
- - Probeer de [accelerometer](https://kaspersmicrobit.readthedocs.io/en/stable/accelerometer/), of de [led display](https://kaspersmicrobit.readthedocs.io/en/stable/led/)
- - [Leer](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/create-a-makecode-project-without-pairing/) je eigen .hex bestanden te maken
- - [Eenvoudige voorbeelden](https://kaspersmicrobit.readthedocs.io/en/stable/buttons/), leer hoe je iedere Bluetooth service van de micro:bit kan gebruiken 
- - [Volledige Api documentatie](https://kaspersmicrobit.readthedocs.io/en/stable/reference/kaspersmicrobit/)
- - Combineer KaspersMicrobit [met tkinter](https://kaspersmicrobit.readthedocs.io/en/stable/tkinter/use_buttons_to_move_rectangle/)
-   of [met pygame](https://kaspersmicrobit.readthedocs.io/en/stable/pygame/use_buttons_to_move_rectangle/)
+ - Probeer de [accelerometer](https://kaspersmicrobit.readthedocs.io/nl/stable/accelerometer/), of de [led display](https://kaspersmicrobit.readthedocs.io/nl/stable/led/)
+ - [Leer](https://kaspersmicrobit.readthedocs.io/nl/stable/makecode-bluetooth/create-a-makecode-project-without-pairing/) je eigen .hex bestanden te maken
+ - [Eenvoudige voorbeelden](https://kaspersmicrobit.readthedocs.io/nl/stable/buttons/), leer hoe je iedere Bluetooth service van de micro:bit kan gebruiken 
+ - [Volledige Api documentatie](https://kaspersmicrobit.readthedocs.io/nl/stable/reference/kaspersmicrobit/)
+ - Combineer KaspersMicrobit [met tkinter](https://kaspersmicrobit.readthedocs.io/nl/stable/tkinter/use_buttons_to_move_rectangle/)
+   of [met pygame](https://kaspersmicrobit.readthedocs.io/nl/stable/pygame/use_buttons_to_move_rectangle/)
 
 
 Of neem een kijkje in de [voorbeelden](https://github.com/janickr/kaspersmicrobit/tree/main/examples).
@@ -86,11 +86,11 @@ dat je in elk geval ook .disconnect() oproept wanneer je de connectie niet meer 
 programma eindigt)
 
 #### No pairing required
-Als het .hex bestand gemaakt werd met de instelling ["No pairing required"](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/create-a-makecode-project-without-pairing/#disable-pairing)
+Als het .hex bestand gemaakt werd met de instelling ["No pairing required"](https://kaspersmicrobit.readthedocs.io/nl/stable/makecode-bluetooth/create-a-makecode-project-without-pairing/#disable-pairing)
 dan mag de micro:bit niet gepaired zijn met je besturingssysteem
 
 #### Just works pairing 
-Gebruik geen pairing bij een micro:bit v1 en windows, gebruik  ["No pairing required"](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/create-a-makecode-project-without-pairing/#disable-pairing)
+Gebruik geen pairing bij een micro:bit v1 en windows, gebruik  ["No pairing required"](https://kaspersmicrobit.readthedocs.io/nl/stable/makecode-bluetooth/create-a-makecode-project-without-pairing/#disable-pairing)
 in de plaats.  
 
 Voor andere versies: verwijder de micro:bit van de lijst met gepairde Bluetooth toestellen en pair het opnieuw met je computer.
