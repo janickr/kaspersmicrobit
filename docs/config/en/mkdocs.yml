@@ -97,11 +97,6 @@ plugins:
       handlers:
           python:
               paths: [../../../src]
-              setup_commands:
-                - import sys
-                - sys.path.append("src")
-                - from unittest.mock import MagicMock as mock
-                - sys.modules["bleak"] = mock()
               options:
                   docstring_style: "google"
                   members_order: "source"
