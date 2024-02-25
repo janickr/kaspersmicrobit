@@ -151,8 +151,7 @@ class KaspersMicrobit:
 
         Args:
              timeout: maximum scanning time (in seconds)
-             loop (BluetoothEventLoop): you can leave this empty, this determines which thread communicates with the micro:bit
-                  performs.
+             loop (BluetoothEventLoop): you can leave this empty, this determines which thread communicates with the micro:bit.
 
         Returns:
             A list of micro:bits found, this can also be empty if no micro:bits were found
@@ -184,8 +183,7 @@ class KaspersMicrobit:
              microbit_name: the name of the micro:bit. This is a name of 5 letters such as 'tupaz' or 'gatug' or something like that
                   This is optional.
              timeout: maximum scanning time (in seconds)
-             loop (BluetoothEventLoop): you can leave this empty, this determines which thread communicates with the micro:bit
-                  performs.
+             loop (BluetoothEventLoop): you can leave this empty, this determines which thread communicates with the micro:bit.
 
         Returns:
             KaspersMicrobit: The micro:bit found
