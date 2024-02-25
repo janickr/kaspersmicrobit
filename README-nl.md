@@ -7,7 +7,7 @@ Dat kan je doen met dit python package! Pair je [micro:bit](https://microbit.org
 [![Lint and Test](https://github.com/janickr/kaspersmicrobit/actions/workflows/lint_and_test.yml/badge.svg)](https://github.com/janickr/kaspersmicrobit/actions/workflows/lint_and_test.yml)
 [![Documentation Status](https://readthedocs.org/projects/kaspersmicrobit/badge/?version=stable)](https://kaspersmicrobit.readthedocs.io/nl/stable/?badge=stable) 
 [![PyPi](https://img.shields.io/pypi/v/kaspersmicrobit)](https://pypi.org/project/kaspersmicrobit/) 
-[![Nederlands](https://img.shields.io/badge/translation-English-blue)](https://github.com/janickr/kaspersmicrobit/blob/main/README.md)
+[![English](https://img.shields.io/badge/translation-English-blue)](https://kaspersmicrobit.readthedocs.io/en/stable/)
 
 Kasper's microbit is een python package om een verbinding te kunnen maken met een BBC micro:bit met behulp van de Bluetooth LE GATT services 
 die de micro:bit aanbiedt.

@@ -7,7 +7,7 @@ and B or the accelerometer to control your game**. Like it? Give us a :star: on 
 [![Lint and Test](https://github.com/janickr/kaspersmicrobit/actions/workflows/lint_and_test.yml/badge.svg)](https://github.com/janickr/kaspersmicrobit/actions/workflows/lint_and_test.yml)
 [![Documentation Status](https://readthedocs.org/projects/kaspersmicrobit/badge/?version=stable)](https://kaspersmicrobit.readthedocs.io/en/stable/?badge=stable) 
 [![PyPi](https://img.shields.io/pypi/v/kaspersmicrobit)](https://pypi.org/project/kaspersmicrobit/)
-[![Nederlands](https://img.shields.io/badge/vertaling-Nederlands-blue)](https://github.com/janickr/kaspersmicrobit/blob/main/README-nl.md)
+[![Nederlands](https://img.shields.io/badge/vertaling-Nederlands-blue)](https://kaspersmicrobit.readthedocs.io/nl/stable/)
 
 Kasper's microbit is a python package to make a connection to a BBC micro:bit by means of the Bluetooth LE GATT services
 exposed by the micro:bit.
