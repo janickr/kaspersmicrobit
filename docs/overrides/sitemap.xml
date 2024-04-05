@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 {%- for file in pages -%}
     {% if not file.page.is_link and (file.page.canonical_url or file.page.abs_url)%}
     <url>
          <loc>{% if file.page.canonical_url %}{{ file.page.canonical_url|e }}{% else %}{{ file.page.abs_url|e }}{% endif %}</loc>
+         <xhtml:link rel="alternate" hreflang="en" href="{% if file.page.canonical_url %}{{ file.page.canonical_url|replace('/nl/', '/en/') }}{% else %}{{ file.page.abs_url|replace('/nl/', '/en/') }}{% endif %}"/>
+         <xhtml:link rel="alternate" hreflang="nl" href="{% if file.page.canonical_url %}{{ file.page.canonical_url|replace('/en/', '/nl/') }}{% else %}{{ file.page.abs_url|replace('/en/', '/nl/') }}{% endif %}"/>
          {% if file.page.update_date %}<lastmod>{{file.page.update_date}}</lastmod>{% endif %}
          <changefreq>daily</changefreq>
     </url>

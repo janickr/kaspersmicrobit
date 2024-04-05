@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block extrahead %}
+{% block site_meta %}
   {{ super() }}
   <link rel="alternate" href="{{ page.canonical_url|replace('/nl/', '/en/') }}" hreflang="en" />
   <link rel="alternate" href="{{ page.canonical_url|replace('/en/', '/nl/') }}" hreflang="nl" />
