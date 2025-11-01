@@ -116,8 +116,8 @@ class EventService:
 
     def write_client_requirements(self, *events: Event):
         """
-        Using this method you indicate which micro:bit events you are interested in. Then, you'll be able to receive these events
-        with `notify_microbit_event` or read out with `read_microbit_event` when they occur.
+        Using this method you indicate which micro:bit events you are interested in. Then, you'll be able to receive
+        these events with `notify_microbit_event` or read out with `read_microbit_event` when they occur.
 
         When you write an event with an event_value of 0, this means that you want to be informed of each
         event of the given device_id

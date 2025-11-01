@@ -180,8 +180,8 @@ class KaspersMicrobit:
             This does not work with a micro:bit that is paired.
 
         Args:
-             microbit_name: the name of the micro:bit. This is a name of 5 letters such as 'tupaz' or 'gatug' or something like that
-                  This is optional.
+             microbit_name: the name of the micro:bit. This is a name of 5 letters such as 'tupaz' or 'gatug' or
+                  something like that. This is optional.
              timeout: maximum scanning time (in seconds)
              loop (BluetoothEventLoop): you can leave this empty, this determines which thread communicates with the micro:bit.
 

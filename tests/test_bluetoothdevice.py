@@ -20,65 +20,6 @@ from kaspersmicrobit.bluetoothprofile.services import Service
 from bleak import BleakGATTCharacteristic, BleakGATTServiceCollection
 
 
-class StubBleakGATTService(BleakGATTService):
-    def __init__(self, handle: int, service: Service):
-        super().__init__(service)
-        self._handle = handle
-        self._uuid = service.value
-        self._characteristics = []
-
-    @property
-    def handle(self) -> int:
-        return self._handle
-
-    @property
-    def uuid(self) -> str:
-        return self._uuid
-
-    @property
-    def characteristics(self) -> List[BleakGATTCharacteristic]:
-        return self._characteristics
-
-    def add_characteristic(self, characteristic: BleakGATTCharacteristic):
-        self._characteristics.append(characteristic)
-
-
-class StubBleakGATTCharacteristic(BleakGATTCharacteristic):
-    def __init__(self, characteristic: Characteristic):
-        super().__init__(characteristic, 0)
-        self._uuid = characteristic.value
-
-    @property
-    def uuid(self) -> str:
-        return self._uuid
-
-    @property
-    def service_uuid(self) -> str:
-        pass
-
-    @property
-    def service_handle(self) -> int:
-        pass
-
-    @property
-    def handle(self) -> int:
-        pass
-
-    @property
-    def properties(self) -> List[str]:
-        pass
-
-    @property
-    def descriptors(self) -> List[BleakGATTDescriptor]:
-        pass
-
-    def get_descriptor(self, specifier: Union[int, str, UUID]) -> Union[BleakGATTDescriptor, None]:
-        pass
-
-    def add_descriptor(self, descriptor: BleakGATTDescriptor):
-        pass
-
-
 @pytest.fixture
 def client():
     with patch('bleak.BleakClient', autospec=True) as client_type:
@@ -285,8 +226,8 @@ def test_is_service_available(client):
 
 
 def setup_characteristic(client, service, characteristic):
-    gatt_characteristic = StubBleakGATTCharacteristic(characteristic)
-    gatt_service = StubBleakGATTService(1, service)
+    gatt_service = BleakGATTService(service, 1, service.value)
+    gatt_characteristic = BleakGATTCharacteristic(characteristic, 0, characteristic.value, [],  lambda: 0, gatt_service)
     gatt_service.add_characteristic(gatt_characteristic)
     collection = BleakGATTServiceCollection()
     collection.add_service(gatt_service)

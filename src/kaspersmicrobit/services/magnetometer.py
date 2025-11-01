@@ -224,8 +224,8 @@ class MagnetometerService:
         See Also: https://support.microbit.org/support/solutions/articles/19000008874-calibrating-the-micro-bit-compass
 
         Returns:
-            It is the calibration in progress. You can use this to check whether the calibration is still in progress, or wait until
-            The calibration is done.
+            It is the calibration in progress. You can use this to check whether the calibration is still in progress,
+            or wait until the calibration is done.
 
         Raises:
             errors.BluetoothServiceNotFound: When the magnetometer service is not active on the micro:bit

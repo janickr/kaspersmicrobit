@@ -24,8 +24,8 @@ class LedDisplay:
         Indicates whether an LED on the given row and column is on or off
 
         Args:
-            row int: the row of the LED (valid values are 1 to 5)
-            column int: the column of the LED (valid values are 1 to 5)
+            row (int): the row of the LED (valid values are 1 to 5)
+            column (int): the column of the LED (valid values are 1 to 5)
 
         Returns:
             True when the LED is on, False when the LED is off
@@ -37,9 +37,9 @@ class LedDisplay:
         Turn an LED on or off on the given row and column
 
         Args:
-            row int: the row of the LED (valid values are 1 to 5)
-            column int: the column of the LED (valid values are 1 to 5)
-            on bool: if True the LED is turned on, if False it is turned off
+            row (int): the row of the LED (valid values are 1 to 5)
+            column (int): the column of the LED (valid values are 1 to 5)
+            on (bool): if True the LED is turned on, if False it is turned off
         """
         if on:
             self._display[row-1] |= 1 << (5 - column)
