@@ -42,7 +42,7 @@ Click on the micro:bit device in the list, Windows will pair with the micro:bit
 
 You can click "Done" your micro:bit is paired in Windows!
 
-## Finding the Bluetooth address 
+## Finding the Bluetooth address
 If you're not using the [easier connection methods](../../how-to-connect.md), but instead you want to 
 [connect to a micro:bit by address](../../how-to-connect.md#connect-to-a-microbit-by-address), these are
 the instructions to look up the address in Windows.

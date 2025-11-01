@@ -81,8 +81,8 @@ $  pip install --upgrade kaspersmicrobit
 ### Bluetooth connectie
 Schakel je micro:bit eerst een keer uit en aan.
 
-Kijk ook na: indien je de "with"-blok niet gebruikt, maar in de plaats daarvan zelf .connect() oproept, zorg er dan voor 
-dat je in elk geval ook .disconnect() oproept wanneer je de connectie niet meer nodig hebt (bijvoorbeeld wanneer je 
+Kijk ook na: indien je de "with"-blok niet gebruikt, maar in de plaats daarvan zelf `.connect()` oproept, zorg er dan voor 
+dat je in elk geval ook `.disconnect()` oproept wanneer je de connectie niet meer nodig hebt (bijvoorbeeld wanneer je 
 programma eindigt)
 
 #### No pairing required
@@ -95,12 +95,16 @@ in de plaats.
 
 Voor andere versies: verwijder de micro:bit van de lijst met gepairde Bluetooth toestellen en pair het opnieuw met je computer.
 
-Zie ook: https://support.microbit.org/helpdesk/attachments/19075694226
+Zie ook: [The micro:bit Bluetooth troubleshooting guide](https://support.microbit.org/helpdesk/attachments/19075694226) (.docx word bestand download)
+
+### Wat is de naam van mijn micro:bit?
+Zie: [How to find the name of your micro:bit](https://support.microbit.org/support/solutions/articles/19000067679-how-to-find-the-name-of-your-micro-bit)
+
 
 ### De micro:bit toont een droevige smiley en fout 020
 Dit betekent dat de micro:bit een tekort aan geheugen heeft. Je hebt waarschijnlijk te veel Bluetooth services geactiveerd
 in MakeCode. Of misschien is je MakeCode programma te groot. Omdat de micro:bit v1 minder geheugen heeft dan de v2, is 
-de kans groter dat deze fout zich voordoet bij v1 micro:bits.
+de kans groter dat deze fout zich voordoet bij v1 micro:bits.  
 Zie ook: [the micro:bit error codes](https://makecode.microbit.org/device/error-codes)
 
 ### tkinter "main thread is not in main loop"

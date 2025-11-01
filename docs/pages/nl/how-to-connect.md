@@ -13,20 +13,28 @@ De API documentatie:
 [](../../../examples/find-microbits.py) inside_block:example-first
 <!--/codeinclude-->
 
-## Verbinden met meerdere micro:bits
-
-<!--codeinclude-->
-[](../../../examples/find-microbits.py) inside_block:example-multiple
-<!--/codeinclude-->
-
 ## Verbinden met een micro:bit via de naam
+Kijk hier als je de naam van je micro:bit niet kent:  
+
+- [How to find the name of your micro:bit](https://support.microbit.org/support/solutions/articles/19000067679-how-to-find-the-name-of-your-micro-bit)
 
 <!--codeinclude-->
 [](../../../examples/find-microbits.py) inside_block:example-name
 <!--/codeinclude-->
 
-## Verbinden met een micro:bit via het adress
+## Verbinden met een micro:bit via het adres
+Het Bluetooth adres van je micro:bit vinden:
+
+ - [In Windows](./bluetooth-pairing/windows/pairing-microbit-windows.md#finding-the-bluetooth-address)
+ - [In Linux (Gnome)](./bluetooth-pairing/linux/pairing-microbit-linux-gnome.md#finding-the-bluetooth-address)
+
 
 <!--codeinclude-->
 [](../../../examples/find-microbits.py) inside_block:example-address
+<!--/codeinclude-->
+
+## Verbinden met meerdere micro:bits
+
+<!--codeinclude-->
+[](../../../examples/find-microbits.py) inside_block:example-multiple
 <!--/codeinclude-->

@@ -80,8 +80,8 @@ $  pip install --upgrade kaspersmicrobit
 ### Bluetooth connection
 First try turning the micro:bit off and on again.
 
-If you are not using the "with"-block, but calling .connect() yourself, always make sure that in any case you 
-call .disconnect() when you don't need the connection anymore (for instance when you exit your application)
+If you are not using the "with"-block, but calling `.connect()` yourself, always make sure that in any case you 
+call `.disconnect()` when you don't need the connection anymore (for instance when you exit your application)
 
 #### No pairing required
 If the hex file was created with the setting ["No pairing required"](https://kaspersmicrobit.readthedocs.io/en/stable/makecode-bluetooth/create-a-makecode-project-without-pairing/#disable-pairing)
@@ -93,12 +93,15 @@ Don't use pairing with a micro:bit v1 on windows, use  ["No pairing required"](h
 
 For other versions: try to remove the micro:bit from the paired Bluetooth devices and pairing it your computer again.
 
-See also: https://support.microbit.org/helpdesk/attachments/19075694226
+See also: [The micro:bit Bluetooth troubleshooting guide](https://support.microbit.org/helpdesk/attachments/19075694226) (.docx word file download)
+
+### What is the name of my micro:bit?
+See: [How to find the name of your micro:bit](https://support.microbit.org/support/solutions/articles/19000067679-how-to-find-the-name-of-your-micro-bit)
 
 ### The micro:bit shows a sad face and error 020
 This means the micro:bit is out of memory. You probably have enabled too many Bluetooth services in MakeCode. Or maybe
 your MakeCode program is too large. Because the micro:bit v1 has less memory than the v2, this has a higher chance to
-occur on v1 micro:bits.
+occur on v1 micro:bits.  
 See also: [the micro:bit error codes](https://makecode.microbit.org/device/error-codes)
 
 ### tkinter "main thread is not in main loop"
