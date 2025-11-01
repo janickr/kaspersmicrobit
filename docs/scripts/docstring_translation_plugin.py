@@ -1,13 +1,12 @@
 #  This Source Code Form is subject to the terms of the Mozilla Public
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
-import ast
 import os
 from dataclasses import dataclass
-from typing import List
+from typing import List, Any
 
 import griffe
-from griffe import Extension, Object, ObjectNode, get_logger
+from griffe import Extension, Object, get_logger, GriffeLoader
 
 logger = get_logger(__name__)
 
@@ -18,9 +17,11 @@ class TranslateDocstrings(Extension):
 
     def _translate(self, docstring):
         translation = self.translations.get(docstring)
+        if not translation:
+            print(docstring)
         return translation.translation if translation else docstring
 
-    def on_instance(self, node: ast.AST | ObjectNode, obj: Object) -> None:
+    def on_object(self, *, obj: Object, loader: GriffeLoader, **kwargs: Any) -> None:
         if obj.docstring:
             obj.docstring.value = self._translate(obj.docstring.value)
             # print(f'"{obj.docstring.value}"')

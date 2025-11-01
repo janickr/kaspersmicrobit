@@ -270,8 +270,8 @@ Warning:
     This does not work with a micro:bit that is paired.
 
 Args:
-     microbit_name: the name of the micro:bit. This is a name of 5 letters such as 'tupaz' or 'gatug' or something like that
-          This is optional.
+     microbit_name: the name of the micro:bit. This is a name of 5 letters such as 'tupaz' or 'gatug' or
+          something like that. This is optional.
      timeout: maximum scanning time (in seconds)
      loop (BluetoothEventLoop): you can leave this empty, this determines which thread communicates with the micro:bit.
 
@@ -1924,8 +1924,8 @@ Raises:
 
 FUNCTION kaspersmicrobit.services.events.EventService.write_client_requirements
 """
-Using this method you indicate which micro:bit events you are interested in. Then, you'll be able to receive these events
-with `notify_microbit_event` or read out with `read_microbit_event` when they occur.
+Using this method you indicate which micro:bit events you are interested in. Then, you'll be able to receive
+these events with `notify_microbit_event` or read out with `read_microbit_event` when they occur.
 
 When you write an event with an event_value of 0, this means that you want to be informed of each
 event of the given device_id
@@ -2532,8 +2532,8 @@ FUNCTION kaspersmicrobit.services.leddisplay.LedDisplay.led
 Indicates whether an LED on the given row and column is on or off
 
 Args:
-    row int: the row of the LED (valid values are 1 to 5)
-    column int: the column of the LED (valid values are 1 to 5)
+    row (int): the row of the LED (valid values are 1 to 5)
+    column (int): the column of the LED (valid values are 1 to 5)
 
 Returns:
     True when the LED is on, False when the LED is off
@@ -2541,8 +2541,8 @@ Returns:
 Geeft aan of dat een LED op de gegeven rij en kolom aan of uit is
 
 Args:
-    row int: de rij van de LED (geldige waarden zijn 1 tot en met 5)
-    column int: de kolom van de LED (geldige waarden zijn 1 tot en met 5)
+    row (int): de rij van de LED (geldige waarden zijn 1 tot en met 5)
+    column (int): de kolom van de LED (geldige waarden zijn 1 tot en met 5)
 
 Returns:
     True wanneer de LED aan staat, False als de LED uit staat
@@ -2553,16 +2553,16 @@ FUNCTION kaspersmicrobit.services.leddisplay.LedDisplay.set_led
 Turn an LED on or off on the given row and column
 
 Args:
-    row int: the row of the LED (valid values are 1 to 5)
-    column int: the column of the LED (valid values are 1 to 5)
-    on bool: if True the LED is turned on, if False it is turned off
+    row (int): the row of the LED (valid values are 1 to 5)
+    column (int): the column of the LED (valid values are 1 to 5)
+    on (bool): if True the LED is turned on, if False it is turned off
 """
 Zet een LED op de gegeven rij en kolom aan of uit
 
 Args:
-    row int: de rij van de LED (geldige waarden zijn 1 tot en met 5)
-    column int: de kolom van de LED (geldige waarden zijn 1 tot en met 5)
-    on bool: indien True word de LED aan gezet, indien False uit
+    row (int): de rij van de LED (geldige waarden zijn 1 tot en met 5)
+    column (int): de kolom van de LED (geldige waarden zijn 1 tot en met 5)
+    on (bool): indien True word de LED aan gezet, indien False uit
 """
 
 FUNCTION kaspersmicrobit.services.leddisplay.LedDisplay.image
@@ -2927,8 +2927,8 @@ Warning:
 See Also: https://support.microbit.org/support/solutions/articles/19000008874-calibrating-the-micro-bit-compass
 
 Returns:
-    It is the calibration in progress. You can use this to check whether the calibration is still in progress, or wait until
-    The calibration is done.
+    It is the calibration in progress. You can use this to check whether the calibration is still in progress,
+    or wait until the calibration is done.
 
 Raises:
     errors.BluetoothServiceNotFound: When the magnetometer service is not active on the micro:bit
