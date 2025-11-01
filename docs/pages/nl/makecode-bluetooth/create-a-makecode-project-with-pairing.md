@@ -6,12 +6,12 @@ description: Hoe maak je een micro:bit MakeCode-project, schakel je de Bluetooth
 
 Je kan zelf een [MakeCode](https://makecode.microbit.org)-project met Bluetooth maken.
 Hieronder vind je de gedetailleerde instructies om een micro:bit MakeCode-project te maken, en de Bluetooth-extensie in te schakelen
-met JustWorks-koppeling. Een project met [koppeling ingeschakeld](#enable-pairing) zorgt ervoor dat alleen die
+met JustWorks-koppeling. Een project met [koppeling ingeschakeld](#koppelen-inschakelen) zorgt ervoor dat alleen die
 apparaten/computers die eraan zijn gekoppeld, ermee kunnen verbinden.
 
 Het heeft echter ook een paar nadelen
 
-- het werkt niet [voor een micro:bit v1.x op Windows](../index.md#microbit-versions-operating-systems-bluetooth-pairing)
+- het werkt niet [voor een micro:bit v1.x op Windows](../index.md#microbit-versies-operating-systems-bluetooth-pairing)
 - het heeft de extra stappen van het koppelen van de micro:bit met je [besturings-](../bluetooth-pairing/windows/pairing-microbit-windows.md)[systeem](../bluetooth-pairing/linux/pairing-microbit-linux-gnome.md) nodig
 - Een gekoppelde micro:bit maakt zijn naam niet bekend, dus je kan hem niet op naam vinden
 

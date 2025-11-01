@@ -44,7 +44,7 @@ U kunt op "Gereed" klikken, uw micro:bit is gekoppeld in Windows!
 
 ## Het Bluetooth-adres zoeken
 Als je niet de [eenvoudigere verbindingsmethoden](../../how-to-connect.md) gebruikt, maar in plaats daarvan wil
-[verbinden met een micro:bit via het adres](../../how-to-connect.md#connect-to-a-microbit-by-address), dan zijn dit
+[verbinden met een micro:bit via het adres](../../how-to-connect.md#verbinden-met-een-microbit-via-het-adres), dan zijn dit
 de instructies om het adres op te zoeken in Windows.
  
 Terug op het scherm Bluetooth en andere apparaten selecteer je je micro:bit en klik je op "Meer Bluetooth-opties"

@@ -7,9 +7,9 @@ description: Hoe maak je een micro:bit MakeCode-project, schakel je de Bluetooth
 
 Je kan zelf een [MakeCode](https://makecode.microbit.org)-project met Bluetooth maken.
 Hieronder vind je de gedetailleerde instructies om een micro:bit MakeCode-project te maken, en de Bluetooth-extensie in te schakelen
-zonder dat koppelen nodig is. Een project met [koppelen uitgeschakeld ("Geen koppeling vereist")](#disable-pairing) is het gemakkelijkst om mee te werken:
+zonder dat koppelen nodig is. Een project met [koppelen uitgeschakeld ("Geen koppeling vereist")](#koppeling-uitschakelen) is het gemakkelijkst om mee te werken:
 
-- het werkt op [de meeste micro:bit-versies en besturingssystemen] (../index.md#microbit-versions-operating-systems-bluetooth-pairing)
+- het werkt op [de meeste micro:bit-versies en besturingssystemen](../index.md#microbit-versies-operating-systems-bluetooth-pairing)
 - er zijn geen extra stappen nodig om de micro:bit aan je besturingssysteem te koppelen
 - het zorgt ervoor dat de microbit zijn naam bekendmaakt, zodat je hem [op naam kunt vinden](../reference/kaspersmicrobit.md#kaspersmicrobit.kaspersmicrobit.KaspersMicrobit.find_one_microbit)
 
