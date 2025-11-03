@@ -122,8 +122,8 @@ class PinValue:
 
     Attributes:
         pin (Pin): the pin
-        value (int): the value of the pin (given how this value is sent over Bluetooth)
-            the value loses precision (the least significant 2 bits are not sent)
+        value (int): the value of the pin. When the value is sent over Bluetooth
+            it will lose precision (the least significant 2 bits are not sent)
             This means, for example, that a value 1-3 is sent as 0 and 255 as 252.
     """
     pin: Pin

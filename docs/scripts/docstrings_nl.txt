@@ -2115,17 +2115,17 @@ The pin and its value
 
 Attributes:
     pin (Pin): the pin
-    value (int): the value of the pin (given how this value is sent over Bluetooth)
-        the value loses precision (the least significant 2 bits are not sent)
+    value (int): the value of the pin. When the value is sent over Bluetooth
+        it will lose precision (the least significant 2 bits are not sent)
         This means, for example, that a value 1-3 is sent as 0 and 255 as 252.
 """
 De pin en zijn waarde
 
 Attributes:
     pin (Pin): de pin
-    value (int): de waarde van de pin (door hoe deze waarde verzonden wordt over bluetooth)
-        verliest de waarde precisie (de minst significante 2 bits worden niet verzonden)
-        dit betekent bvb dat een waarde 1-3 als 0 en 255 als 252 wordt verzonden.
+    value (int): de waarde van de pin. Wanneer deze waarde verzonden wordt over Bluetooth
+        verliest ze precisie (de minst significante 2 bits worden niet verzonden).
+        Dit betekent bvb dat een waarde 1-3 als 0 en 255 als 252 wordt verzonden.
 """
 
 CLASS kaspersmicrobit.services.io_pin.PwmControlData
