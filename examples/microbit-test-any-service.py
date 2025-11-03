@@ -14,6 +14,7 @@ with KaspersMicrobit.find_one_microbit() as microbit:
     print(f'Python version: {platform.python_version()}')
     print("")
     print(f'Bluetooth address: {microbit.address()}')
+    print(f'Device name: {microbit.name()}')
     print("")
 
     if microbit.generic_access.is_available():

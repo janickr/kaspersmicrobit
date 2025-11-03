@@ -144,6 +144,17 @@ class KaspersMicrobit:
         """
         return self._device.address()
 
+    def name(self) -> str:
+        """
+        Returns the name of this micro:bit.
+        When paired it will return "BBC micro:bit"
+        When not paired it will return the full name, for example: "BBC micro:bit [gatug]"
+
+        Returns:
+            The name of the micro:bit
+        """
+        return self._device.name()
+
     @staticmethod
     def find_microbits(timeout: int = 3, loop: BluetoothEventLoop = None) -> List['KaspersMicrobit']:
         """
@@ -175,7 +186,7 @@ class KaspersMicrobit:
         active then a found micro:bit will be chosen at random and returned.
 
         Warning:
-            Only when the micro:bit works with "No pairing required" will the micro:bit advertise a name. So only in
+            Only when the micro:bit works with "No pairing required" will the micro:bit advertise a name. So only
             in case you use hex files with "No pairing required" it is useful to set the 'microbit_name' parameter.
             This does not work with a micro:bit that is paired.
 

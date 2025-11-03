@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO)
 # / Zoek een willekeurige micro:bit en verbind ermee
 with KaspersMicrobit.find_one_microbit() as a_microbit:
     print(f'Bluetooth address: {a_microbit.address()}')
-    print(f"Device name: {a_microbit.generic_access.read_device_name()}")
+    print(f'Device name: {a_microbit.name()}')
 
 # }
 # example-multiple {
@@ -24,7 +24,7 @@ multiple_microbits = KaspersMicrobit.find_microbits()
 for microbit in multiple_microbits:
     with microbit:
         print(f'Bluetooth address: {microbit.address()}')
-        print(f"Device name: {microbit.generic_access.read_device_name()}")
+        print(f'Device name: {microbit.name()}')
 
 # }
 # example-name {
@@ -35,7 +35,7 @@ for microbit in multiple_microbits:
 # (dit werkt niet met pairing)
 with KaspersMicrobit.find_one_microbit(microbit_name='tupaz') as tupaz:
     print(f'Bluetooth address: {tupaz.address()}')
-    print(f"Device name: {tupaz.generic_access.read_device_name()}")
+    print(f'Device name: {tupaz.name()}')
 
 # }
 # example-address {
@@ -44,5 +44,5 @@ with KaspersMicrobit.find_one_microbit(microbit_name='tupaz') as tupaz:
 # / Maak een verbinding met de micro:bit met het adres 'E3:7E:99:0D:C1:BA'
 with KaspersMicrobit('E3:7E:99:0D:C1:BA') as addressed:
     print(f'Bluetooth address: {addressed.address()}')
-    print(f"Device name: {addressed.generic_access.read_device_name()}")
+    print(f'Device name: {addressed.name()}')
 # }

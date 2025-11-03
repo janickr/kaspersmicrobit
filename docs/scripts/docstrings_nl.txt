@@ -236,6 +236,23 @@ Returns:
     Het adres van de micro:bit
 """
 
+FUNCTION kaspersmicrobit.kaspersmicrobit.KaspersMicrobit.name
+"""
+Returns the name of this micro:bit.
+When paired it will return "BBC micro:bit"
+When not paired it will return the full name, for example: "BBC micro:bit [gatug]"
+
+Returns:
+    The name of the micro:bit
+"""
+Geeft de naam van deze micro:bit
+Indien gepaired, dan is dit "BBC micro:bit"
+Indien niet gepaired dan wordt de volledige naam gegeven, bijvoorbeeld: "BBC micro:bit [gatug]"
+
+Returns:
+    De naam van de micro:bit
+"""
+
 FUNCTION kaspersmicrobit.kaspersmicrobit.KaspersMicrobit.find_microbits
 """
 Scans for Bluetooth devices. Returns a list of micro:bits found within the timeout
@@ -265,7 +282,7 @@ Specify a name to search for. If no name is given, and there are multiple micro:
 active then a found micro:bit will be chosen at random and returned.
 
 Warning:
-    Only when the micro:bit works with "No pairing required" will the micro:bit advertise a name. So only in
+    Only when the micro:bit works with "No pairing required" will the micro:bit advertise a name. So only
     in case you use hex files with "No pairing required" it is useful to set the 'microbit_name' parameter.
     This does not work with a micro:bit that is paired.
 
@@ -292,7 +309,7 @@ Warning:
     Bij een micro:bit die gepaird is werkt dit niet.
 
 Args:
-     microbit_name: de naam van de micro:bit. Dit is een naam van 5 letters zoals bvb 'tupaz' of 'gatug' ofzo
+     microbit_name: de naam van de micro:bit. Dit is een naam van 5 letters zoals bvb 'tupaz' of 'gatug' ofzo.
           Dit is optioneel.
      timeout: hoe lang er maximaal gescand wordt (in seconden)
      loop (BluetoothEventLoop): dit mag je leeg laten, dit bepaalt welke thread de communicatie met de micro:bit
@@ -302,7 +319,7 @@ Returns:
     KaspersMicrobit: De gevonden micro:bit
 
 Raises:
-    KaspersMicrobitNotFound: indien er geen micro:bit werd
+    KaspersMicrobitNotFound: indien er geen micro:bit werd gevonden.
 """
 
 FUNCTION kaspersmicrobit.tkinter.do_in_tkinter

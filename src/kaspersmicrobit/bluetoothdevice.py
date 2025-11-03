@@ -152,6 +152,9 @@ class BluetoothDevice:
     def address(self) -> str:
         return self._client.address
 
+    def name(self) -> str:
+        return self._client.name
+
     def _find_gatt_attribute(self, service: Service, characteristic: Characteristic) -> BleakGATTCharacteristic:
         gatt_service = self._get_gatt_service(service)
         if not gatt_service:
