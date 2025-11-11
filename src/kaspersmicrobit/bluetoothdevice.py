@@ -130,12 +130,13 @@ class BluetoothDevice:
     def wait_for(self, service: Service, characteristic: Characteristic) -> concurrent.futures.Future[ByteData]:
         gatt_characteristic = self._find_gatt_attribute(service, characteristic)
         asyncio_future = self._loop.create_future()
+        address = self._client.address
 
         def set_result_and_stop_notify(sender, data):
             asyncio_future.set_result(data)
-            logger.info("(%s) %s %s data received=%s", service, characteristic, data)
+            logger.info("(%s) %s %s data received=%s", address, service, characteristic, data)
 
-        logger.info("(%s) Wait for notify %s %s", self._client.address, service, characteristic)
+        logger.info("(%s) Wait for notify %s %s", address, service, characteristic)
         self._loop.run_async(self._client.start_notify(gatt_characteristic, set_result_and_stop_notify)).result()
 
         async def await_future_and_stop_notify():
