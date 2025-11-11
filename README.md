@@ -58,19 +58,15 @@ Below you can find which combinations of operating systems and microbit versions
 |----------------|---------------------|--------------------|
 | Windows        | :heavy_check_mark:  | :heavy_check_mark: |
 | Linux          | :heavy_check_mark:  | :heavy_check_mark: |
-| MacOS          | :heavy_check_mark:  | :grey_question:    |
+| MacOS          | :heavy_check_mark:  | :x:                |
 
-I don't have a mac to test kaspersmicrobit on. Let me know [here (#5)](https://github.com/janickr/kaspersmicrobit/issues/5)
-if it works or not! 
-Thanks [@RyanNorge](https://github.com/RyanNorge) for testing a micro:bit v2.x on MacOS in "No pairing required" mode
+| micro:bit v1.x | No pairing required  | Just works pairing |
+|----------------|----------------------|--------------------|
+| Windows        | :heavy_check_mark:   | :x:                |
+| Linux          | :heavy_check_mark:   | :heavy_check_mark: |
+| MacOS          | :heavy_check_mark: * | :x:                |
 
-
-| micro:bit v1.x | No pairing required | Just works pairing |
-|----------------|---------------------|--------------------|
-| Windows        | :heavy_check_mark:  | :x:                |
-| Linux          | :heavy_check_mark:  | :heavy_check_mark: |
-| MacOS          | :grey_question:     | :grey_question:    |
-
+\* Magnetometer calibration of micro:bit v1 on MacOS fails with the micro:bit not responding or going out of memory (error 020 + sad face)
 
 ## Troubleshooting
 ### Upgrade to the latest version
